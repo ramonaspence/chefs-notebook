@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'css-final-project-ramonaspence.herokuapp.com',
+    'ccs-final-project-ramonaspence.herokuapp.com',
 ]
 
 
