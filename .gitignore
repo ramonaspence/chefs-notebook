@@ -1,0 +1,6 @@
+__pychache__/
+db.sqlite3
+/media
+
+.env
+.DS_Store
