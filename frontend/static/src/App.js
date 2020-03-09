@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 import Signup from './components/Signup.js';
-
+import Login from './components/Login.js';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -42,7 +42,7 @@ class App extends Component {
           </nav>
         </div>
 
-
+        <Login />
         <Signup />
 
 
