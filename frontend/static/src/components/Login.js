@@ -27,9 +27,9 @@ class Login extends Component {
   }
 
   handleLogin(e) {
-    // e.preventDefault();
+    e.preventDefault();
     console.log('hello');
-    axios.post('http://localhost:3000/rest-auth/login', this.state,)
+    axios.post('http://localhost:3000/rest-auth/login/', this.state,)
     .then(res => {
       console.log(res);
       console.log(res.data);
@@ -39,14 +39,19 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="card-body">
-      <form method="post" type="submit" onSubmit={this.handleLogin} />
+
+    <div className="card-body">
+      <form method="post" type="submit" onSubmit={this.handleLogin}>
         <label htmlFor="username">Username:</label>
           <input type="text" value={this.state.username} name="username" onChange={this.handleChange} />
         <label htmlFor="password">Password:</label>
           <input type="password" value={this.state.password} name="password" onChange={this.handleChange} />
         <button>Log In</button>
-      </div>
+      </form>
+    </div>
+
+
+
     )
   }
 }
