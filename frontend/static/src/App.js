@@ -10,6 +10,8 @@ import {
 
 import Signup from './components/Signup.js';
 import Login from './components/Login.js';
+import Nav from './containers/Nav.js';
+import Home from './containers/Home.js';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -26,28 +28,18 @@ class App extends Component {
   }
   render() {
     return(
-      <div className='container-fluid'>
       <Router>
+        <div className='container-fluid'>
+          <Nav />
+          <Switch>
+          <Route path="/" exact component={Home} />
 
-        <div className='row no-gutters'>
-          <nav className="navbar navbar-expand-lg">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <NavLink to="/login" className="nav-link">Login</NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink to="/signup" className="nav-link">Sign Up</NavLink>
-              </li>
-            </ul>
-          </nav>
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+
+          </Switch>
         </div>
-
-        <Login />
-        <Signup />
-
-
       </Router>
-      </div>
     )
   }
 }
