@@ -5,5 +5,6 @@ app_name = 'frontend'
 
 
 urlpatterns = [
+    path('signup/', views.IndexView.as_view(), name='signup'),
     path('', views.IndexView.as_view(), name='index'),
 ]
