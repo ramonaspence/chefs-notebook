@@ -7,6 +7,7 @@ import axios from 'axios';
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class Nav extends Component {
   constructor() {
@@ -17,7 +18,7 @@ class Nav extends Component {
 
   handleLogout(e) {
     e.preventDefault();
-    axios.post('http://localhost:3000/rest-auth/logout/',)
+    axios.post(`${BASE_URL}/rest-auth/logout/`,)
     .then(res => {
       console.log(res, res.data);
       alert(res.data.detail);

@@ -6,6 +6,7 @@ import axios from 'axios';
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class Signup extends Component {
   constructor() {
@@ -35,7 +36,7 @@ class Signup extends Component {
     // console.log(formData);
 
     console.log(this.state);
-    axios.post('http://localhost:3000/rest-auth/registration/', this.state,)
+    axios.post(`${BASE_URL}/rest-auth/registration/`, this.state,)
     .then(res => {
       console.log(res);
       console.log(res.data);

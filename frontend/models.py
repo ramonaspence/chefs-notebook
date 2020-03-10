@@ -24,3 +24,6 @@ class Recipe(models.Model):
     date_published = models.DateTimeField()
     date_updated = models.DateTimeField()
     tags = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.title
