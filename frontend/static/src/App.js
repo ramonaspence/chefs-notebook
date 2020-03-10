@@ -6,6 +6,7 @@ import {
   Route
 } from "react-router-dom";
 
+import RecipeList from './components/RecipeListView.js';
 import Signup from './components/Signup.js';
 import Login from './components/Login.js';
 import Nav from './containers/Nav.js';
@@ -29,9 +30,10 @@ class App extends Component {
       <Router>
         <div className='container-fluid'>
           <Nav />
+        
           <Switch>
           <Route path="/" exact component={Home} />
-
+          <Route path="/recipe" component={RecipeList} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
 
