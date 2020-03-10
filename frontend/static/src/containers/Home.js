@@ -8,10 +8,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 
 class Home extends Component {
-  constructor() {
-    super();
-
-  }
+  
 
   render() {
     return (

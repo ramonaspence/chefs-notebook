@@ -11,11 +11,11 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 class Nav extends Component {
   constructor() {
     super();
-    this.logOut = this.logOut.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
 
   }
 
-  logOut(e) {
+  handleLogout(e) {
     e.preventDefault();
     axios.post('http://localhost:3000/rest-auth/logout/',)
     .then(res => {
@@ -40,9 +40,9 @@ class Nav extends Component {
             Login
           </li>
         </Link>
-        <Link to="/logout">
+        <Link to="/logout" onClick={this.handleLogout}>
           <li>
-            <a onClick={this.logOut} href="#">Logout</a> //get request to logout
+            Logout
           </li>
         </Link>
         <Link to="/signup">

@@ -43,9 +43,9 @@ class Login extends Component {
     <div className="card-body">
       <form method="post" type="submit" onSubmit={this.handleLogin}>
         <label htmlFor="username">Username:</label>
-          <input type="text" value={this.state.username} name="username" onChange={this.handleChange} />
+          <input type="text" value={this.state.username} autoComplete="username" name="username" onChange={this.handleChange} />
         <label htmlFor="password">Password:</label>
-          <input type="password" value={this.state.password} name="password" onChange={this.handleChange} />
+          <input type="password" value={this.state.password} autoComplete="current-password" name="password" onChange={this.handleChange} />
         <button>Log In</button>
       </form>
     </div>
