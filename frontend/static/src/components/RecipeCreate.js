@@ -14,33 +14,49 @@ class RecipeCreate extends Component {
     super();
 
     this.state = {
-        recipe: {
+        recipe: {},
+        preview: '',
 
-        }
       }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
 
+
+  }
+
+  handleImageChange(e) {
+    e.preventDefault();
+    let file = e.target.files[0];
+    this.setState({[e.target.name]: file});
+    console.log(this.state);
+
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => this.setState({preview: reader.result});
   }
 
   handleSubmit(e, recipe) {
     e.preventDefault();
     let formData = new FormData();
+  
     formData.append('title', recipe.title);
     formData.append('description', recipe.description);
     formData.append('image', recipe.image);
     formData.append('ingredients', recipe.ingredients);
     formData.append('instructions', recipe.instructions);
+    formData.append('tags', recipe.tags);
+    // formData.append(<user>, recipe.author);
 
     axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
       headers: {
-        'content-type': 'multipart/form-data'
+        'contentype': 'form-data'
       }
     })
 
@@ -53,7 +69,7 @@ class RecipeCreate extends Component {
     return (
       <div className="row no-gutters">
         <div className="col-10 offset-1">
-          <form type='submit' onSubmit={(e) => this.handleSubmit(e, this.state)}>
+          <form type='submit' method='post' onSubmit={(e) => this.handleSubmit(e, this.state)}>
             <label htmlFor="title">Recipe Title:</label>
             <input type='text' name='title' onChange={this.handleChange} defaultValue='' />
 
@@ -61,13 +77,23 @@ class RecipeCreate extends Component {
             <input type='text' name='description' onChange={this.handleChange} defaultValue='' />
 
             <label htmlFor="image">Add an Image for this Recipe</label>
-            <input type='file' accept='image/jpg, image/jpeg, image/png' alt="" name='image' onChange={this.handleChange} />
+            <input type='file' name='image' onChange={this.handleImageChange} />
+
+            {this.state.image
+              ?
+            <img src={this.state.preview} alt="preview not available" />
+             :
+             (null)
+            }
 
             <label htmlFor="ingredients">Keep your list of ingredients here</label>
             <input type='text' name='ingredients' onChange={this.handleChange} defaultValue='' />
 
             <label htmlFor="instructions">Tell us how to make it!</label>
             <input type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
+
+            <label htmlFor="tags">Add tags to your recipe so people can find it easier!</label>
+            <input type='text' name='tags' onChange={this.handleChange} defaultValue='' />
 
             <button>Save Recipe</button>
 

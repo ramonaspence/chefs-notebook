@@ -17,12 +17,12 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField(max_length=255)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    ingredients = models.ForeignKey(Ingredient, default=0, on_delete=models.PROTECT)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    ingredients = models.TextField()
     instructions = models.TextField()
     image = models.ImageField(upload_to='images/')
-    date_published = models.DateTimeField()
-    date_updated = models.DateTimeField()
+    date_published = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now_add=True)
     tags = models.CharField(max_length=50)
 
     def __str__(self):

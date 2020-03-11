@@ -5,5 +5,5 @@ from . import views
 app_name = 'api_v1'
 
 urlpatterns = [
-    path('recipes/', views.RecipesView.as_view({'get':'list', 'post':'create'})),
+    path('recipes/', include('recipes.urls', namespace="recipes")),
 ]
