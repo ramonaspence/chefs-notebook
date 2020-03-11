@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -30,21 +32,21 @@ class RecipeList extends Component {
       let recipes = this.state.recipes.map(recipe => (
 
         <div className="row no-gutters">
-          <ul className="col-8 offset-2 mr-auto">
-            <h2>{recipe.title}</h2>
+          <div className="col-8 offset-2 mr-auto card">
+            <div className="card-body">
+              <h2 className="card-title">{recipe.title}</h2>
+              <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
+            </div>
+            <div>
               <p>{recipe.description}</p>
               <p>{recipe.date_published}</p>
-          </ul>
+            </div>
+          </div>
 
         <div className="col-4 ml-auto">
         <img src={recipe.image} alt="Whoops! Sorry! No can do."/>
         </div>
-        <ul>
-          <li>
-            <p>{recipe.instructions}</p>
-          </li>
-        </ul>
-          <p>{recipe.date_updated}</p>
+
         </div>
       ))
 

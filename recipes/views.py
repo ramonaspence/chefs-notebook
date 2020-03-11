@@ -9,16 +9,12 @@ class RecipeListView(generics.ListCreateAPIView):
     serializer_class = RecipeSerializer
 
     def perform_create(self, serializer, **kwargs):
-        # import pdb; pdb.set_trace();
         serializer.save(author = self.request.user)
 
+class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
 
-# class RecipeCreateView(generics.ListCreateAPIView):
-#     serializer_class = RecipeCreateSerializer
-#     queryset = Recipe.objects.all()
-#
-#
-#     def create(self, validated_data):
-#         import pdb; pdb.set_trace()
-#         validated_data['author'] = self.request.user
-#         return super(RecipeCreateView, self).create(validated_data)
+class RecipeUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer

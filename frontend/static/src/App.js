@@ -6,6 +6,7 @@ import {
   Route
 } from "react-router-dom";
 
+import RecipeDetail from './components/RecipeDetail.js'
 import RecipeCreate from './components/RecipeCreate.js';
 import RecipeList from './components/RecipeListView.js';
 import Signup from './components/Signup.js';
@@ -17,7 +18,27 @@ import axios from 'axios';
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
+
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      recipes: [],
+    }
+
+    this.componentDidMount = this.componentDidMount.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get(`${BASE_URL}/api/v1/recipes/`)
+
+    .then(response => this.setState({recipes: response.data}))
+    .catch(err => console.log(err));
+
+  }
 
   render() {
     return(
@@ -28,7 +49,8 @@ class App extends Component {
           <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/add/recipe" component={RecipeCreate} />
-          <Route path="/recipe" component={RecipeList} />
+          <Route path="/recipes" exact component={RecipeList}/>
+          <Route path="/recipes/:id/" component={RecipeDetail} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
 
