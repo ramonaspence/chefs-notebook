@@ -37,7 +37,7 @@ class RecipeList extends Component {
           </ul>
 
         <div className="col-4 ml-auto">
-        <img src={recipe.image} />
+        <img src={recipe.image} alt="Whoops! Sorry! No can do."/>
         </div>
         <ul>
           <li>

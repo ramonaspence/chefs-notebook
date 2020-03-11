@@ -6,6 +6,7 @@ import {
   Route
 } from "react-router-dom";
 
+import RecipeCreate from './components/RecipeCreate.js';
 import RecipeList from './components/RecipeListView.js';
 import Signup from './components/Signup.js';
 import Login from './components/Login.js';
@@ -17,22 +18,16 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class App extends Component {
-  constructor() {
-    super();
 
-    this.state = {
-      showComponent: '',
-    }
-
-  }
   render() {
     return(
       <Router>
         <div className='container-fluid'>
           <Nav />
-        
+
           <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/add/recipe" component={RecipeCreate} />
           <Route path="/recipe" component={RecipeList} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
