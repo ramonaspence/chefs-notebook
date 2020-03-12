@@ -45,7 +45,7 @@ class RecipeCreate extends Component {
   handleSubmit(e, recipe) {
     e.preventDefault();
     let formData = new FormData();
-  
+
     formData.append('title', recipe.title);
     formData.append('description', recipe.description);
     formData.append('image', recipe.image);
@@ -56,7 +56,7 @@ class RecipeCreate extends Component {
 
     axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
       headers: {
-        'contentype': 'form-data'
+        'Content-Type': 'multipart/form-data'
       }
     })
 

@@ -20,7 +20,7 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     ingredients = models.TextField()
     instructions = models.TextField()
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', blank=True)
     date_published = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now_add=True)
     tags = models.CharField(max_length=50)

@@ -8,7 +8,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-class RecipePatch extends Component {
+class RecipeUpdate extends Component {
   constructor() {
     super();
 
@@ -16,6 +16,7 @@ class RecipePatch extends Component {
       recipes: {},
     }
 
+    this.handleImageChange = this.handleImageChange.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -24,13 +25,43 @@ class RecipePatch extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-    console.log(this.state);
+
   }
 
-  handleSubmit(e, recipe) {
+  handleImageChange(e) {
     e.preventDefault();
+    console.log(this.state)
+    let file = e.target.files[0];
+    console.log([e.target.name]);
+    this.setState({[e.target.name]: file}, () => console.log(this.state));
 
-    axios.put(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, recipe,)
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => this.setState({preview: reader.result});
+  }
+
+    handleSubmit(e) {
+      e.preventDefault();
+
+      console.log(this.state);
+
+
+      let formData = new FormData();
+
+      formData.append('title', this.state.title);
+      formData.append('description', this.state.description);
+      formData.append('image', this.state.image);
+      formData.append('ingredients', this.state.ingredients);
+      formData.append('instructions', this.state.instructions);
+      formData.append('tags', this.state.tags);
+
+
+
+    axios.put(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
     .then(response => console.log(response))
     .catch(err => console.log(err));
   }
@@ -43,13 +74,16 @@ class RecipePatch extends Component {
     .then(response => this.setState(response.data))
     .catch(err => console.log(err));
 
+    let img = React.createRef(this.state.image);
+    console.log(img);
+
   }
 
   render() {
     return(
       <div className="row no-gutters">
         <div className="col-10 offset-1">
-          <form type='submit' method='patch' onSubmit={(e) => this.handleSubmit(e, this.state)}>
+          <form type='submit' method='put' onSubmit={this.handleSubmit}>
             <label htmlFor="title">Recipe Title:</label>
             <input type='text' name='title' onChange={this.handleChange} defaultValue={this.state.title} />
 
@@ -57,7 +91,7 @@ class RecipePatch extends Component {
             <input type='text' name='description' onChange={this.handleChange} defaultValue={this.state.description} />
 
             <label htmlFor="image">Add an Image for this Recipe</label>
-            <input type='file' name='image' onChange={this.handleImageChange} />
+            <input type='file' name='image' onChange={this.handleImageChange} defaultValue={this.state.image} />
 
             {this.state.image
               ?
@@ -75,7 +109,7 @@ class RecipePatch extends Component {
             <label htmlFor="tags">Add tags to your recipe so people can find it easier!</label>
             <input type='text' name='tags' onChange={this.handleChange} defaultValue={this.state.tags} />
 
-            <NavLink to="/recipes/">Save Recipe</NavLink>
+            <button>Save Recipe</button>
 
           </form>
         </div>
@@ -83,4 +117,4 @@ class RecipePatch extends Component {
     )
   }
 }
-export default RecipePatch;
+export default RecipeUpdate;
