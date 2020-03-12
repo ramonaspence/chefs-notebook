@@ -11,19 +11,36 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
 class ProfileView extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      profile: {}
+    }
+
+    this.componentDidMount = this.componentDidMount.bind(this);
+  }
+
+  componentDidMount() {
+
+    axios.get(`${BASE_URL}/api/v1/profiles/`)
+    .then(response => this.setState({profile: response.data}))
+    .catch(err => console.log(err))
+  }
 
   render() {
-    return(
+    console.log(this.state.profile);
+    return (
+
       <div className='row no-gutters'>
         <div className='col-10 offset-1 card'>
           <div className='card-body'>
-            <h2></h2>
+            <h2>{this.state.profile.display_name}</h2>
 
 
           </div>
         </div>
       </div>
-
     )
   }
 }

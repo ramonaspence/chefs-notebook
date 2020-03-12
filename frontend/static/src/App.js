@@ -37,6 +37,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+
     axios.get(`${BASE_URL}/api/v1/recipes/`)
 
     .then(response => this.setState({recipes: response.data}))
