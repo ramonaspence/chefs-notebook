@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -13,18 +13,28 @@ class RecipeDetail extends Component {
     super();
 
     this.state = {
-      title: '',
-      author: '',
+      recipe: {}
 
     }
 
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+
+
+  handleDelete(e) {
+    axios.delete(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`)
+    .then(response => console.log(response))
+    .catch(err => console.log(err));
   }
 
   componentDidMount() {
     console.log(this.props.match);
+
     // get request to pull in single recipe
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`)
-    .then(response => console.log(response))
+    .then(response => this.setState(response.data))
     .catch(err => console.log(err));
 
   }
@@ -34,28 +44,29 @@ class RecipeDetail extends Component {
       <div className="row no-gutters">
         <div className="col-8 offset-2 mr-auto card">
           <div className="card-body">
-            <h2 className="card-title">{this.state.title}</h2>
-          </div>
-          <div>
-            <p>{this.state.author}</p>
-            <p></p>
+            <div className="card-title">
+              <h2>{this.state.title}</h2>
+
+            </div>
+              <NavLink to="/recipes/">
+                <div onClick={this.handleDelete} className="btn btn-outline-danger">Delete Recipe</div>
+              </NavLink>
+
+              <NavLink to={`/update/${this.state.id}`}><button className="btn btn-outline-primary">Edit Recipe</button></NavLink>
+
+              <p>{this.state.description}</p>
+
+              <p>{this.state.ingredients}</p>
+
+              <p>{this.state.instructions}</p>
+
+              <p>{this.state.date_published}</p>
+
           </div>
         </div>
-        <div className="card-body">
-        <ul>
-          <li>
-            <p></p>
-          </li>
-            <li>
-              <p></p>
-            </li>
-          </ul>
-        </div>
-
-      <div className="col-4 ml-auto">
-      <img src="" alt="Whoops! Sorry! No can do."/>
-      </div>
-
+          <div className="col-4 ml-auto">
+            <img src="" alt="Whoops! Sorry! No can do."/>
+          </div>
       </div>
     )
   }

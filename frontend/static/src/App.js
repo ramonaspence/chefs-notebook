@@ -6,6 +6,7 @@ import {
   Route
 } from "react-router-dom";
 
+import RecipePatch from './components/RecipePatch.js';
 import RecipeDetail from './components/RecipeDetail.js'
 import RecipeCreate from './components/RecipeCreate.js';
 import RecipeList from './components/RecipeListView.js';
@@ -51,6 +52,7 @@ class App extends Component {
           <Route path="/add/recipe" component={RecipeCreate} />
           <Route path="/recipes" exact component={RecipeList}/>
           <Route path="/recipes/:id/" component={RecipeDetail} />
+          <Route path="/update/:id/" component={RecipePatch} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
 
