@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -27,15 +27,19 @@ class RecipeDetail extends Component {
     axios.delete(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`)
     .then(response => console.log(response))
     .catch(err => console.log(err));
+
+
   }
 
   componentDidMount() {
-    console.log(this.props.match);
+
 
     // get request to pull in single recipe
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`)
     .then(response => this.setState(response.data))
     .catch(err => console.log(err));
+
+
 
   }
 
@@ -48,9 +52,9 @@ class RecipeDetail extends Component {
               <h2>{this.state.title}</h2>
 
             </div>
-              <NavLink to="/recipes/">
+
                 <div onClick={this.handleDelete} className="btn btn-outline-danger">Delete Recipe</div>
-              </NavLink>
+
 
               <NavLink to={`/update/${this.state.id}`}><button className="btn btn-outline-primary">Edit Recipe</button></NavLink>
 

@@ -25,19 +25,20 @@ class RecipeUpdate extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-
+    console.log('change', this.state);
   }
 
   handleImageChange(e) {
     e.preventDefault();
-    console.log(this.state)
+
     let file = e.target.files[0];
-    console.log([e.target.name]);
+
     this.setState({[e.target.name]: file}, () => console.log(this.state));
 
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => this.setState({preview: reader.result});
+    console.log('img', this.state);
   }
 
     handleSubmit(e) {
@@ -50,14 +51,23 @@ class RecipeUpdate extends Component {
 
       formData.append('title', this.state.title);
       formData.append('description', this.state.description);
-      formData.append('image', this.state.image);
       formData.append('ingredients', this.state.ingredients);
       formData.append('instructions', this.state.instructions);
       formData.append('tags', this.state.tags);
 
+      //when componentdidmount fires, this.state = empty obj
+      //after any edit, this.state = object being edited
+      //if image === a file, not url, send with patch request
+      //if image === a url, not a file, do not send with patch request
+
+      if (this.state.image === File) {
+        formData.append('image', this.state.image);
+      } else
 
 
-    axios.put(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, formData, {
+
+
+    axios.patch(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -73,10 +83,6 @@ class RecipeUpdate extends Component {
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`)
     .then(response => this.setState(response.data))
     .catch(err => console.log(err));
-
-    let img = React.createRef(this.state.image);
-    console.log(img);
-
   }
 
   render() {

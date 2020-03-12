@@ -6,6 +6,9 @@ import {
   Route
 } from "react-router-dom";
 
+
+import ProfileCreate from './components/ProfileCreate.js';
+import ProfileView from './components/ProfileView.js';
 import RecipeUpdate from './components/RecipeUpdate.js';
 import RecipeDetail from './components/RecipeDetail.js'
 import RecipeCreate from './components/RecipeCreate.js';
@@ -49,6 +52,8 @@ class App extends Component {
 
           <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/create/profile" component={ProfileCreate} />
+          <Route path="/profile/" component={ProfileView} />
           <Route path="/add/recipe" component={RecipeCreate} />
           <Route path="/recipes" exact component={RecipeList}/>
           <Route path="/recipes/:id/" component={RecipeDetail} />

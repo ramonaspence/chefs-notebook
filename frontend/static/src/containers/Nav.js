@@ -36,16 +36,31 @@ class Nav extends Component {
             Home
           </li>
         </Link>
+
+        <Link to="/recipes/">
+          <li>
+            Recipes
+          </li>
+        </Link>
+
+        <Link to="/add/recipe/">
+          <li>
+            Create Recipe
+          </li>
+        </Link>
+
         <Link to="/login">
           <li>
             Login
           </li>
         </Link>
+
         <Link to="/logout" onClick={this.handleLogout}>
           <li>
             Logout
           </li>
         </Link>
+        
         <Link to="/signup">
           <li>
           Sign Up
