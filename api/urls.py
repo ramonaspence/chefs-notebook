@@ -6,5 +6,5 @@ app_name = 'api_v1'
 
 urlpatterns = [
     path('recipes/', include('recipes.urls', namespace="recipes")),
-    path('profiles/', include('profiles.urls', namespace="profiles")),
+    path('profiles/<int:pk>', include('profiles.urls', namespace="profiles")),
 ]

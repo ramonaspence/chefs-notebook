@@ -23,13 +23,13 @@ class ProfileView extends Component {
 
   componentDidMount() {
 
-    axios.get(`${BASE_URL}/api/v1/profiles/`)
+    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`)
     .then(response => this.setState({profile: response.data}))
     .catch(err => console.log(err))
   }
 
   render() {
-    console.log(this.state.profile);
+    console.log('state', this.state);
     return (
 
       <div className='row no-gutters'>
