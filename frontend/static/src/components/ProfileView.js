@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+import RecipeList from './RecipeListView.js'
 
 import axios from 'axios';
 
@@ -33,14 +34,25 @@ class ProfileView extends Component {
     return (
 
       <div className='row no-gutters'>
-        <div className='col-10 offset-1 card'>
+        <div className='col-4 offset-1 card'>
           <div className='card-body'>
             <h2>{this.state.profile.display_name}</h2>
 
+              <img src={this.state.profile.avatar} alt="don't know about that" />
+              <p>{this.state.profile.bio}</p>
 
           </div>
-        </div>
-      </div>
+
+          <div className='card-footer'>
+            <p>Member since: {this.state.profile.date_joined}</p>
+              </div>
+              </div>
+              <div className='col-7'>
+                <RecipeList />
+              </div>
+          </div>
+
+
     )
   }
 }
