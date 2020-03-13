@@ -34,7 +34,11 @@ class RecipeList extends Component {
         <div className="row no-gutters">
           <div className="col-8 ml-auto card d-flex">
             <div className="title card-body">
-              <h2 className="card-title">{recipe.title}</h2>
+              <div className="card-title">
+              <h1>{recipe.title}</h1>
+              <h6>Created By: {recipe.author.username}</h6>
+              </div>
+
               <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
             </div>
             <div className="d-flex align-self-end">

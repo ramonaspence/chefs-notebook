@@ -44,3 +44,7 @@ a {
 .profile-body {
   height: 100%;
 }
+
+.profile-add-recipe {
+  display: flex;
+}

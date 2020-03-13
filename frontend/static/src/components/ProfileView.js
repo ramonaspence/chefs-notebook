@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+import { NavLink } from 'react-router-dom';
+
 import RecipeList from './RecipeListView.js'
 
 import axios from 'axios';
@@ -37,7 +39,7 @@ class ProfileView extends Component {
     return (
 
       <div className='row no-gutters'>
-        <div className='col-4 offset-1 card'>
+        <div className='col-3 card'>
           <div className='profile-body card-body'>
             <h1>static</h1>
             <h2>{this.state.display_name}</h2>
@@ -51,7 +53,10 @@ class ProfileView extends Component {
             <p>Member since: {this.state.date_joined}</p>
               </div>
               </div>
-              <div className='col-7'>
+              <div className='col-9'>
+                <div className="card profile-add-recipe col-6 ml-auto">
+                  <NavLink className='btn btn-outline-info' to='add/recipe/'>Start a New Recipe</NavLink>
+                </div>
                 <RecipeList />
               </div>
           </div>

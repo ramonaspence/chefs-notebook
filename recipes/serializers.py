@@ -6,3 +6,4 @@ class RecipeSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = '__all__'
         author = serializers.ReadOnlyField(source='author.username')
+        depth = 1
