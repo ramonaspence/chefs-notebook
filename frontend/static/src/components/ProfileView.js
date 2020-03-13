@@ -16,35 +16,39 @@ class ProfileView extends Component {
     super();
 
     this.state = {
-      profile: {}
+      profile: ''
     }
 
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
-
-    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`)
-    .then(response => this.setState({profile: response.data}))
+    console.log(this);
+    axios.get(`${BASE_URL}/api/v1/profiles/`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+    })
+    .then(response => this.setState(response.data[0]))
     .catch(err => console.log(err))
   }
 
   render() {
+
     console.log('state', this.state);
     return (
 
       <div className='row no-gutters'>
         <div className='col-4 offset-1 card'>
-          <div className='card-body'>
-            <h2>{this.state.profile.display_name}</h2>
+          <div className='profile-body card-body'>
+            <h1>static</h1>
+            <h2>{this.state.display_name}</h2>
 
-              <img src={this.state.profile.avatar} alt="don't know about that" />
-              <p>{this.state.profile.bio}</p>
+              <img src={this.state.avatar} alt="don't know about that" />
+              <p>{this.state.bio}</p>
 
           </div>
 
           <div className='card-footer'>
-            <p>Member since: {this.state.profile.date_joined}</p>
+            <p>Member since: {this.state.date_joined}</p>
               </div>
               </div>
               <div className='col-7'>

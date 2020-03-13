@@ -40,3 +40,7 @@ a {
 .form-control {
   height: 2rem;
 }
+
+.profile-body {
+  height: 100%;
+}
