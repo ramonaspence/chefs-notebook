@@ -9,3 +9,16 @@ img {
 a {
   text-decoration: none;
 }
+
+.left {
+  display: flex;
+}
+
+.right {
+  display: flex;
+  
+}
+
+.form-control {
+  height: 2rem;
+}

@@ -30,44 +30,34 @@ class Nav extends Component {
   render() {
     return (
       <div className="row no-gutters">
-        <ul>
-        <Link to="/">
-          <li>
-            Home
-          </li>
-        </Link>
+        <div className='col-12 navbar navbar-expand-lg navbar-dark bg-dark'>
+          <div className='nav navbar-nav'>
+          <div className='left'>
+        <Link className="nav-item nav-link" to="/">Home</Link>
 
-        <Link to="/recipes/">
-          <li>
-            Recipes
-          </li>
-        </Link>
+        <Link className="nav-item nav-link" to="/recipes/">Recipes</Link>
 
-        <Link to="/add/recipe/">
-          <li>
-            Create Recipe
-          </li>
-        </Link>
+        <Link className="nav-item nav-link" to="/add/recipe/">Create Recipe</Link>
 
-        <Link to="/login">
-          <li>
-            Login
-          </li>
-        </Link>
+        <Link className="nav-item nav-link" to="/login">Login</Link>
 
-        <Link to="/logout" onClick={this.handleLogout}>
-          <li>
-            Logout
-          </li>
-        </Link>
-        
-        <Link to="/signup">
-          <li>
-          Sign Up
-          </li>
-        </Link>
+        <Link className="nav-item nav-link" to="/logout" onClick={this.handleLogout}>Logout</Link>
 
-        </ul>
+        <Link className="nav-item nav-link" to="/signup">Sign Up</Link>
+        </div>
+
+        <div className='right'>
+
+        <form className="search form-inline ml-5">
+          <input className="form-control mr-lg-2" type="search" placeholder="Search" aria-label="Search" />
+          <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+        <Link className="nav-item nav-link ml-lg-5" to="/profile/:id">Profile</Link>
+
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

@@ -17,6 +17,7 @@ class ProfileCreate extends Component {
     this.state = {
       profile: {},
       preview: '',
+      user:'',
     }
 
     this.handleImage = this.handleImage.bind(this);
@@ -38,7 +39,7 @@ class ProfileCreate extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-
+    
   }
 
   handleSubmit(e, profile) {
@@ -48,10 +49,8 @@ class ProfileCreate extends Component {
     formData.append('bio', profile.bio)
     formData.append('avatar', profile.avatar)
 
-    const user = this.request.user
 
-
-    axios.post(`${BASE_URL}/api/v1/profiles/${user.id}`, formData, {
+    axios.post(`${BASE_URL}/api/v1/profiles/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
