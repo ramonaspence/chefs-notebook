@@ -32,16 +32,17 @@ class RecipeList extends Component {
       let recipes = this.state.recipes.map(recipe => (
 
         <div className="row no-gutters">
-          <div className="col-8 offset-2 mr-auto card">
-            <div className="card-body">
+          <div className="col-8 ml-auto card d-flex">
+            <div className="title card-body">
               <h2 className="card-title">{recipe.title}</h2>
               <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
             </div>
-            <div>
+            <div className="d-flex align-self-end">
               <img src={recipe.image} alt="Whoops! Sorry! No can do."/>
-              <p>{recipe.description}</p>
-              <p>{recipe.date_published}</p>
+
             </div>
+            <p>{recipe.description}</p>
+            <p>{recipe.date_published}</p>
           </div>
 
         </div>
