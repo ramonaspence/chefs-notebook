@@ -30,11 +30,11 @@ class Login extends Component {
 
   handleLogin(e) {
     e.preventDefault();
-    console.log('hello');
     axios.post(`${BASE_URL}/rest-auth/login/`, this.state,)
     .then(res => {
-      console.log(res);
-      console.log(res.data);
+      localStorage.setItem('current-user', JSON.stringify(res.data));
+      this.props.history.push('/');
+      window.location.reload(false);
     })
     .catch(err => {console.log(err);})
   }

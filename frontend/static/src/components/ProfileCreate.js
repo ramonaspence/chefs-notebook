@@ -17,7 +17,7 @@ class ProfileCreate extends Component {
     this.state = {
       profile: {},
       preview: '',
-      user:'',
+    
     }
 
     this.handleImage = this.handleImage.bind(this);
@@ -39,23 +39,24 @@ class ProfileCreate extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-    
+
   }
 
-  handleSubmit(e, profile) {
+  handleSubmit(e) {
     e.preventDefault();
     let formData = new FormData();
-    formData.append('display_name', profile.display_name)
-    formData.append('bio', profile.bio)
-    formData.append('avatar', profile.avatar)
+    formData.append('display_name', this.state.display_name)
+    formData.append('bio', this.state.bio)
+    formData.append('avatar', this.state.avatar)
 
 
     axios.post(`${BASE_URL}/api/v1/profiles/`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
       }
     })
-    .then(response => console.log(response.data))
+    .then(response => console.log('data', response.data))
     .catch(error => console.log(error));
   }
 
@@ -64,7 +65,7 @@ class ProfileCreate extends Component {
       <div className="row no-gutters">
         <div className="col-10 offset-1 card">
           <div className="card-body">
-            <form type='submit' method="post" onSubmit={(e) => this.handleSubmit(this.state)}>
+            <form type='submit' method="post" onSubmit={this.handleSubmit}>
             <label htmlFor="display_name">Choose a display name.</label>
             <input type='text' name="display_name" defaultValue='' onChange={this.handleChange} />
 

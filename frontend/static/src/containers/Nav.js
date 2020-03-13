@@ -18,10 +18,13 @@ class Nav extends Component {
 
   handleLogout(e) {
     e.preventDefault();
-    axios.post(`${BASE_URL}/rest-auth/logout/`,)
+    axios.post(`${BASE_URL}/rest-auth/logout/`, {
+      headers: {
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+      })
     .then(res => {
-      console.log(res, res.data);
-      alert(res.data.detail);
+      localStorage.removeItem('current-user')
+      window.location.reload(false);
     })
     .catch(err => {console.log(err);})
   }

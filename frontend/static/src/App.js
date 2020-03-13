@@ -53,8 +53,8 @@ class App extends Component {
 
           <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/create/profile" component={ProfileCreate} />
-          <Route path="/profile/:id/" component={ProfileView} />
+          <Route path="/profile/create/" component={ProfileCreate} />
+          <Route path="/profiles/:id/" component={ProfileView} />
           <Route path="/add/recipe" component={RecipeCreate} />
           <Route path="/recipes" exact component={RecipeList}/>
           <Route path="/recipes/:id/" component={RecipeDetail} />
