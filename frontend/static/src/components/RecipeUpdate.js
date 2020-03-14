@@ -9,8 +9,8 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class RecipeUpdate extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       recipes: {},
@@ -80,7 +80,7 @@ class RecipeUpdate extends Component {
     console.log(this.props.match);
 
     // get request to pull in single recipe
-    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`)
+    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`)
     .then(response => this.setState(response.data))
     .catch(err => console.log(err));
   }

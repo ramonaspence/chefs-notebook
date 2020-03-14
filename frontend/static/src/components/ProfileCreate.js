@@ -66,7 +66,7 @@ class ProfileCreate extends Component {
 
   render() {
     if (this.state.redirect) {
-      return(<Redirect to="/profiles/" />)
+      return(<Redirect to="/profile/" />)
     }
     else
     return(

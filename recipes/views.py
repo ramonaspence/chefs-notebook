@@ -1,6 +1,6 @@
 from rest_framework import generics
 
-from .models import Recipe, Ingredient
+from .models import Recipe, Comment
 from .serializers import *
 
 

@@ -17,7 +17,7 @@ class ProfileCreateView(generics.ListCreateAPIView):
     serializer_class = ProfileSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user = self.request.user);
+        serializer.save(user=self.request.user)
 
     def get_queryset(self):
         user = self.request.user

@@ -3,10 +3,11 @@ import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  useParams
 } from "react-router-dom";
 
-
+import ProfileUpdate from './components/ProfileUpdate.js';
 import ProfileCreate from './components/ProfileCreate.js';
 import ProfileView from './components/ProfileView.js';
 import RecipeUpdate from './components/RecipeUpdate.js';
@@ -46,15 +47,18 @@ class App extends Component {
   }
 
   render() {
+
     return(
+
       <Router>
         <div className='container-fluid'>
           <Nav />
 
           <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/profile/update/:id" component={ProfileUpdate} />
           <Route path="/profile/create/" component={ProfileCreate} />
-          <Route path="/profiles/" component={ProfileView} />
+          <Route path="/profile/" component={ProfileView} />
           <Route path="/add/recipe/" component={RecipeCreate} />
           <Route path="/recipes/" exact component={RecipeList}/>
           <Route path="/recipes/:id" component={RecipeDetail} />

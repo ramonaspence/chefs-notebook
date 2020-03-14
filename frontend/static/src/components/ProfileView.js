@@ -34,18 +34,21 @@ class ProfileView extends Component {
   }
 
   render() {
-
-    console.log('state', this.state);
+    console.log(this.props);
     return (
 
       <div className='row no-gutters'>
         <div className='col-3 card'>
           <div className='profile-body card-body'>
-            <h1>static</h1>
+            <NavLink to='/profile/update/:id'>Update Profile</NavLink>
             <h2>{this.state.display_name}</h2>
 
               <img src={this.state.avatar} alt="don't know about that" />
               <p>{this.state.bio}</p>
+
+              <div className='follows'>
+
+              </div>
 
           </div>
 

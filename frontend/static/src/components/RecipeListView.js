@@ -29,6 +29,7 @@ class RecipeList extends Component {
   }
 
   render() {
+    console.log(this.props);
       let recipes = this.state.recipes.map(recipe => (
 
         <div className="row no-gutters">
@@ -36,7 +37,7 @@ class RecipeList extends Component {
             <div className="title card-body">
               <div className="card-title">
               <h1>{recipe.title}</h1>
-              <h6>Created By: {recipe.author.username}</h6>
+              <h2>{recipe.author.username}</h2>
               </div>
 
               <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
