@@ -55,9 +55,9 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/profile/create/" component={ProfileCreate} />
           <Route path="/profiles/" component={ProfileView} />
-          <Route path="/add/recipe" component={RecipeCreate} />
-          <Route path="/recipes" exact component={RecipeList}/>
-          <Route path="/recipes/:id/" component={RecipeDetail} />
+          <Route path="/add/recipe/" component={RecipeCreate} />
+          <Route path="/recipes/" exact component={RecipeList}/>
+          <Route path="/recipes/:id" component={RecipeDetail} />
           <Route path="/update/:id/" component={RecipeUpdate} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />

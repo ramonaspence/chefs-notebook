@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+import {Redirect} from 'react-router-dom';
+import ProfileCreate from './ProfileCreate.js';
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -17,6 +20,7 @@ class Signup extends Component {
       email: '',
       password1: '',
       password2: '',
+
     }
 
     this.signUp = this.signUp.bind(this)
@@ -38,13 +42,19 @@ class Signup extends Component {
     console.log(this.state);
     axios.post(`${BASE_URL}/rest-auth/registration/`, this.state,)
     .then(res => {
-      console.log(res);
-      console.log(res.data);
+      localStorage.setItem('current-user', JSON.stringify(res.data));
+      this.setState({redirect: true});
+
     })
     .catch(err => {console.log(err);})
   }
 
   render() {
+    if (this.state.redirect === true) {
+      return (
+        <Redirect to="/profile/create" />
+      )
+  } else
     return (
       <div className="card-body">
         <form method="post" type="submit" onSubmit={this.signUp}>

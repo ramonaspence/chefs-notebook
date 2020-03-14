@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+import {Redirect} from 'react-router-dom';
+import ProfileView from './ProfileView.js';
 
 import axios from 'axios';
 
@@ -17,7 +19,7 @@ class ProfileCreate extends Component {
     this.state = {
       profile: {},
       preview: '',
-    
+
     }
 
     this.handleImage = this.handleImage.bind(this);
@@ -56,11 +58,17 @@ class ProfileCreate extends Component {
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
       }
     })
-    .then(response => console.log('data', response.data))
+    .then(response => console.log('data', response.data),
+    this.setState({redirect: true}),
+    )
     .catch(error => console.log(error));
   }
 
   render() {
+    if (this.state.redirect) {
+      return(<Redirect to="/profiles/" />)
+    }
+    else
     return(
       <div className="row no-gutters">
         <div className="col-10 offset-1 card">

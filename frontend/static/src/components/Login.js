@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
+import {Redirect} from 'react-router-dom';
+import ProfileView from './ProfileView.js';
 
 import axios from 'axios';
 
@@ -16,6 +18,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
+      redirect: 0
     }
 
     this.handleLogin = this.handleLogin.bind(this)
@@ -30,16 +33,22 @@ class Login extends Component {
 
   handleLogin(e) {
     e.preventDefault();
+    console.log(this.props);
     axios.post(`${BASE_URL}/rest-auth/login/`, this.state,)
     .then(res => {
       localStorage.setItem('current-user', JSON.stringify(res.data));
-      this.props.history.push('/');
-      window.location.reload(false);
+      console.log(res.data);
+      this.setState({redirect: 1})
+
+
     })
     .catch(err => {console.log(err);})
   }
 
   render() {
+    if (this.state.redirect === 1) {
+      return(<Redirect to="/profiles/" />)
+  } else {
     return (
 
     <div className="card-body">
@@ -54,7 +63,7 @@ class Login extends Component {
 
 
 
-    )
+  )}
   }
 }
 
