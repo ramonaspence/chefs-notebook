@@ -19,15 +19,16 @@ class Recipe(models.Model):
     tags = models.CharField(max_length=50)
 
 
+
     def __str__(self):
         return self.title
 
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True, blank=True)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True, related_name="comments")
     body = models.TextField()
     date_published = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.author
+        return self.body[0:5]

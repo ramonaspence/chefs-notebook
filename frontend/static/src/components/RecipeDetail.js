@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import '../App.css';
+
 import { NavLink, Redirect } from 'react-router-dom';
+import CommentCreate from './CommentCreate.js';
+import CommentList from './CommentList.js';
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -9,11 +13,12 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class RecipeDetail extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      recipe: {}
+      recipe: {},
+      comment: {}
 
     }
 
@@ -67,10 +72,15 @@ class RecipeDetail extends Component {
               <p>{this.state.date_published}</p>
 
           </div>
-        </div>
           <div className="col-4 ml-auto">
             <img src="" alt="Whoops! Sorry! No can do."/>
           </div>
+          <h1>{this.state.comment.id}</h1>
+          <CommentCreate />
+          <CommentList />
+        </div>
+
+
       </div>
     )
   }

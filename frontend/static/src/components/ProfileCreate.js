@@ -58,8 +58,7 @@ class ProfileCreate extends Component {
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
       }
     })
-    .then(response => console.log('data', response.data),
-    this.setState({redirect: true}),
+    .then(response => this.setState({redirect: true}),
     )
     .catch(error => console.log(error));
   }

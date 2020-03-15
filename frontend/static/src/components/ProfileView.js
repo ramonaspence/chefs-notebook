@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import { NavLink } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 
 import RecipeList from './RecipeListView.js'
 
@@ -18,25 +18,40 @@ class ProfileView extends Component {
     super();
 
     this.state = {
-      profile: ''
+      profile: '',
+      follows: ''
     }
 
+    this.getFollows = this.getFollows.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+
+  }
+
+  getFollows() {
+    axios.get(`${BASE_URL}/api/v1/profiles/follows/`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+    })
+    .then(res => this.setState({follows: res.data}))
+    .catch(err => console.log(err))
+  }
+
+  handleFollow(e) {
+    e.preventDefault();
+
   }
 
   componentDidMount() {
-    console.log(this);
     axios.get(`${BASE_URL}/api/v1/profiles/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
     .then(response => this.setState(response.data[0]))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
+
+    this.getFollows()
   }
 
   render() {
-    console.log(this.props);
     return (
-
       <div className='row no-gutters'>
         <div className='col-3 card'>
           <div className='profile-body card-body'>
@@ -45,9 +60,9 @@ class ProfileView extends Component {
 
               <img src={this.state.avatar} alt="don't know about that" />
               <p>{this.state.bio}</p>
-
-              <div className='follows'>
-
+              <p>{this.state.follows}</p>
+              <div className='follow'>
+                <button type='submit' onSubmit={this.handleFollow}>Follow {this.state.display_name}</button>
               </div>
 
           </div>
@@ -58,7 +73,7 @@ class ProfileView extends Component {
               </div>
               <div className='col-9'>
                 <div className="card profile-add-recipe col-6 ml-auto">
-                  <NavLink className='btn btn-outline-info' to='add/recipe/'>Start a New Recipe</NavLink>
+                  <NavLink to='/add/recipe/' className='btn btn-outline-info'>Start a New Recipe</NavLink>
                 </div>
                 <RecipeList />
               </div>

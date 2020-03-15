@@ -35,7 +35,7 @@ class RecipeCreate extends Component {
     e.preventDefault();
     let file = e.target.files[0];
     this.setState({[e.target.name]: file});
-    console.log(this.state);
+
 
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -60,7 +60,7 @@ class RecipeCreate extends Component {
       }
     })
 
-    .then(res => console.log(res, res.data))
+    .then(res => console.log(res))
     .catch(err => console.log(err));
 
   }

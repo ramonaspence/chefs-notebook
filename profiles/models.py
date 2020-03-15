@@ -10,9 +10,12 @@ class Profile(models.Model):
     display_name = models.CharField(max_length=20)
     avatar = models.ImageField(upload_to="images/")
     bio = models.TextField(max_length=255)
-    following = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="following")
-    followers = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="followers")
     date_joined = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return self.display_name
+
+class Follow(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='follower')
+    following = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')

@@ -29,7 +29,6 @@ class RecipeList extends Component {
   }
 
   render() {
-    console.log(this.props);
       let recipes = this.state.recipes.map(recipe => (
 
         <div className="row no-gutters">

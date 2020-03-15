@@ -31,20 +31,17 @@ class App extends Component {
     super();
 
     this.state = {
-      recipes: [],
+      recipe: '',
     }
 
-    this.componentDidMount = this.componentDidMount.bind(this);
-  }
-
-  componentDidMount() {
-
-    axios.get(`${BASE_URL}/api/v1/recipes/`)
-
-    .then(response => this.setState({recipes: response.data}))
-    .catch(err => console.log(err));
 
   }
+
+  getRecipe() {
+
+  }
+
+
 
   render() {
 

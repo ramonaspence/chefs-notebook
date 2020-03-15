@@ -37,7 +37,7 @@ class ProfileUpdate extends Component {
   handleImage(e) {
     e.preventDefault();
     let file = e.target.files[0]
-    this.setState({[e.target.name]: file}, () => console.log(this.state));
+    this.setState({[e.target.name]: file});
 
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -63,7 +63,7 @@ class ProfileUpdate extends Component {
 
       }
     })
-    .then(res => console.log(res), this.setState({redirect: true}))
+    .then(res => this.setState({redirect: true}))
     .catch(err => console.log(err));
   }
 

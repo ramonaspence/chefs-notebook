@@ -25,30 +25,25 @@ class RecipeUpdate extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-    console.log('change', this.state);
+
   }
 
   handleImageChange(e) {
     e.preventDefault();
 
     let file = e.target.files[0];
-
-    this.setState({[e.target.name]: file}, () => console.log(this.state));
+    this.setState({[e.target.name]: file});
 
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => this.setState({preview: reader.result});
-    console.log('img', this.state);
+
   }
 
     handleSubmit(e) {
       e.preventDefault();
 
-      console.log(this.state);
-
-
       let formData = new FormData();
-
       formData.append('title', this.state.title);
       formData.append('description', this.state.description);
       formData.append('ingredients', this.state.ingredients);
@@ -77,7 +72,6 @@ class RecipeUpdate extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match);
 
     // get request to pull in single recipe
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`)
