@@ -28,6 +28,7 @@ class ProfileView extends Component {
   }
 
   getFollows() {
+    console.log(this.props);
     axios.get(`${BASE_URL}/api/v1/profiles/follows/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
@@ -47,7 +48,6 @@ class ProfileView extends Component {
     .then(response => this.setState(response.data[0]))
     .catch(err => console.log(err));
 
-    this.getFollows()
   }
 
   render() {

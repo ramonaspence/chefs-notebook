@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -25,20 +27,20 @@ class CommentCreate extends Component {
     handleChange(e) {
       e.preventDefault();
       this.setState({[e.target.name]: e.target.value});
-      console.log(this.state);
+
     }
 
     handleSubmit(e) {
       e.preventDefault();
-      let recipe = this.props
-      axios.post(`${BASE_URL}/api/v1/recipes/1/comments/`, this.state)
+
+      axios.post(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/comments/`, this.state)
       .then(res => console.log(res))
       .catch(err => console.log(err));
     }
 
 
   render() {
-    console.log('props', this.props);
+
     return(
       <div className="card">
         <div className="card-body">

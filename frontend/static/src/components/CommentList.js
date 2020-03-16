@@ -23,6 +23,7 @@ class CommentList extends Component {
   }
 
   componentDidMount() {
+    console.log('this', this.props);
     axios.get(`${BASE_URL}/api/v1/recipes/comments/`)
     .then(res => this.setState({comments: res.data}))
     .catch(err => console.log(err));

@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import *
 
 class RecipeSerializer(serializers.ModelSerializer):
-    comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Recipe

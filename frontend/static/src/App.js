@@ -7,6 +7,9 @@ import {
   useParams
 } from "react-router-dom";
 
+
+import CommentList from './components/CommentList.js';
+import CommentCreate from './components/CommentCreate.js';
 import ProfileUpdate from './components/ProfileUpdate.js';
 import ProfileCreate from './components/ProfileCreate.js';
 import ProfileView from './components/ProfileView.js';
@@ -38,7 +41,7 @@ class App extends Component {
   }
 
   getRecipe() {
-
+    this.setState()
   }
 
 
@@ -57,6 +60,7 @@ class App extends Component {
           <Route path="/profile/create/" component={ProfileCreate} />
           <Route path="/profile/" component={ProfileView} />
           <Route path="/add/recipe/" component={RecipeCreate} />
+          <Route path="/recipes/:id/comments/" component={CommentList} />
           <Route path="/recipes/" exact component={RecipeList}/>
           <Route path="/recipes/:id" component={RecipeDetail} />
           <Route path="/update/:id/" component={RecipeUpdate} />
