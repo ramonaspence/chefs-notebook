@@ -29,9 +29,10 @@ class CommentListCreateView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
-    # def get_queryset(self):
-    #
-    #     return Comment.objects.filter(recipe = recipe)
+    def get_queryset(self):
+
+        recipe_id = self.kwargs['pk']
+        return Comment.objects.filter(recipe = recipe_id)
 
     def perform_create(self, serializer, **kwargs):
         # import pdb; pdb.set_trace()
@@ -39,3 +40,7 @@ class CommentListCreateView(generics.ListCreateAPIView):
 
         serializer.save(author = self.request.user) ##saves self.request.user as author when creating a comment
         serializer.save(recipe = recipe) ##tries to save the integer to recipe field, but this field is looking for an object
+
+class CommentRUDView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer

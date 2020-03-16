@@ -21,22 +21,33 @@ class CommentList extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
 
   }
-
+//how to get correct recipe id in get request url
   componentDidMount() {
     console.log('this', this.props);
-    axios.get(`${BASE_URL}/api/v1/recipes/comments/`)
+    axios.get(`${BASE_URL}/api/v1/recipes/comments/2`)
     .then(res => this.setState({comments: res.data}))
     .catch(err => console.log(err));
   }
 
   render() {
-    return (
+    let comments = this.state.comments.map(comment => (
       <div className="card">
-        <div className="card-body">
-
-
+          <div className="card-title">
+            <h4>{comment.author.username}</h4>
+              <p>{comment.date_published}</p>
+          </div>
+          <div className="card-body">
+            <p>{comment.body}</p>
+          </div>
         </div>
-      </div>
+    ))
+    return (
+
+
+          <div>{comments}</div>
+
+
+
     )
   }
 }
