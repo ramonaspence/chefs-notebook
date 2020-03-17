@@ -52,7 +52,7 @@ class Signup extends Component {
   render() {
     if (this.state.redirect === true) {
       return (
-        <Redirect to="/profile/create" />
+        <Redirect to="/login" />
       )
   } else
     return (

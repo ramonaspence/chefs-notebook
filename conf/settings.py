@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rest_auth', #new
     'allauth', #new
     'allauth.account', #new
+    'allauth.socialaccount', ## for some reason, not having allauth.socialaccount prevents deleting users locally
     'rest_auth.registration',#new
 
     #local

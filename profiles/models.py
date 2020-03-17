@@ -17,8 +17,8 @@ class Profile(models.Model):
         return self.display_name
 
     def get_following(self):
-        # import pdb; pdb.set_trace()
         return Connection.objects.filter(user=self.user) ## filters from connection model's fields
+
 
     def get_followers(self):
         # import pdb; pdb.set_trace()

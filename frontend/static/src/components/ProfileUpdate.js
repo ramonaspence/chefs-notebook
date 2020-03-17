@@ -56,7 +56,7 @@ class ProfileUpdate extends Component {
       formData.append('avatar', this.state.avatar)
     } else
 
-    axios.patch(`${BASE_URL}/api/v1/profiles/${this.state.id}/`, formData, {
+    axios.patch(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
 

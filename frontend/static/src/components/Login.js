@@ -47,7 +47,7 @@ class Login extends Component {
 
   render() {
     if (this.state.redirect === 1) {
-      return(<Redirect to="/profile/" />)
+      return(<Redirect to="/profile/create/" />)
   } else {
     return (
 

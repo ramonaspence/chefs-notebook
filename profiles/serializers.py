@@ -9,8 +9,10 @@ class ConnectionSerializer(serializers.ModelSerializer):
         depth = 1
 
 class ProfileSerializer(serializers.ModelSerializer):
-    following = ConnectionSerializer(many=True, source='get_following')
-    followers = ConnectionSerializer(many=True, source='get_followers')
+    ## lines 12 and 13 define fields that are added to the Profile model upon creation.
+    ## they're created in the get_following and get_followers method in the serializers.py  
+    following = ConnectionSerializer(many=True, allow_null=True, required=False, source='get_following')
+    followers = ConnectionSerializer(many=True, allow_null=True, required=False, source='get_followers')
 
     class Meta:
         model = Profile
