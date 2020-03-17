@@ -4,6 +4,7 @@ import '../App.css';
 import { Redirect, NavLink } from 'react-router-dom';
 
 import RecipeList from './RecipeListView.js'
+import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
 
@@ -19,7 +20,8 @@ class ProfileView extends Component {
 
     this.state = {
       profile: '',
-      follows: ''
+      follows: '',
+      hidenav: true
     }
 
     this.getFollows = this.getFollows.bind(this);
@@ -43,18 +45,22 @@ class ProfileView extends Component {
 
   componentDidMount() {
     console.log(this.props);
-    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`)
+
+    axios.get(`${BASE_URL}/api/v1/profiles/user`)
     .then(response => this.setState(response.data))
     .catch(err => console.log(err));
+    console.log(this.state);
 
   }
 
   render() {
     return (
+      <React.Fragment>
+      <Nav />
       <div className='row no-gutters'>
         <div className='col-3 card'>
           <div className='profile-body card-body'>
-            <NavLink to='/profile/update/:id'>Update Profile</NavLink>
+            <NavLink to='/profile/update/:userid'>Update Profile</NavLink>
             <h2>{this.state.display_name}</h2>
 
               <img src={this.state.avatar} alt="don't know about that" />
@@ -74,9 +80,10 @@ class ProfileView extends Component {
                 <div className="card profile-add-recipe col-6 ml-auto">
                   <NavLink to='/add/recipe/' className='btn btn-outline-info'>Start a New Recipe</NavLink>
                 </div>
-                <RecipeList />
+                <RecipeList hidenav={this.state.hidenav} />
               </div>
           </div>
+          </React.Fragment>
 
 
     )

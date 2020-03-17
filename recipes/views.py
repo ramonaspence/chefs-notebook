@@ -17,9 +17,11 @@ class RecipeListView(generics.ListCreateAPIView):
         user = self.request.user
         return Recipe.objects.filter(author = user)
 
+
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+
 
 class RecipeUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()

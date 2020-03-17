@@ -3,6 +3,8 @@ import '../App.css';
 import {Redirect} from 'react-router-dom';
 import ProfileView from './ProfileView.js';
 
+import Nav from '../containers/Nav.js';
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -21,6 +23,7 @@ class Login extends Component {
       redirect: 0
     }
 
+    this.captureLogin = this.captureLogin.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -31,26 +34,37 @@ class Login extends Component {
 
   }
 
+  captureLogin() {
+    console.log('fired');
+    axios.get(`${BASE_URL}/rest-auth/user/`)
+    .then(res => {
+      localStorage.setItem('currentUser', JSON.stringify(res.data.username));
+    })
+    .catch(err => console.log(err));
+  }
+
   handleLogin(e) {
     e.preventDefault();
     console.log(this.props);
+
     axios.post(`${BASE_URL}/rest-auth/login/`, this.state,)
     .then(res => {
       localStorage.setItem('current-user', JSON.stringify(res.data));
-      console.log(res.data);
-      this.setState({redirect: 1})
-
-
+      console.log(res.data)
+      // this.setState({redirect: 1})
+      this.captureLogin();
     })
     .catch(err => {console.log(err);})
+
   }
 
   render() {
     if (this.state.redirect === 1) {
-      return(<Redirect to="/profile/create/" />)
+      return(<Redirect to="/recipes/" />)
   } else {
     return (
-
+      <React.Fragment>
+      <Nav />
     <div className="card-body">
       <form method="post" type="submit" onSubmit={this.handleLogin}>
         <label htmlFor="username">Username:</label>
@@ -60,8 +74,7 @@ class Login extends Component {
         <button>Log In</button>
       </form>
     </div>
-
-
+    </React.Fragment>
 
   )}
   }

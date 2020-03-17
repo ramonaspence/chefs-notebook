@@ -16,6 +16,8 @@ class Nav extends Component {
 
   }
 
+
+
   handleLogout(e) {
     e.preventDefault();
     axios.post(`${BASE_URL}/rest-auth/logout/`, {
@@ -24,13 +26,16 @@ class Nav extends Component {
       })
     .then(res => {
       localStorage.removeItem('current-user')
-      window.location.reload(false);
+      localStorage.removeItem('currentUser')
+      window.location.reload(false)
+      console.log('successfully logged out');
     })
     .catch(err => {console.log(err);})
   }
 
 
   render() {
+    console.log('nav');
     return (
       <div className="row no-gutters">
         <div className='col-12 navbar navbar-expand-lg navbar-dark bg-dark'>
@@ -56,8 +61,10 @@ class Nav extends Component {
           <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
 
-        <Link className="nav-item nav-link ml-lg-5" to="/profile/:id">Profile</Link>
+        <Link className="nav-item nav-link ml-lg-5" to="users/">All Users</Link>
+        <Link className="nav-item nav-link ml-lg-5" to='profile/'>My Profile</Link>
         <Link className="nav-item nav-link ml-lg-5" to="profile/create">Create Profile</Link>
+        <div className='nav-item nav-link ml-lg-5'>Logged in as {JSON.parse(localStorage.getItem('currentUser'))}</div>
             </div>
           </div>
         </div>

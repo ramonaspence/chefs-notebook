@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import '../App.css';
 import {NavLink} from 'react-router-dom';
+
+import Nav from '../containers/Nav.js';
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -81,6 +84,8 @@ class RecipeUpdate extends Component {
 
   render() {
     return(
+      <React.Fragment>
+      <Nav />
       <div className="row no-gutters">
         <div className="col-10 offset-1">
           <form type='submit' method='put' onSubmit={this.handleSubmit}>
@@ -114,6 +119,7 @@ class RecipeUpdate extends Component {
           </form>
         </div>
       </div>
+      </React.Fragment>
     )
   }
 }

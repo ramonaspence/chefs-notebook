@@ -3,6 +3,7 @@ import '../App.css';
 import { Link, Redirect } from 'react-router-dom';
 
 import RecipeList from './RecipeListView.js';
+import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
 
@@ -18,7 +19,8 @@ class ProfileUpdate extends Component {
 
     this.state = {
       recipes: [],
-      preview: ''
+      preview: '',
+      hidenav: true
     }
 
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -69,10 +71,10 @@ class ProfileUpdate extends Component {
 
   componentDidMount() {
 
-    axios.get(`${BASE_URL}/api/v1/profiles/`, {
+    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
-    .then(response => this.setState(response.data[0]))
+    .then(response => this.setState(response.data))
     .catch(err => console.log(err))
   }
   render() {
@@ -81,7 +83,8 @@ class ProfileUpdate extends Component {
     }
     else
     return (
-
+          <React.Fragment>
+            <Nav />
             <div className='row no-gutters'>
               <div className='col-3 card'>
                 <div className='profile-body card-body'>
@@ -111,10 +114,10 @@ class ProfileUpdate extends Component {
                     </div>
                     </div>
                     <div className='col-9'>
-                      <RecipeList />
+                      <RecipeList hidenav={this.state.hidenav} />
                     </div>
                 </div>
-
+                </React.Fragment>
     )
   }
 }

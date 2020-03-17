@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import '../App.css';
 
 import { NavLink, Redirect } from 'react-router-dom';
-import CommentCreate from './CommentCreate.js';
-import CommentList from './CommentList.js';
+
+import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
 
@@ -20,14 +20,30 @@ class RecipeDetail extends Component {
       recipe: {},
       comment: {
         recipe: {}
-      }
+      },
+      edit: false
     }
+    //
+    // this.handleEdit = this.handleEdit.bind(this);
+    // this.toggleEdit = this.toggleEdit.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
+
+  // handleEdit(e) {
+  //   e.preventDefault();
+  //   axios.patch(`${BASE_URL}/api/v1/recipes/comments/${this.state.comment.id}/`)
+  //   .then(res => console.log(res.data))
+  //   .catch(err => console.log(err));
+  // }
+  //
+  // toggleEdit(e) {
+  //   e.preventDefault();
+  //   this.setState({edit: true});
+  // }
 
   handleChange(e) {
     console.log('fired')
@@ -38,7 +54,7 @@ class RecipeDetail extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    axios.post(`${BASE_URL}/api/v1/recipes/comments/${this.props.match.params.id}/`, this.state)
+    axios.post(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/comments/`, this.state)
     .then(res => console.log(res))
     .catch(err => console.log(err));
 
@@ -89,6 +105,7 @@ class RecipeDetail extends Component {
               <div className="card-body">
                 <p>{comment.body}</p>
                 <div><button className="btn btn-outline-danger" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
+
                 </div>
 
               </div>
@@ -96,6 +113,8 @@ class RecipeDetail extends Component {
         ));
     }
     return (
+      <React.Fragment>
+      <Nav />
       <div className="row no-gutters">
         <div className="col-8 offset-2 mr-auto card">
           <div className="card-body">
@@ -138,6 +157,7 @@ class RecipeDetail extends Component {
 
 
       </div>
+      </React.Fragment>
     )
   }
 

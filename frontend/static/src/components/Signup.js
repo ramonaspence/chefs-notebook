@@ -3,6 +3,7 @@ import '../App.css';
 
 import {Redirect} from 'react-router-dom';
 import ProfileCreate from './ProfileCreate.js';
+import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
 
@@ -56,6 +57,8 @@ class Signup extends Component {
       )
   } else
     return (
+      <React.Fragment>
+      <Nav />
       <div className="card-body">
         <form method="post" type="submit" onSubmit={this.signUp}>
           <label htmlFor="username">Username:</label>
@@ -69,7 +72,7 @@ class Signup extends Component {
           <button className="btn btn-outline-success">Register</button>
         </form>
       </div>
-
+      </React.Fragment>
     )
   }
 }

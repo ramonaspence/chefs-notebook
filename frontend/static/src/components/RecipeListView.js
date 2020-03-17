@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+import Nav from '../containers/Nav.js';
 
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -51,15 +52,20 @@ class RecipeList extends Component {
 
         </div>
       ))
-
         return (
-
+        <React.Fragment>
+        { this.props.hidenav
+          ?
+          null
+          :
+          <Nav />
+        }
         <ul>
           <li>
             {recipes}
           </li>
         </ul>
-
+      </React.Fragment>
     )
 
 }

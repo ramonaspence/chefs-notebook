@@ -16,4 +16,4 @@ class RecipeSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = '__all__' ##['title', 'description', 'image', 'ingredients', 'instructions', 'tags',]
         author = serializers.ReadOnlyField(source='author.username') ## was used//not commented out
-        depth = 1
+        

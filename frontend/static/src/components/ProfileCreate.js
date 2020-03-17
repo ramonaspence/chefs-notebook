@@ -4,6 +4,7 @@ import '../App.css';
 import {Redirect} from 'react-router-dom';
 import ProfileView from './ProfileView.js';
 
+import Nav from '../containers/Nav.js';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -69,6 +70,8 @@ class ProfileCreate extends Component {
     }
     else
     return(
+      <React.Fragment>
+      <Nav />
       <div className="row no-gutters">
         <div className="col-10 offset-1 card">
           <div className="card-body">
@@ -87,7 +90,7 @@ class ProfileCreate extends Component {
           </div>
         </div>
       </div>
-
+      </React.Fragment>
     )
   }
 }

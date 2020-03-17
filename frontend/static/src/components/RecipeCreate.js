@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 
 import {Redirect} from 'react-router-dom';
-
+import Nav from '../containers/Nav.js';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -73,6 +73,8 @@ class RecipeCreate extends Component {
     }
     else
     return (
+      <React.Fragment>
+      <Nav />
       <div className="row no-gutters">
         <div className="col-10 offset-1">
           <form type='submit' method='post' onSubmit={(e) => this.handleSubmit(e, this.state)}>
@@ -106,6 +108,7 @@ class RecipeCreate extends Component {
           </form>
         </div>
       </div>
+      </React.Fragment>
 
 
     )
