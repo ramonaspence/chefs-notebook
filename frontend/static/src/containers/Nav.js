@@ -56,8 +56,8 @@ class Nav extends Component {
           <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
 
-        <Link className="nav-item nav-link ml-lg-5" to="/profile/">Profile</Link>
-
+        <Link className="nav-item nav-link ml-lg-5" to="/profile/:id">Profile</Link>
+        <Link className="nav-item nav-link ml-lg-5" to="profile/create">Create Profile</Link>
             </div>
           </div>
         </div>

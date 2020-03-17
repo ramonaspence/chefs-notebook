@@ -11,11 +11,25 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to="images/")
     bio = models.TextField(max_length=255)
     date_joined = models.DateTimeField(auto_now_add=True)
-
+    # followers = models.ManyToManyField(self)
 
     def __str__(self):
         return self.display_name
 
-class Follow(models.Model):
-    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='follower')
-    following = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    def get_following(self):
+        # import pdb; pdb.set_trace()
+        return Connection.objects.filter(user=self.user) ## filters from connection model's fields
+
+    def get_followers(self):
+        # import pdb; pdb.set_trace()
+        return Connection.objects.filter(following=self.user) ## filters from connection model's fields
+
+## Connection model used to set up a following system. IE. I can follow you and/or you can follow me.
+
+class Connection(models.Model):
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE) ##the user who chooses to follow
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following") ## the set of users who get followed by user field above
+
+    def __str__(self):
+        return self.user.username

@@ -21,7 +21,6 @@ class RecipeDetail extends Component {
       comment: {
         recipe: {}
       }
-
     }
     this.onDelete = this.onDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -63,7 +62,7 @@ class RecipeDetail extends Component {
 
   componentDidMount() {
 
-
+    console.log(this.props)
     // get request to pull in single recipe
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`)
     .then(response => this.setState({recipe: response.data}))
@@ -89,7 +88,9 @@ class RecipeDetail extends Component {
               </div>
               <div className="card-body">
                 <p>{comment.body}</p>
-                <div><button className="btn btn-outline-danger" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button></div>
+                <div><button className="btn btn-outline-danger" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
+                </div>
+
               </div>
             </div>
         ));

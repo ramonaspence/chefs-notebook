@@ -42,10 +42,9 @@ class ProfileView extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/profiles/`, {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
-    })
-    .then(response => this.setState(response.data[0]))
+    console.log(this.props);
+    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`)
+    .then(response => this.setState(response.data))
     .catch(err => console.log(err));
 
   }

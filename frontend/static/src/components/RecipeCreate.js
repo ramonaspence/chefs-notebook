@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+import {Redirect} from 'react-router-dom';
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -16,7 +18,7 @@ class RecipeCreate extends Component {
     this.state = {
         recipe: {},
         preview: '',
-
+        redirect: null
       }
 
     this.handleChange = this.handleChange.bind(this);
@@ -62,10 +64,14 @@ class RecipeCreate extends Component {
 
     .then(res => console.log(res))
     .catch(err => console.log(err));
-
+    this.setState({redirect: true});
   }
 
   render() {
+    if (this.state.redirect) {
+      return (<Redirect to="/profiles/:id" />)
+    }
+    else
     return (
       <div className="row no-gutters">
         <div className="col-10 offset-1">

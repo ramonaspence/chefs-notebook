@@ -27,10 +27,6 @@ class ProfileCreateView(generics.ListCreateAPIView):
         user = self.request.user
         return Profile.objects.filter(user=user)
 
-class FollowCreate(generics.ListCreateAPIView):
-    queryset = Follow.objects.all()
-    serializer_class = FollowSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(follower = self.request.user)
-        serializer.save(following = instance.object)
+class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create and read followers and followings
+    queryset = Connection.objects.all()
+    serializer_class = ConnectionSerializer
