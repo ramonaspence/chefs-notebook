@@ -61,9 +61,9 @@ class Nav extends Component {
           <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
 
-        <Link className="nav-item nav-link ml-lg-5" to="users/">All Users</Link>
-        <Link className="nav-item nav-link ml-lg-5" to='profile/'>My Profile</Link>
-        <Link className="nav-item nav-link ml-lg-5" to="profile/create">Create Profile</Link>
+        <Link className="nav-item nav-link ml-lg-5" to="/users/">All Users</Link>
+        <Link className="nav-item nav-link ml-lg-5" to='/profile/'>My Profile</Link>
+        <Link className="nav-item nav-link ml-lg-5" to="/profile/create/">Create Profile</Link>
         <div className='nav-item nav-link ml-lg-5'>Logged in as {JSON.parse(localStorage.getItem('currentUser'))}</div>
             </div>
           </div>

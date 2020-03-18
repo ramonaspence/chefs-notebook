@@ -24,7 +24,7 @@ class ProfileView extends Component {
       hidenav: true
     }
 
-    this.getFollows = this.getFollows.bind(this);
+
     this.componentDidMount = this.componentDidMount.bind(this);
 
   }
@@ -32,21 +32,21 @@ class ProfileView extends Component {
   getFollows() {
     console.log(this.props);
     axios.get(`${BASE_URL}/api/v1/profiles/follows/`, {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+      headers: {'Authorization': `Token ${JSON.stringify(localStorage.setItem('current-user')).token}`}
     })
     .then(res => this.setState({follows: res.data}))
     .catch(err => console.log(err))
   }
 
-  handleFollow(e) {
-    e.preventDefault();
 
-  }
 
   componentDidMount() {
     console.log(this.props);
 
-    axios.get(`${BASE_URL}/api/v1/profiles/user`)
+    axios.get(`${BASE_URL}/api/v1/profiles/user`,
+    {
+      headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).token}`}
+    })
     .then(response => this.setState(response.data))
     .catch(err => console.log(err));
     console.log(this.state);
@@ -66,9 +66,7 @@ class ProfileView extends Component {
               <img src={this.state.avatar} alt="don't know about that" />
               <p>{this.state.bio}</p>
               <p>{this.state.follows}</p>
-              <div className='follow'>
-                <button type='submit' onSubmit={this.handleFollow}>Follow {this.state.display_name}</button>
-              </div>
+
 
           </div>
 

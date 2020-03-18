@@ -41,7 +41,9 @@ class Signup extends Component {
     // console.log(formData);
 
     console.log(this.state);
-    axios.post(`${BASE_URL}/rest-auth/registration/`, this.state,)
+    axios.post(`${BASE_URL}/rest-auth/registration/`, this.state, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+    })
     .then(res => {
       localStorage.setItem('current-user', JSON.stringify(res.data));
       this.setState({redirect: true});

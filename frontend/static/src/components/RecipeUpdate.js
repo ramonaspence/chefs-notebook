@@ -67,8 +67,9 @@ class RecipeUpdate extends Component {
 
     axios.patch(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+
     })
     .then(response => console.log(response))
     .catch(err => console.log(err));

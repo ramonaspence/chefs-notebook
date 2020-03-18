@@ -54,7 +54,8 @@ class RecipeDetail extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    axios.post(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/comments/`, this.state)
+    axios.post(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/comments/`, this.state, {
+    headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}})
     .then(res => console.log(res))
     .catch(err => console.log(err));
 
@@ -80,7 +81,10 @@ class RecipeDetail extends Component {
 
     console.log(this.props)
     // get request to pull in single recipe
-    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`)
+    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`,
+      {
+        headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+    })
     .then(response => this.setState({recipe: response.data}))
     .catch(err => console.log(err));
     //

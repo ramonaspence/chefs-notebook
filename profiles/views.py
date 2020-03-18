@@ -43,3 +43,7 @@ class ProfileListCreateView(generics.ListCreateAPIView):
 class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create and read followers and followings
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
+
+    def perform_create(self, serializer):
+        following = get_object_or_404(User, pk=self.request.data['following'])
+        serializer.save(user=self.request.user, following=following);

@@ -36,7 +36,7 @@ class Login extends Component {
 
   captureLogin() {
     console.log('fired');
-    axios.get(`${BASE_URL}/rest-auth/user/`)
+    axios.get(`${BASE_URL}/rest-auth/user/`,)
     .then(res => {
       localStorage.setItem('currentUser', JSON.stringify(res.data.username));
     })

@@ -16,21 +16,34 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class ProfileDetail extends Component {
   constructor() {
-    super(); {
+    super();
       this.state = {
         profile: {},
         hidenav: true
 
       }
+      this.onFollow = this.onFollow.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
-    }
+
 
 
   }
 
+  onFollow(e) {
+    e.preventDefault();
+    console.log('fire!!');
+    axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.user}, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+    })
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err));
+  }
+
   componentDidMount() {
 
-    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`)
+    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+    })
     .then(res => this.setState({profile: res.data}))
     .catch(err => console.log(err))
   }
@@ -50,7 +63,7 @@ class ProfileDetail extends Component {
               <p>{this.state.profile.bio}</p>
               <p>{this.state.profile.follows}</p>
               <div className='follow'>
-                <button type='submit' onSubmit={this.handleFollow}>Follow {this.state.profile.display_name}</button>
+                <button onClick={this.onFollow}>Follow {this.state.profile.display_name}</button>
               </div>
 
           </div>
@@ -60,9 +73,6 @@ class ProfileDetail extends Component {
               </div>
               </div>
               <div className='col-9'>
-                <div className="card profile-add-recipe col-6 ml-auto">
-                  <NavLink to='/add/recipe/' className='btn btn-outline-info'>Start a New Recipe</NavLink>
-                </div>
                 <RecipeList hidenav={this.state.hidenav} />
               </div>
           </div>

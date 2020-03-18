@@ -24,7 +24,7 @@ class Profile(models.Model):
         # import pdb; pdb.set_trace()
         return Connection.objects.filter(following=self.user) ## filters from connection model's fields
 
-## Connection model used to set up a following system. IE. I can follow you and/or you can follow me.
+## Connection model used to set up a following system. ie: I can follow you and/or you can follow me.
 
 class Connection(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)

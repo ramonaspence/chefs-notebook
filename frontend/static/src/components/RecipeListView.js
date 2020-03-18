@@ -22,7 +22,11 @@ class RecipeList extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/recipes/`)
+    axios.get(`${BASE_URL}/api/v1/recipes/`,
+      {
+        headers: {
+          'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
+    }})
 
     .then(response => this.setState({recipes: response.data}))
     .catch(err => console.log(err));
