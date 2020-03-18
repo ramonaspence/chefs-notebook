@@ -7,6 +7,7 @@ import {
   useParams
 } from "react-router-dom";
 
+import ListFollowers from './components/ListFollowers.js';
 import ProfileDetail from './components/ProfileDetail.js';
 import UserProfiles from './components/UserProfiles.js';
 import ProfileUpdate from './components/ProfileUpdate.js';
@@ -56,7 +57,8 @@ class App extends Component {
           <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/users/" exact component={UserProfiles} />
-          <Route path="/users/profile/:id" component={ProfileDetail} />
+          <Route path="/users/profile/:id" exact component={ProfileDetail} />
+          <Route path="/profile/followers/" component={ListFollowers} />
           <Route path="/profile/update/:id" component={ProfileUpdate} />
           <Route path="/profile/create/" component={ProfileCreate} />
           <Route path="/profile/" component={ProfileView} />

@@ -47,3 +47,11 @@ class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create
     def perform_create(self, serializer):
         following = get_object_or_404(User, pk=self.request.data['following'])
         serializer.save(user=self.request.user, following=following);
+
+class FollowerListView(generics.ListAPIView):
+    queryset = Connection.objects.all()
+    serializer_class = ConnectionSerializer
+
+    def get_queryset(self):
+        # import pdb; pdb.set_trace()
+        return Connection.objects.filter(user = self.request.user)

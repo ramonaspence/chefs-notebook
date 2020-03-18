@@ -20,7 +20,6 @@ class ProfileView extends Component {
 
     this.state = {
       profile: '',
-      follows: '',
       hidenav: true
     }
 
