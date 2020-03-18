@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 
 import {Redirect} from 'react-router-dom';
-import ProfileCreate from './ProfileCreate.js';
+
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
@@ -41,9 +41,7 @@ class Signup extends Component {
     // console.log(formData);
 
     console.log(this.state);
-    axios.post(`${BASE_URL}/rest-auth/registration/`, this.state, {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
-    })
+    axios.post(`${BASE_URL}/rest-auth/registration/`, this.state,)
     .then(res => {
       localStorage.setItem('current-user', JSON.stringify(res.data));
       this.setState({redirect: true});

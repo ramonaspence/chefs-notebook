@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -12,6 +12,11 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 class Nav extends Component {
   constructor() {
     super();
+
+      this.state = {
+        redirect: null,
+      }
+
     this.handleLogout = this.handleLogout.bind(this)
 
   }
@@ -29,13 +34,17 @@ class Nav extends Component {
       localStorage.removeItem('currentUser')
       window.location.reload(false)
       console.log('successfully logged out');
+      this.setState({redirect: true})
     })
     .catch(err => {console.log(err);})
   }
 
 
   render() {
-    console.log('nav');
+    if (this.state.redirect) {
+      return (<Redirect to="/" />)
+    }
+    else
     return (
       <div className="row no-gutters">
         <div className='col-12 navbar navbar-expand-lg navbar-dark bg-dark'>

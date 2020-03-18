@@ -4,9 +4,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useParams
 } from "react-router-dom";
 
+import ListFollowing from './components/ListFollowing.js';
 import ListFollowers from './components/ListFollowers.js';
 import ProfileDetail from './components/ProfileDetail.js';
 import UserProfiles from './components/UserProfiles.js';
@@ -19,14 +19,11 @@ import RecipeCreate from './components/RecipeCreate.js';
 import RecipeList from './components/RecipeListView.js';
 import Signup from './components/Signup.js';
 import Login from './components/Login.js';
-import Nav from './containers/Nav.js';
 import Home from './containers/Home.js';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
 class App extends Component {
@@ -58,7 +55,8 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/users/" exact component={UserProfiles} />
           <Route path="/users/profile/:id" exact component={ProfileDetail} />
-          <Route path="/profile/followers/" component={ListFollowers} />
+          <Route path="/profile/followers/" exact component={ListFollowers} />
+          <Route path="/profile/following/" exact component={ListFollowing} />
           <Route path="/profile/update/:id" component={ProfileUpdate} />
           <Route path="/profile/create/" component={ProfileCreate} />
           <Route path="/profile/" component={ProfileView} />

@@ -71,7 +71,7 @@ class RecipeCreate extends Component {
 
   render() {
     if (this.state.redirect) {
-      return (<Redirect to="/recipes/:id" />)
+      return (<Redirect to="/profile/" />)
     }
     else
     return (

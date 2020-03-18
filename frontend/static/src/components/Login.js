@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 import {Redirect} from 'react-router-dom';
-import ProfileView from './ProfileView.js';
+
 
 import Nav from '../containers/Nav.js';
 
@@ -20,7 +20,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      redirect: 0
+      redirect: null
     }
 
     this.captureLogin = this.captureLogin.bind(this)
@@ -55,12 +55,13 @@ class Login extends Component {
       this.captureLogin();
     })
     .catch(err => {console.log(err);})
+    this.setState({redirect: 1})
 
   }
 
   render() {
-    if (this.state.redirect === 1) {
-      return(<Redirect to="/recipes/" />)
+    if (this.state.redirect) {
+      return(<Redirect to="/" />)
   } else {
     return (
       <React.Fragment>

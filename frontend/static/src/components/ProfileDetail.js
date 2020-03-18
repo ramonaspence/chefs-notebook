@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import { Redirect, NavLink } from 'react-router-dom';
-
-import RecipeList from './RecipeListView';
+import ListFollowing from './ListFollowing.js';
+import ListFollowers from './ListFollowers.js';
+import RecipeList from './RecipeListView.js';
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
@@ -24,9 +24,26 @@ class ProfileDetail extends Component {
       }
       this.onFollow = this.onFollow.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
+      this.handleFollowers = this.handleFollowers.bind(this);
+      this.handleFollowing = this.handleFollowing.bind(this);
+      this.handleRecipes = this.handleRecipes.bind(this);
 
 
+  }
 
+  handleRecipes(e) {
+    e.preventDefault();
+    this.setState({toggle: 'recipes'})
+  }
+
+  handleFollowing(e) {
+    e.preventDefault();
+    this.setState({toggle: 'following'})
+  }
+
+  handleFollowers(e) {
+    e.preventDefault();
+    this.setState({toggle: 'followers'})
   }
 
   onFollow(e) {
@@ -72,8 +89,23 @@ class ProfileDetail extends Component {
             <p>Member since: {this.state.profile.date_joined}</p>
               </div>
               </div>
+
               <div className='col-9'>
-                <RecipeList hidenav={this.state.hidenav} />
+              <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
+              <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>
+              <button className="btn btn-outline-info" onClick={this.handleFollowers}>Followers</button>
+
+              { this.state.toggle === 'following'
+              ?
+              <ListFollowing hidenav={this.state.hidenav} />
+              :
+              this.state.toggle === 'followers'
+              ?
+              <ListFollowers hidenav={this.state.hidenav} />
+              :
+              <RecipeList hidenav={this.state.hidenav} />
+              }
+
               </div>
           </div>
           </React.Fragment>

@@ -11,7 +11,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
-class ListFollowers extends Component {
+class ListFollowing extends Component {
   constructor() {
     super();
 
@@ -20,41 +20,41 @@ class ListFollowers extends Component {
     }
 
     this.componentDidMount = this.componentDidMount.bind(this);
+
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/profiles/followers`,{
+    axios.get(`${BASE_URL}/api/v1/profiles/following/`, {
       headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).token}`}
     })
     .then(res => this.setState({connections: res.data}))
     .catch(err => console.log(err));
   }
 
-  render() {
-    let followers = this.state.connections.map(follower => (
 
+  render() {
+    let following = this.state.connections.map(connection => (
       <div className="row no-gutters">
         <div className="col-8 ml-auto card d-flex">
           <div className="title card-body">
             <div className="card-title">
-              <h3>{follower.user.username}</h3>
-              <p>since {follower.created}</p>
-
+              <h3>{connection.following.username}</h3>
+              <p>since {connection.created}</p>
 
             </div>
           </div>
         </div>
       </div>
     ))
-    return (
+    return(
       <React.Fragment>
       { this.props.hidenav ?
         null
         :
-      <Nav /> }
-      <div>{followers}</div>
+        <Nav /> }
+        <div>{following}</div>
       </React.Fragment>
     )
   }
 }
-export default ListFollowers;
+export default ListFollowing;

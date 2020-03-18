@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import { Redirect, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import RecipeList from './RecipeListView';
 import Nav from '../containers/Nav.js';
@@ -16,12 +16,12 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class UserProfiles extends Component {
   constructor() {
-    super(); {
+    super(); 
       this.state = {
         users: [],
         hidenav: true
       }
-    }
+
 
     this.componentDidMount = this.componentDidMount.bind(this);
 

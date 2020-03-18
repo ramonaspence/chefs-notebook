@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import { Redirect, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
+import ListFollowers from './ListFollowers.js';
+import ListFollowing from './ListFollowing.js';
 import RecipeList from './RecipeListView.js'
 import Nav from '../containers/Nav.js';
 
@@ -20,12 +22,30 @@ class ProfileView extends Component {
 
     this.state = {
       profile: '',
-      hidenav: true
+      hidenav: true,
+      toggle: 'recipe'
     }
 
 
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.handleFollowers = this.handleFollowers.bind(this);
+    this.handleFollowing = this.handleFollowing.bind(this);
+    this.handleRecipes = this.handleRecipes.bind(this);
+  }
 
+  handleRecipes(e) {
+    e.preventDefault();
+    this.setState({toggle: 'recipes'})
+  }
+
+  handleFollowing(e) {
+    e.preventDefault();
+    this.setState({toggle: 'following'})
+  }
+
+  handleFollowers(e) {
+    e.preventDefault();
+    this.setState({toggle: 'followers'})
   }
 
   getFollows() {
@@ -74,10 +94,22 @@ class ProfileView extends Component {
               </div>
               </div>
               <div className='col-9'>
-                <div className="card profile-add-recipe col-6 ml-auto">
-                  <NavLink to='/add/recipe/' className='btn btn-outline-info'>Start a New Recipe</NavLink>
-                </div>
+                  <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
+                  <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>
+                  <button className="btn btn-outline-info" onClick={this.handleFollowers}>Followers</button>
+                  <NavLink to='/add/recipe/' className='btn btn-outline-info mr-auto'>Start a New Recipe</NavLink>
+
+                { this.state.toggle === 'following'
+                ?
+                <ListFollowing hidenav={this.state.hidenav} />
+                :
+                this.state.toggle === 'followers'
+                ?
+                <ListFollowers hidenav={this.state.hidenav} />
+                :
                 <RecipeList hidenav={this.state.hidenav} />
+                }
+
               </div>
           </div>
           </React.Fragment>

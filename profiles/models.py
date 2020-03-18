@@ -6,7 +6,7 @@ User = get_user_model();
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, blank=True, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=20)
     avatar = models.ImageField(upload_to="images/")
     bio = models.TextField(max_length=255)

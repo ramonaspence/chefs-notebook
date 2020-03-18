@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import '../App.css';
 
 import {Redirect} from 'react-router-dom';
-import ProfileView from './ProfileView.js';
 
 import Nav from '../containers/Nav.js';
 import axios from 'axios';

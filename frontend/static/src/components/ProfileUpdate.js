@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import RecipeList from './RecipeListView.js';
 import Nav from '../containers/Nav.js';

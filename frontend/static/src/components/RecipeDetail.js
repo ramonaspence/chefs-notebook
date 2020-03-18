@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import Nav from '../containers/Nav.js';
 
