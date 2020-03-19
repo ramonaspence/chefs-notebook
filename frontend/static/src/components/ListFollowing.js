@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+import {Link} from 'react-router-dom';
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
@@ -12,8 +13,8 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
 class ListFollowing extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       connections: [],
@@ -33,12 +34,13 @@ class ListFollowing extends Component {
 
 
   render() {
+    console.log(this.props.profile);
     let following = this.state.connections.map(connection => (
       <div className="row no-gutters">
         <div className="col-8 ml-auto card d-flex">
           <div className="title card-body">
             <div className="card-title">
-              <h3>{connection.following.username}</h3>
+              <Link to={`/users/profile/${connection.following}/`}><h3>{connection.following.username}</h3></Link>
               <p>since {connection.created}</p>
 
             </div>

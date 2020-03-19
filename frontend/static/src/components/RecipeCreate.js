@@ -53,7 +53,7 @@ class RecipeCreate extends Component {
     formData.append('image', recipe.image);
     formData.append('ingredients', recipe.ingredients);
     formData.append('instructions', recipe.instructions);
-    formData.append('tags', recipe.tags);
+
     // formData.append(<user>, recipe.author);
 
     axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
@@ -102,8 +102,7 @@ class RecipeCreate extends Component {
             <label htmlFor="instructions">Tell us how to make it!</label>
             <input type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
 
-            <label htmlFor="tags">Add tags to your recipe so people can find it easier!</label>
-            <input type='text' name='tags' onChange={this.handleChange} defaultValue='' />
+
 
             <button>Save Recipe</button>
 

@@ -4,14 +4,28 @@ from django.shortcuts import get_object_or_404
 
 from .models import Recipe, Comment
 from .serializers import *
+from django.conf import settings
+
+
+
+
+class TagListCreateView(generics.ListCreateAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 class RecipeListView(generics.ListCreateAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
 
+
     def perform_create(self, serializer, **kwargs):
+        # import pdb; pdb.set_trace()
+
+
+
         serializer.save(author = self.request.user)
+        ##serializer.save(tags = clarifai response)  ## this may be a way to implement auto-tagging with the clarifai api
 
     def get_queryset(self):
         user = self.request.user
@@ -38,10 +52,10 @@ class CommentListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer, **kwargs):
         # import pdb; pdb.set_trace()
-        recipe = get_object_or_404(Recipe, pk=self.kwargs['pk'])
+        recipe = get_object_or_404(Recipe, pk=self.kwargs['pk']) ## grabs recipe instance, so I can assign the object, instead of the id
 
         serializer.save(author = self.request.user) ##saves self.request.user as author when creating a comment
-        serializer.save(recipe = recipe) ##tries to save the integer to recipe field, but this field is looking for an object
+        serializer.save(recipe = recipe) ## saves recipe object brought in by get_object_or_404
 
 class CommentRUDView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()

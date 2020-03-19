@@ -48,7 +48,6 @@ class ProfileDetail extends Component {
 
   onFollow(e) {
     e.preventDefault();
-    console.log('fire!!');
     axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.user}, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
@@ -67,7 +66,6 @@ class ProfileDetail extends Component {
 
 
   render() {
-    console.log(this.state);
     return(
       <React.Fragment>
       <Nav />
@@ -97,7 +95,7 @@ class ProfileDetail extends Component {
 
               { this.state.toggle === 'following'
               ?
-              <ListFollowing hidenav={this.state.hidenav} />
+              <ListFollowing profile={this.state.profile} hidenav={this.state.hidenav} />
               :
               this.state.toggle === 'followers'
               ?

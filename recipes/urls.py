@@ -4,6 +4,7 @@ from . import views
 app_name = 'recipes'
 
 urlpatterns = [
+    path('tags/', views.TagListCreateView.as_view(), name='tag_create'),
     path('comments/', views.CommentListCreateView.as_view(), name='get_comments'),
     path('comments/<int:pk>/', views.CommentRUDView.as_view(), name='create_comment'),
     path('', views.RecipeListView.as_view(), name='list_recipe'),
