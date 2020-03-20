@@ -2,7 +2,6 @@
   box-sizing: border-box;
 }
 
-
 ul {
   list-style: none;
 }
@@ -11,7 +10,6 @@ img {
   width: 300px;
   height: 350px;
   margin-right: .5rem;
-
 
 }
 
@@ -34,7 +32,6 @@ a {
 
 .right {
   display: flex;
-
 }
 
 .form-control {
@@ -42,9 +39,15 @@ a {
 }
 
 .profile-body {
-  height: 100%;
+  height: fit-content;
 }
 
-.profile-add-recipe {
-  
+.profile-nav {
+  text-align: right;
+  margin-right: 1rem;
+  margin-top: .5rem;
+}
+
+.profile-nav button {
+  margin-right: .5rem;
 }

@@ -77,8 +77,8 @@ class ProfileView extends Component {
       <React.Fragment>
       <Nav />
       <div className='row no-gutters'>
-        <div className='col-3 card'>
-          <div className='profile-body card-body'>
+        <div className='col-3 card profile-body'>
+          <div className='card-body'>
             <NavLink to='/profile/update/:userid'>Update Profile</NavLink>
             <h2>{this.state.display_name}</h2>
 
@@ -94,11 +94,12 @@ class ProfileView extends Component {
               </div>
               </div>
               <div className='col-9'>
+                <div className='profile-nav'>
                   <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
                   <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>
                   <button className="btn btn-outline-info" onClick={this.handleFollowers}>Followers</button>
-                  <NavLink to='/add/recipe/' className='btn btn-outline-info mr-auto'>Start a New Recipe</NavLink>
-
+                  <NavLink to='/add/recipe/' className='add-recipe-btn btn btn-outline-info mr-auto'>Start a New Recipe</NavLink>
+                </div>
                 { this.state.toggle === 'following'
                 ?
                 <ListFollowing hidenav={this.state.hidenav} />
