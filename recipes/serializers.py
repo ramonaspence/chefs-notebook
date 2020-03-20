@@ -51,29 +51,25 @@ class RecipeSerializer(serializers.ModelSerializer):
         recipe = Recipe.objects.create(**validated_data)
         model = app.public_models.food_model ## specifies food_model for api prediction
         response = model.predict_by_url(recipe.image.url)
+        ## instead of digging all the way into object returned by Clarifai, I need to slice results
+        ## so I can go straight to the concepts that are brought back like below
         concepts = response['outputs'][0]['data']['concepts']
+        concepts = concepts[0:5]
         print(concepts)
-        ## instead of digging all the way into this json object, I need to slice results
-        ## so I can go straight to the concepts that are brought back! Whooo!
+        ## now loop through the concepts, check if they exist in db, if they don't, save to database.
+        ## and if they do exist, save appropriate tags to recipe instance.
         # import pdb; pdb.set_trace()
         for concept in concepts:
-            if Tag.objects.filter(name=concept).exists(): ## checks if concepts already exist in db at '/api/v1/recipes/tags'
-                validated_data.append(concepts) ## this needs to be refactored
+            if Tag.objects.filter(name=concept).exists():
+
+                tag = Tag.objects.get(name=concept)
+                recipe.tags.add(tag)
+
             else:
-                tags = Tag.objects.create(name=concept) ## throws error bc 'concepts' is over 255 chars.
+                tag = Tag.objects.create(name=concept)
                 
-        return recipe ## tags will be added by this point.
-        # import pdb; pdb.set_trace()
-        # if response.objects.filter()
-
-        # iterate over your tags to see if they exist
-        # if the do not, create them
-
-
-        # once all tags exists, add a relationship for each one to the recipe
-
-
-
-        # import pdb; pdb.set_trace()
-
-        # return recipe
+                ## must assign concept and not concepts, so that each tag is saved, as opposed to all of them at once
+        recipe.save() ## saves recipe instance with tags added
+        return recipe
+        ## this adds pre-existing tags to a recipe, and if the tags do not exist they are saved to db
+        ## HOWEVER if the tags do not exist, once they are added, they do not get saved to recipe
