@@ -46,7 +46,6 @@ class RecipeSerializer(serializers.ModelSerializer):
     ## this create method is how I'm doing that.
     def create(self, validated_data):
         tags = validated_data.pop('tags')
-        # import pdb; pdb.set_trace()
 
         recipe = Recipe.objects.create(**validated_data)
         model = app.public_models.food_model ## specifies food_model for api prediction
@@ -60,16 +59,14 @@ class RecipeSerializer(serializers.ModelSerializer):
         ## and if they do exist, save appropriate tags to recipe instance.
         # import pdb; pdb.set_trace()
         for concept in concepts:
-            if Tag.objects.filter(name=concept).exists():
 
+            if Tag.objects.filter(name=concept).exists():
                 tag = Tag.objects.get(name=concept)
                 recipe.tags.add(tag)
 
             else:
                 tag = Tag.objects.create(name=concept)
-                
-                ## must assign concept and not concepts, so that each tag is saved, as opposed to all of them at once
+                recipe.tags.add(tag)
+
         recipe.save() ## saves recipe instance with tags added
         return recipe
-        ## this adds pre-existing tags to a recipe, and if the tags do not exist they are saved to db
-        ## HOWEVER if the tags do not exist, once they are added, they do not get saved to recipe
