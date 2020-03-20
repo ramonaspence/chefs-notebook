@@ -40,6 +40,10 @@ class RecipeSerializer(serializers.ModelSerializer):
         author = serializers.ReadOnlyField(source='author.username') ## was used//not commented out
 
 
+    ## modified create method to save recipe before adding tags from clarifai api
+    ## because tags is a ManyToManyField, tags must be defined before saving to an instance of recipe
+    ## once the recipe is saved, and the tags are defined in the db, a relationship between them can be made
+    ## this create method is how I'm doing that.
     def create(self, validated_data):
         tags = validated_data.pop('tags')
         # import pdb; pdb.set_trace()
@@ -47,10 +51,19 @@ class RecipeSerializer(serializers.ModelSerializer):
         recipe = Recipe.objects.create(**validated_data)
         model = app.public_models.food_model ## specifies food_model for api prediction
         response = model.predict_by_url(recipe.image.url)
-        for concepts in response:
-            for concepts in output:
-                print(name)
-        import pdb; pdb.set_trace()
+        concepts = response['outputs'][0]['data']['concepts']
+        print(concepts)
+        ## instead of digging all the way into this json object, I need to slice results
+        ## so I can go straight to the concepts that are brought back! Whooo!
+        # import pdb; pdb.set_trace()
+        for concept in concepts:
+            if Tag.objects.filter(name=concept).exists(): ## checks if concepts already exist in db at '/api/v1/recipes/tags'
+                validated_data.append(concepts) ## this needs to be refactored
+            else:
+                tags = Tag.objects.create(name=concept) ## throws error bc 'concepts' is over 255 chars.
+                
+        return recipe ## tags will be added by this point.
+        # import pdb; pdb.set_trace()
         # if response.objects.filter()
 
         # iterate over your tags to see if they exist
