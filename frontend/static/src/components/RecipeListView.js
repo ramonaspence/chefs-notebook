@@ -33,7 +33,7 @@ class RecipeList extends Component {
   handleSearch(e) {
     e.preventDefault();
     console.log('fires')
-    axios.get(`${BASE_URL}/api/v1/recipes/?title=${this.state.title ? this.state.title : 'title'}&${this.state.description ? this.state.description : 'description'}=&${this.state.author ? this.state.author : 'author'}=`)
+    axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${this.state.title ? this.state.title : 'title'}&${this.state.description ? this.state.description : 'description__icontains'}=&${this.state.author ? this.state.author : 'author__icontains'}=`)
     .then(res => this.setState({recipes: res.data}))
     .catch(err => console.log(err));
   }
