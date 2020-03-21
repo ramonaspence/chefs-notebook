@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404
 from .models import Recipe, Comment
 from .serializers import *
 from django.conf import settings
+from .filters import RecipeFilter
+from django_filters import rest_framework as filters
 
 
 
@@ -17,6 +19,9 @@ class TagListCreateView(generics.ListCreateAPIView):
 class RecipeListView(generics.ListCreateAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+
+    filterset_fields = ['title', 'description', 'author', 'tags']
 
         ## perform_create method allows me to automatically save the logged in user as author to the Recipe instance.
     def perform_create(self, serializer):
@@ -26,6 +31,12 @@ class RecipeListView(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         return Recipe.objects.filter(author = user)
+
+    # def list(self, request, *args, **kwargs):
+    #     response = super(RecipeListView, self).list(self, request, args, kwargs)
+    #     # import pdb; pdb.set_trace()
+    #     response.data.append(RecipeFilter(self.request.GET, queryset=self.get_queryset()))
+    #     return response
 
 
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):

@@ -7,8 +7,8 @@ ul {
 }
 
 img {
-  width: 300px;
-  height: 350px;
+  width: 18rem;
+  height: 21rem;
   margin-right: .5rem;
 
 }
@@ -50,4 +50,13 @@ a {
 
 .profile-nav button {
   margin-right: .5rem;
+}
+
+.recipe-list-img {
+  width: 14rem;
+  height: 12rem;
+}
+
+.recipe-list-body {
+  display: inline-block;
 }

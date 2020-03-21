@@ -51,8 +51,9 @@ INSTALLED_APPS = [
     'rest_auth', #new
     'allauth', #new
     'allauth.account', #new
-    'allauth.socialaccount', ## for some reason, not having allauth.socialaccount prevents deleting users locally   
+    'allauth.socialaccount', ## for some reason, not having allauth.socialaccount prevents deleting users locally?
     'rest_auth.registration',#new
+    'django_filters', #django-filters package allows to setup easy queryset filtering
 
     #local
 
@@ -65,7 +66,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', ## necessary for heroku deployment
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

@@ -77,7 +77,7 @@ class ProfileView extends Component {
       <React.Fragment>
       <Nav />
       <div className='row no-gutters'>
-        <div className='col-3 card profile-body'>
+        <div className='col-4 card profile-body'>
           <div className='card-body'>
             <NavLink to='/profile/update/:userid'>Update Profile</NavLink>
             <h2>{this.state.display_name}</h2>
@@ -93,7 +93,7 @@ class ProfileView extends Component {
             <p>Member since: {this.state.date_joined}</p>
               </div>
               </div>
-              <div className='col-9'>
+              <div className='col-8'>
                 <div className='profile-nav'>
                   <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
                   <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>

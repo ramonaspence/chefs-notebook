@@ -17,8 +17,24 @@ class RecipeList extends Component {
 
       this.state = {
         recipes: [],
+
       }
+    this.handleSearchInput = this.handleSearchInput.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+  }
+
+  handleSearchInput(e) {
+    e.preventDefault();
+    this.setState({[e.target.name]: e.target.value})
+    console.log(this.state);
+  }
+
+  handleSearch(e) {
+    e.preventDefault();
+    axios.get(`${BASE_URL}/api/v1/recipes/?title=${this.state.title}&description=&author=`)
+    .then(res => this.setState({recipes: res.data}))
+    .catch(err => console.log(err));
   }
 
   componentDidMount() {
@@ -39,21 +55,20 @@ class RecipeList extends Component {
         <div className="row no-gutters">
           <div className="col-8 ml-auto card d-flex">
             <div className="title card-body">
-              <div className="card-title">
               <h1>{recipe.title}</h1>
               <h2>{recipe.author.username}</h2>
-              </div>
+              <img className="recipe-list-img" src={recipe.image} alt="Whoops! Sorry! No can do."/>
 
-              <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
-            </div>
-            <div className="d-flex align-self-end">
-              <img src={recipe.image} alt="Whoops! Sorry! No can do."/>
 
-            </div>
+
+            <div className='recipe-list-body'>
+            <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
+
             <p>{recipe.description}</p>
             <p>{recipe.date_published}</p>
+            </div>
           </div>
-
+          </div>
         </div>
       ))
         return (
@@ -64,6 +79,10 @@ class RecipeList extends Component {
           :
           <Nav />
         }
+        <form onSubmit={this.handleSearch} className="search form-inline ml-5">
+          <input className="form-control mr-lg-2" type="search" name="title" placeholder="Search" aria-label="Search" onChange={this.handleSearchInput} />
+          <button className="btn btn-outline-light my-2 my-sm-0" type='submit'>Search</button>
+        </form>
         <ul>
           <li>
             {recipes}
