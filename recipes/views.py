@@ -20,8 +20,7 @@ class RecipeListView(generics.ListCreateAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-
-    filterset_fields = ['title', 'description', 'author', 'tags']
+    filterset_fields = ['title', 'description', 'author']
 
         ## perform_create method allows me to automatically save the logged in user as author to the Recipe instance.
     def perform_create(self, serializer):

@@ -6,4 +6,4 @@ from .models import Recipe
 class RecipeFilter(filters.FilterSet):
     class Meta:
         model = Recipe
-        fields = ['title', 'description', 'author', 'tags']
+        fields = ['title', 'description']

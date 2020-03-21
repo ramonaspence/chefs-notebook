@@ -32,7 +32,8 @@ class RecipeList extends Component {
 
   handleSearch(e) {
     e.preventDefault();
-    axios.get(`${BASE_URL}/api/v1/recipes/?title=${this.state.title}&description=&author=`)
+    console.log('fires')
+    axios.get(`${BASE_URL}/api/v1/recipes/?title=${this.state.title ? this.state.title : 'title'}&${this.state.description ? this.state.description : 'description'}=&${this.state.author ? this.state.author : 'author'}=`)
     .then(res => this.setState({recipes: res.data}))
     .catch(err => console.log(err));
   }
@@ -81,6 +82,8 @@ class RecipeList extends Component {
         }
         <form onSubmit={this.handleSearch} className="search form-inline ml-5">
           <input className="form-control mr-lg-2" type="search" name="title" placeholder="Search" aria-label="Search" onChange={this.handleSearchInput} />
+          <input className="form-control mr-lg-2" type="search" name="description" placeholder="Search" aria-label="Search" onChange={this.handleSearchInput} />
+          <input className="form-control mr-lg-2" type="search" name="author" placeholder="Search" aria-label="Search" onChange={this.handleSearchInput} />
           <button className="btn btn-outline-light my-2 my-sm-0" type='submit'>Search</button>
         </form>
         <ul>
