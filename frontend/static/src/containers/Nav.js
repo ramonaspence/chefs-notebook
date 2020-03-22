@@ -50,11 +50,10 @@ class Nav extends Component {
         <div className='col-12 navbar navbar-expand-lg navbar-dark bg-dark'>
           <div className='nav navbar-nav'>
           <div className='left'>
-        <Link className="nav-item nav-link" to="/">Home</Link>
 
-        <Link className="nav-item nav-link" to="/recipes/">Recipes</Link>
+        <Link className="nav-item nav-link ml-lg-5" to="/users/">All Users (dashboard)</Link>
 
-        <Link className="nav-item nav-link" to="/add/recipe/">Create Recipe</Link>
+        <Link className="nav-item nav-link" to="/recipes/">Explore</Link>
 
         <Link className="nav-item nav-link" to="/login">Login</Link>
 
@@ -65,15 +64,11 @@ class Nav extends Component {
 
         <div className='right'>
 
-        <form className="search form-inline ml-5">
-          <input className="form-control mr-lg-2" type="search" placeholder="Search" aria-label="Search" />
-          <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-        </form>
 
-        <Link className="nav-item nav-link ml-lg-5" to="/users/">All Users</Link>
-        <Link className="nav-item nav-link ml-lg-5" to='/profile/'>My Profile</Link>
+        <Link className="nav-item nav-link ml-lg-5" to='/profile/'>
+        <img className="nav-avatar" src="" href="" /></Link>
         <Link className="nav-item nav-link ml-lg-5" to="/profile/create/">Create Profile</Link>
-        <div className='nav-item nav-link ml-lg-5'>Logged in as {JSON.parse(localStorage.getItem('currentUser'))}</div>
+        <div className='nav-item nav-link ml-lg-5'>Logged in as </div>
             </div>
           </div>
         </div>

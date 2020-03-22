@@ -2,6 +2,7 @@ from rest_framework import generics
 
 from django.shortcuts import get_object_or_404
 
+from profiles.models import Profile
 from .models import Recipe, Comment
 from .serializers import *
 from django.conf import settings
@@ -21,23 +22,20 @@ class RecipeListView(generics.ListCreateAPIView):
     serializer_class = RecipeSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = RecipeFilter
-    # filterset_fields = ['title', 'description', 'author']
-    ##filterset_fields works with exact matches. but using the RecipeFilter defined in filters.py, this does not work at all.
 
         ## perform_create method allows me to automatically save the logged in user as author to the Recipe instance.
     def perform_create(self, serializer):
         serializer.save(author = self.request.user)
-        ##serializer.save(tags = clarifai response)  ## this may be a way to implement auto-tagging with the clarifai api
+
+        ## get_queryset method currently renders the recipes authored by the logged in user.
+        ## should render recipes belonging to the rendered profile's user
+        ## for instance: when I go to luke's profile, I should see luke's recipes rendered.
+        ## the user.id can be passed from profileview to recipelistview. But how to filter on the frontend?
 
     def get_queryset(self):
         user = self.request.user
         return Recipe.objects.filter(author = user)
 
-    # def list(self, request, *args, **kwargs):
-    #     response = super(RecipeListView, self).list(self, request, args, kwargs)
-    #     # import pdb; pdb.set_trace()
-    #     response.data.append(RecipeFilter(self.request.GET, queryset=self.get_queryset()))
-    #     return response
 
 
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):

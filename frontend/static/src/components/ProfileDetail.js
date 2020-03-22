@@ -19,10 +19,13 @@ class ProfileDetail extends Component {
     super();
       this.state = {
         profile: {},
-        hidenav: true
+        hidenav: true,
+        following: null,
 
       }
-      this.onFollow = this.onFollow.bind(this);
+
+      this.removeFollow = this.removeFollow.bind(this);
+      this.addFollow = this.addFollow.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
       this.handleFollowers = this.handleFollowers.bind(this);
       this.handleFollowing = this.handleFollowing.bind(this);
@@ -46,12 +49,23 @@ class ProfileDetail extends Component {
     this.setState({toggle: 'followers'})
   }
 
-  onFollow(e) {
+  removeFollow(e) {
+    e.preventDefault();
+    console.log(this.state.profile);
+    // if (this.state.profile.followers[1].user.id === localStorage.getItem('currentUser').id) {
+    //   axios.delete(`${BASE_URL}/api/v1/profiles/connections/${this.state.profile.followers[0].id}`)
+    // .then(res => console.log(res))
+    // .catch(err => console.log(err))
+  // }
+  }
+
+
+  addFollow(e) {
     e.preventDefault();
     axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.user}, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
-    .then(res => console.log(res.data))
+    .then(res => this.setState({profile: res.data}))
     .catch(err => console.log(err));
   }
 
@@ -62,6 +76,7 @@ class ProfileDetail extends Component {
     })
     .then(res => this.setState({profile: res.data}))
     .catch(err => console.log(err))
+
   }
 
 
@@ -70,16 +85,23 @@ class ProfileDetail extends Component {
       <React.Fragment>
       <Nav />
       <div className='row no-gutters'>
-        <div className='col-3 card'>
-          <div className='profile-body card-body'>
+        <div className='col-4 card profile-body'>
+          <div className='card-body'>
             <h2>{this.state.profile.display_name}</h2>
 
               <img src={this.state.profile.avatar} alt="don't know about that" />
               <p>{this.state.profile.bio}</p>
-              <p>{this.state.profile.follows}</p>
+
+              {this.state.profile.followers === localStorage.getItem('currentUser') //ternary returns false always.
+                ?
+                <div className='follow'>
+                  <button onClick={this.removeFollow}>UnFollow {this.state.profile.display_name}</button>
+                </div>
+                :
               <div className='follow'>
-                <button onClick={this.onFollow}>Follow {this.state.profile.display_name}</button>
+                <button onClick={this.removeFollow}>Follow {this.state.profile.display_name}</button>
               </div>
+              }
 
           </div>
 
@@ -88,11 +110,12 @@ class ProfileDetail extends Component {
               </div>
               </div>
 
-              <div className='col-9'>
+              <div className='col-8'>
+              <div className='profile-nav'>
               <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
               <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>
               <button className="btn btn-outline-info" onClick={this.handleFollowers}>Followers</button>
-
+              </div>
               { this.state.toggle === 'following'
               ?
               <ListFollowing profile={this.state.profile} hidenav={this.state.hidenav} />
@@ -101,7 +124,7 @@ class ProfileDetail extends Component {
               ?
               <ListFollowers hidenav={this.state.hidenav} />
               :
-              <RecipeList hidenav={this.state.hidenav} />
+              <RecipeList profile={this.state.profile} hidenav={this.state.hidenav} />
               }
 
               </div>

@@ -14,7 +14,7 @@ class Profile(models.Model):
     # followers = models.ManyToManyField(self)
 
     def __str__(self):
-        return self.display_name
+        return self.user.username
 
     def get_following(self):
         return Connection.objects.filter(user=self.user) ## filters from connection model's fields

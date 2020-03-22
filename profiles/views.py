@@ -12,6 +12,7 @@ class ProfileDetailView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+
 class ProfileUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -48,6 +49,11 @@ class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create
     def perform_create(self, serializer):
         following = get_object_or_404(User, pk=self.request.data['following'])
         serializer.save(user=self.request.user, following=following);
+
+class ConnectionRetrieveDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Connection.objects.all()
+    serializer_class = ConnectionSerializer
+
 
 class FollowingListView(generics.ListAPIView):
     queryset = Connection.objects.all()

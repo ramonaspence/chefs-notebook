@@ -12,12 +12,11 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class RecipeList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
       this.state = {
         recipes: [],
-
       }
     this.handleSearchInput = this.handleSearchInput.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -42,7 +41,7 @@ class RecipeList extends Component {
     axios.get(`${BASE_URL}/api/v1/recipes/`,
       {
         headers: {
-          'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
+          // 'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
     }})
 
     .then(response => this.setState({recipes: response.data}))
@@ -51,6 +50,7 @@ class RecipeList extends Component {
   }
 
   render() {
+    // console.log('props', this.props.profile.user);
       let recipes = this.state.recipes.map(recipe => (
 
         <div className="row no-gutters">

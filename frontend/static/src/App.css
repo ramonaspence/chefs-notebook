@@ -17,6 +17,11 @@ a {
   text-decoration: none;
 }
 
+.nav-avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .card {
   margin-bottom: .5rem;
   margin-top: .5rem;

@@ -24,16 +24,6 @@ class CommentSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
-    ## http://www.cdrf.co/3.9/rest_framework.serializers/ModelSerializer.html
-    ## If there are many to many fields present on the instance then they
-    ##    cannot be set until the model is instantiated, in which case the
-    ##    implementation is like so:
-    ##
-    ##        example_relationship = validated_data.pop('example_relationship')
-    ##        instance = ExampleModel.objects.create(**validated_data)
-    ##        instance.example_relationship = example_relationship
-    ##        return instance
-
     class Meta:
         model = Recipe
         fields = '__all__' ##['title', 'description', 'image', 'ingredients', 'instructions', 'tags',]
