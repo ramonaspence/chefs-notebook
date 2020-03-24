@@ -3,7 +3,7 @@ import '../App.css';
 
 import ListFollowing from './ListFollowing.js';
 import ListFollowers from './ListFollowers.js';
-import RecipeList from './RecipeList.js';
+import UserRecipeList from './UserRecipeList.js';
 
 import Nav from '../containers/Nav.js';
 
@@ -56,7 +56,7 @@ class ProfileDetail extends Component {
     let userid = JSON.parse(localStorage.getItem('currentUser')).userid
 
     this.state.profile.followers.map(connection => {
-      if (connection.user.id === userid) {
+      if (connection.owner.id === userid) {
         let conid = connection.id
         axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}`)
       .then(res => console.log(res))
@@ -71,7 +71,7 @@ class ProfileDetail extends Component {
 
   addFollow(e) {
     e.preventDefault();
-    axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.user}, {
+    axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.owner}, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
     .then(res => this.setState({profile: res.data}))
@@ -92,12 +92,12 @@ class ProfileDetail extends Component {
 
 
   render() {
-    const user = JSON.parse(localStorage.getItem('currentUser')).userid;
+    const owner = JSON.parse(localStorage.getItem('currentUser')).userid;
     let button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>;
 
     if (this.state.profile.followers) {
       this.state.profile.followers.map(follower => {
-        if (follower.user.id === user) {
+        if (follower.owner.id === owner) {
           button = <div><button className="btn btn-outline-primary" onClick={this.removeFollow}>UnFollow</button></div>
         }
 
@@ -139,8 +139,9 @@ class ProfileDetail extends Component {
               ?
               <ListFollowers hidenav={this.state.hidenav} />
               :
-              <RecipeList profile={this.state.profile.user} hidenav={this.state.hidenav} />
-              }
+              this.state.profile.owner && <UserRecipeList profile={this.state.profile.owner} hidenav={this.state.hidenav} />
+            } {/* uses inline if with && operator to wait until this.state.profile.user is updated, to render the recipe list
+              this forces the parent component (profiledetail) to NOT pass state until the state is defined */}
 
               </div>
           </div>

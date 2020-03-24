@@ -37,7 +37,7 @@ class ListFollowers extends Component {
         <div className="col-8 ml-auto card d-flex">
           <div className="title card-body">
             <div className="card-title">
-              <h3>{follower.user.username}</h3>
+              <h3>{follower.owner.username}</h3>
               <p>since {follower.created}</p>
 
 

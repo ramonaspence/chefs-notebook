@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 
-import RecipeList from './RecipeList.js';
+import UserRecipeList from './UserRecipeList.js';
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
@@ -115,7 +115,7 @@ class ProfileUpdate extends Component {
                     </div>
                     </div>
                     <div className='col-9'>
-                      <RecipeList hidenav={this.state.hidenav} />
+                      <UserRecipeList hidenav={this.state.hidenav} />
                     </div>
                 </div>
                 </React.Fragment>

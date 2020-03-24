@@ -103,7 +103,7 @@ class RecipeDetail extends Component {
         (
           <div className="card">
               <div className="card-title">
-                <h4>{comment.author.username}</h4>
+                <h4>{comment.owner.username}</h4>
                   <p>{comment.date_published}</p>
               </div>
               <div className="card-body">

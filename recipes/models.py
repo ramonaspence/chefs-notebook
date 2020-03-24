@@ -16,7 +16,7 @@ class Tag(models.Model):
 class Recipe(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField(max_length=255)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     ingredients = models.TextField()
     instructions = models.TextField()
     image = models.ImageField(upload_to='images/', blank=True)
@@ -29,7 +29,7 @@ class Recipe(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True, related_name="comments")
     body = models.TextField()
     date_published = models.DateTimeField(auto_now_add=True)

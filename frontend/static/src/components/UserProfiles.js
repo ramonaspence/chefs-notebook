@@ -3,7 +3,7 @@ import '../App.css';
 
 import { NavLink } from 'react-router-dom';
 
-import RecipeList from './RecipeList.js';
+
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
@@ -48,7 +48,7 @@ class UserProfiles extends Component {
               </div>
               <div>
                 <p>{user.bio}</p>
-                <RecipeList hidenav={this.state.hidenav}/>
+
               </div>
 
             </div>

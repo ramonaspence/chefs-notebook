@@ -1,4 +1,5 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
+from .permissions import IsOwnerOrReadOnly
 from .models import Profile
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -11,18 +12,19 @@ User = get_user_model()
 class ProfileDetailView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permissions_classes = [permissions.IsAuthenticated]
 
-    
 
 
 class ProfileUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_object(self):
         # import pdb; pdb.set_trace()
         queryset = self.get_queryset()
-        obj = get_object_or_404(queryset, user=self.request.user)
+        obj = get_object_or_404(queryset, owner=self.request.user)
         return obj
     ## this method keeps me from seeing other people's profiles! I need them to be seen by others, but not be able to update them
 
@@ -35,9 +37,10 @@ class ProfileUpdateView(generics.RetrieveUpdateDestroyAPIView):
 class ProfileListCreateView(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(owner=self.request.user)
 
     # def get_queryset(self):
     #     user = self.request.user
@@ -46,27 +49,31 @@ class ProfileListCreateView(generics.ListCreateAPIView):
 class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create and read followers and followings
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         following = get_object_or_404(User, pk=self.request.data['following'])
-        serializer.save(user=self.request.user, following=following);
+        serializer.save(owner=self.request.user, following=following);
 
 class ConnectionRetrieveDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 class FollowingListView(generics.ListAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         # import pdb; pdb.set_trace()
-        return Connection.objects.filter(user = self.request.user)
+        return Connection.objects.filter(owner = self.request.user)
 
 class FollowerListView(generics.ListAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Connection.objects.filter(following = self.request.user)

@@ -9,4 +9,5 @@ class RecipeFilter(filters.FilterSet):
         fields = {
             'title': ['icontains'],
             'description': ['icontains'],
+            'tags': ['icontains'],
         }

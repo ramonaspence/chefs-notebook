@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import ListFollowers from './ListFollowers.js';
 import ListFollowing from './ListFollowing.js';
-import RecipeList from './RecipeList.js'
+import UserRecipeList from './UserRecipeList.js'
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
@@ -21,7 +21,7 @@ class ProfileView extends Component {
     super();
 
     this.state = {
-      profile: '',
+      profile: {},
       hidenav: true,
       toggle: 'recipe'
     }
@@ -60,19 +60,18 @@ class ProfileView extends Component {
 
 
   componentDidMount() {
-    console.log(this.props);
 
     axios.get(`${BASE_URL}/api/v1/profiles/user`,
     {
       headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).token}`}
     })
-    .then(response => this.setState(response.data))
+    .then(response => this.setState({profile: response.data}))
     .catch(err => console.log(err));
-    console.log(this.state);
 
   }
 
   render() {
+
     return (
       <React.Fragment>
       <Nav />
@@ -80,17 +79,17 @@ class ProfileView extends Component {
         <div className='col-4 card profile-body'>
           <div className='card-body'>
             <NavLink to='/profile/update/:userid'>Update Profile</NavLink>
-            <h2>{this.state.display_name}</h2>
+            <h2>{this.state.profile.display_name}</h2>
 
-              <img src={this.state.avatar} alt="don't know about that" />
-              <p>{this.state.bio}</p>
-              <p>{this.state.follows}</p>
+              <img src={this.state.profile.avatar} alt="don't know about that" />
+              <p>{this.state.profile.bio}</p>
+              <p>{this.state.profile.follows}</p>
 
 
           </div>
 
           <div className='card-footer'>
-            <p>Member since: {this.state.date_joined}</p>
+            <p>Member since: {this.state.profile.date_joined}</p>
               </div>
               </div>
               <div className='col-8'>
@@ -108,7 +107,7 @@ class ProfileView extends Component {
                 ?
                 <ListFollowers hidenav={this.state.hidenav} />
                 :
-                <RecipeList hidenav={this.state.hidenav} />
+                this.state.profile.owner && <UserRecipeList profile={this.state.profile.owner} hidenav={this.state.hidenav} />
                 }
 
               </div>

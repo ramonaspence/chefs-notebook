@@ -11,7 +11,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-class RecipeList extends Component {
+class ExploreRecipeList extends Component {
   constructor(props) {
     super(props);
 
@@ -32,7 +32,7 @@ class RecipeList extends Component {
   handleSearch(e) {
     e.preventDefault();
     console.log('fires')
-    axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${this.state.title ? this.state.title : 'title'}&${this.state.description ? this.state.description : 'description__icontains'}=&${this.state.author ? this.state.author : 'author__icontains'}=`)
+    axios.get(`${BASE_URL}/api/v1/recipes/?${this.state.title ? `title__icontains=${this.state.title}&` : ''}${this.state.description ? `description__icontains=${this.state.description}&` : ''}${this.state.tags ? `tags__icontains=${this.state.tags}` : ''}`)
     .then(res => this.setState({recipes: res.data}))
     .catch(err => console.log(err));
   }
@@ -51,14 +51,13 @@ class RecipeList extends Component {
   }
 
   render() {
-    
    let recipes = this.state.recipes.map(recipe =>  (
 
         <div className="row no-gutters">
           <div className="col-8 ml-auto card d-flex">
             <div className="title card-body">
               <h1>{recipe.title}</h1>
-              <h5>{recipe.author.username}</h5>
+              <Link to={`/users/profile/${recipe.owner.id}`}><h5>{recipe.owner.username}</h5></Link>
               <img className="recipe-list-img" src={recipe.image} alt="Whoops! Sorry! No can do."/>
 
 
@@ -84,7 +83,7 @@ class RecipeList extends Component {
         <form onSubmit={this.handleSearch} className="search form-inline ml-5">
           <input className="form-control mr-lg-2" type="search" name="title" placeholder="Search by title" aria-label="Search" onChange={this.handleSearchInput} />
           <input className="form-control mr-lg-2" type="search" name="description" placeholder="Search by description" aria-label="Search" onChange={this.handleSearchInput} />
-          <input className="form-control mr-lg-2" type="search" name="author" placeholder="Search by author" aria-label="Search" onChange={this.handleSearchInput} />
+          <input className="form-control mr-lg-2" type="search" name="tags" placeholder="Search by tags" aria-label="Search" onChange={this.handleSearchInput} />
           <button className="btn btn-outline-light my-2 my-sm-0" type='submit'>Search</button>
         </form>
         <ul>
@@ -98,4 +97,4 @@ class RecipeList extends Component {
 }
 }
 
-export default RecipeList;
+export default ExploreRecipeList;

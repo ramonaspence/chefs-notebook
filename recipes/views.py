@@ -1,5 +1,5 @@
-from rest_framework import generics
-
+from rest_framework import generics, permissions
+from .permissions import IsOwnerOrReadOnly
 from django.shortcuts import get_object_or_404
 
 from profiles.models import Profile
@@ -17,15 +17,26 @@ User = get_user_model()
 class TagListCreateView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 class RecipeProfileListView(generics.ListAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self, **kwargs):
-        user = get_object_or_404(User, pk = self.kwargs['id'])
-        queryset = Recipe.objects.filter(author = user)
+        ## this queryset defaults to all recipe objects except when user
+        ## is not none: which in this case means there is no value to capture
+        ## since there is, this filters based on user's primary key coming from urlconf
+        ## this allows for an api endpoint that lists recipes by the author
+        ## instead of filtering by the logged in user
+        queryset = Recipe.objects.all()
+        # import pdb; pdb.set_trace()
+        user = self.kwargs['pk']
+        if user is not None:
+            queryset = queryset.filter(owner__id=user)
+        return queryset
 
 
 class RecipeListView(generics.ListCreateAPIView):
@@ -33,10 +44,11 @@ class RecipeListView(generics.ListCreateAPIView):
     serializer_class = RecipeSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = RecipeFilter
+    permission_classes = [permissions.IsAuthenticated]
 
         ## perform_create method allows me to automatically save the logged in user as author to the Recipe instance.
     def perform_create(self, serializer):
-        serializer.save(author = self.request.user)
+        serializer.save(owner = self.request.user)
 
         ## get_queryset method currently renders the recipes authored by the logged in user.
         ## should render recipes belonging to the rendered profile's user
@@ -50,15 +62,18 @@ class RecipeListView(generics.ListCreateAPIView):
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 class RecipeUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
 class CommentListCreateView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
 
@@ -70,8 +85,9 @@ class CommentListCreateView(generics.ListCreateAPIView):
         recipe = get_object_or_404(Recipe, pk=self.kwargs['pk']) ## grabs recipe instance, so I can assign the object, instead of the id
 
          ##saves self.request.user as author when creating a comment
-        serializer.save(recipe = recipe, author = self.request.user) ## saves recipe object brought in by get_object_or_404
+        serializer.save(recipe = recipe, owner = self.request.user) ## saves recipe object brought in by get_object_or_404
 
 class CommentRUDView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    permission_classes = [IsOwnerOrReadOnly]

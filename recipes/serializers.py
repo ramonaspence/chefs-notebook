@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from .models import *
-
 from django.conf import settings
+
+import json
+
 from clarifai.rest import ClarifaiApp
 CLARIFAI_KEY = settings.CLARIFAI_API_KEY
 
@@ -18,7 +20,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-        author = serializers.ReadOnlyField(source='author.username')
+        owner = serializers.ReadOnlyField(source='owner.username')
         depth = 1
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -27,7 +29,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = '__all__' ##['title', 'description', 'image', 'ingredients', 'instructions', 'tags',]
-        author = serializers.ReadOnlyField(source='author.username') ## was used//not commented out
+        owner = serializers.ReadOnlyField(source='owner.username') ## was used//not commented out
         depth = 1
 
     ## modified create method to save recipe before adding tags from clarifai api
@@ -35,7 +37,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     ## once the recipe is saved, and the tags are defined in the db, a relationship between them can be made
     ## this create method is how I'm doing that.
     def create(self, validated_data):
-        tags = validated_data.pop('tags')
+        # tags = validated_data.pop('tags')
 
         recipe = Recipe.objects.create(**validated_data)
         model = app.public_models.food_model ## specifies food_model for api prediction
@@ -43,7 +45,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         ## instead of digging all the way into object returned by Clarifai, I need to slice results
         ## so I can go straight to the concepts that are brought back like below
         concepts = response['outputs'][0]['data']['concepts']
-        concepts = concepts[0:5]
+        concepts = concepts[0:5][4]
         print(concepts)
         ## now loop through the concepts, check if they exist in db, if they don't, save to database.
         ## and if they do exist, save appropriate tags to recipe instance.
