@@ -3,7 +3,7 @@ import '../App.css';
 
 import { NavLink } from 'react-router-dom';
 
-import RecipeList from './RecipeListView';
+import RecipeList from './RecipeList.js';
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
@@ -16,7 +16,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class UserProfiles extends Component {
   constructor() {
-    super(); 
+    super();
       this.state = {
         users: [],
         hidenav: true

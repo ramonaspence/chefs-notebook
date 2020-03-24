@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 
-import RecipeList from './RecipeListView.js';
+import RecipeList from './RecipeList.js';
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';

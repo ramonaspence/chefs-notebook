@@ -10,8 +10,8 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class Nav extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
       this.state = {
         redirect: null,
@@ -66,7 +66,7 @@ class Nav extends Component {
 
 
         <Link className="nav-item nav-link ml-lg-5" to='/profile/'>
-        <img className="nav-avatar" src="" href="" /></Link>
+        <img className="nav-avatar" src="" href="" />Profile</Link>
         <Link className="nav-item nav-link ml-lg-5" to="/profile/create/">Create Profile</Link>
         <div className='nav-item nav-link ml-lg-5'>Logged in as </div>
             </div>

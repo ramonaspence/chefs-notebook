@@ -35,10 +35,11 @@ class Login extends Component {
   }
 
   captureLogin() {
+
     console.log('fired');
     axios.get(`${BASE_URL}/rest-auth/user/`,)
     .then(res => {
-      localStorage.setItem('currentUser', JSON.stringify(res.data.username));
+      localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}));
     })
     .catch(err => console.log(err));
   }

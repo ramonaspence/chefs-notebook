@@ -41,23 +41,24 @@ class RecipeList extends Component {
     axios.get(`${BASE_URL}/api/v1/recipes/`,
       {
         headers: {
-          // 'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
+          'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
     }})
 
     .then(response => this.setState({recipes: response.data}))
     .catch(err => console.log(err));
 
+
   }
 
   render() {
-    // console.log('props', this.props.profile.user);
-      let recipes = this.state.recipes.map(recipe => (
+    
+   let recipes = this.state.recipes.map(recipe =>  (
 
         <div className="row no-gutters">
           <div className="col-8 ml-auto card d-flex">
             <div className="title card-body">
               <h1>{recipe.title}</h1>
-              <h2>{recipe.author.username}</h2>
+              <h5>{recipe.author.username}</h5>
               <img className="recipe-list-img" src={recipe.image} alt="Whoops! Sorry! No can do."/>
 
 

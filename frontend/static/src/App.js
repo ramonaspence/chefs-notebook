@@ -16,7 +16,8 @@ import ProfileView from './components/ProfileView.js';
 import RecipeUpdate from './components/RecipeUpdate.js';
 import RecipeDetail from './components/RecipeDetail.js'
 import RecipeCreate from './components/RecipeCreate.js';
-import RecipeList from './components/RecipeListView.js';
+import RecipeList from './components/RecipeList.js';
+import MyRecipeList from './components/MyRecipeListView.js';
 import Signup from './components/Signup.js';
 import Login from './components/Login.js';
 import Home from './containers/Home.js';
@@ -61,7 +62,7 @@ class App extends Component {
           <Route path="/profile/create/" component={ProfileCreate} />
           <Route path="/profile/" component={ProfileView} />
           <Route path="/add/recipe/" component={RecipeCreate} />
-          <Route path="/recipes/" exact component={RecipeList}/>
+          <Route path="/recipes/" exact component={MyRecipeList}/>
           <Route path="/recipes/:id" component={RecipeDetail} />
           <Route path="/update/:id/" component={RecipeUpdate} />
           <Route path="/login" component={Login} />

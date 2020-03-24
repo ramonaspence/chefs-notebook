@@ -8,13 +8,24 @@ from .serializers import *
 from django.conf import settings
 from .filters import RecipeFilter
 from django_filters import rest_framework as filters
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 
 
 class TagListCreateView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+
+class RecipeProfileListView(generics.ListAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
+
+    def get_queryset(self, **kwargs):
+        user = get_object_or_404(User, pk = self.kwargs['id'])
+        queryset = Recipe.objects.filter(author = user)
 
 
 class RecipeListView(generics.ListCreateAPIView):
@@ -32,9 +43,7 @@ class RecipeListView(generics.ListCreateAPIView):
         ## for instance: when I go to luke's profile, I should see luke's recipes rendered.
         ## the user.id can be passed from profileview to recipelistview. But how to filter on the frontend?
 
-    def get_queryset(self):
-        user = self.request.user
-        return Recipe.objects.filter(author = user)
+
 
 
 

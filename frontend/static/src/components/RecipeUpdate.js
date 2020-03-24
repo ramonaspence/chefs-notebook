@@ -17,6 +17,7 @@ class RecipeUpdate extends Component {
 
     this.state = {
       recipes: {},
+      preview: '',
     }
 
     this.handleImageChange = this.handleImageChange.bind(this);
@@ -53,10 +54,6 @@ class RecipeUpdate extends Component {
       formData.append('instructions', this.state.instructions);
       formData.append('tags', this.state.tags);
 
-      //when componentdidmount fires, this.state = empty obj
-      //after any edit, this.state = object being edited
-      //if image === a file, not url, send with patch request
-      //if image === a url, not a file, do not send with patch request
 
       if (this.state.image === File) {
         formData.append('image', this.state.image);
@@ -101,9 +98,10 @@ class RecipeUpdate extends Component {
 
             {this.state.image
               ?
-            <img src={this.state.preview} alt="preview not available" />
+            <img src={this.state.image} alt="" />
+
              :
-             (null)
+            <img src={this.state.preview} alt="preview not available" />
             }
 
             <label htmlFor="ingredients">Keep your list of ingredients here</label>
@@ -111,9 +109,6 @@ class RecipeUpdate extends Component {
 
             <label htmlFor="instructions">Tell us how to make it!</label>
             <input type='text' name='instructions' onChange={this.handleChange} defaultValue={this.state.instructions} />
-
-            <label htmlFor="tags">Add tags to your recipe so people can find it easier!</label>
-            <input type='text' name='tags' onChange={this.handleChange} defaultValue={this.state.tags} />
 
             <button>Save Recipe</button>
 

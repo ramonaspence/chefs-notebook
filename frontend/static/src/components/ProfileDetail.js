@@ -3,7 +3,8 @@ import '../App.css';
 
 import ListFollowing from './ListFollowing.js';
 import ListFollowers from './ListFollowers.js';
-import RecipeList from './RecipeListView.js';
+import RecipeList from './RecipeList.js';
+
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
@@ -21,7 +22,7 @@ class ProfileDetail extends Component {
         profile: {},
         hidenav: true,
         following: null,
-
+        connections: []
       }
 
       this.removeFollow = this.removeFollow.bind(this);
@@ -51,13 +52,21 @@ class ProfileDetail extends Component {
 
   removeFollow(e) {
     e.preventDefault();
-    console.log(this.state.profile);
-    // if (this.state.profile.followers[1].user.id === localStorage.getItem('currentUser').id) {
-    //   axios.delete(`${BASE_URL}/api/v1/profiles/connections/${this.state.profile.followers[0].id}`)
-    // .then(res => console.log(res))
-    // .catch(err => console.log(err))
-  // }
+
+    let userid = JSON.parse(localStorage.getItem('currentUser')).userid
+
+    this.state.profile.followers.map(connection => {
+      if (connection.user.id === userid) {
+        let conid = connection.id
+        axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+      } else {
+        console.log('if clause failed')
+      }})
   }
+
+
 
 
   addFollow(e) {
@@ -68,6 +77,8 @@ class ProfileDetail extends Component {
     .then(res => this.setState({profile: res.data}))
     .catch(err => console.log(err));
   }
+
+
 
   componentDidMount() {
 
@@ -81,6 +92,19 @@ class ProfileDetail extends Component {
 
 
   render() {
+    const user = JSON.parse(localStorage.getItem('currentUser')).userid;
+    let button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>;
+
+    if (this.state.profile.followers) {
+      this.state.profile.followers.map(follower => {
+        if (follower.user.id === user) {
+          button = <div><button className="btn btn-outline-primary" onClick={this.removeFollow}>UnFollow</button></div>
+        }
+
+      });
+    }
+
+
     return(
       <React.Fragment>
       <Nav />
@@ -92,16 +116,7 @@ class ProfileDetail extends Component {
               <img src={this.state.profile.avatar} alt="don't know about that" />
               <p>{this.state.profile.bio}</p>
 
-              {this.state.profile.followers === localStorage.getItem('currentUser') //ternary returns false always.
-                ?
-                <div className='follow'>
-                  <button onClick={this.removeFollow}>UnFollow {this.state.profile.display_name}</button>
-                </div>
-                :
-              <div className='follow'>
-                <button onClick={this.removeFollow}>Follow {this.state.profile.display_name}</button>
-              </div>
-              }
+              {button}
 
           </div>
 
@@ -124,7 +139,7 @@ class ProfileDetail extends Component {
               ?
               <ListFollowers hidenav={this.state.hidenav} />
               :
-              <RecipeList profile={this.state.profile} hidenav={this.state.hidenav} />
+              <RecipeList profile={this.state.profile.user} hidenav={this.state.hidenav} />
               }
 
               </div>

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import ListFollowers from './ListFollowers.js';
 import ListFollowing from './ListFollowing.js';
-import RecipeList from './RecipeListView.js'
+import RecipeList from './RecipeList.js'
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
