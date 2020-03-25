@@ -50,13 +50,8 @@ class RecipeListView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner = self.request.user)
 
-        ## get_queryset method currently renders the recipes authored by the logged in user.
-        ## should render recipes belonging to the rendered profile's user
-        ## for instance: when I go to luke's profile, I should see luke's recipes rendered.
-        ## the user.id can be passed from profileview to recipelistview. But how to filter on the frontend?
-
-
-
+    # def get_queryset(self):
+    #     import pdb; pdb.set_trace()
 
 
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
