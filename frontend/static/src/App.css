@@ -43,6 +43,15 @@ a {
   height: 2rem;
 }
 
+.explore-tag-keyevent {
+  color: green;
+  background-color: grey;
+}
+
+.explore-tags {
+  color: auto;
+}
+
 .profile-body {
   height: fit-content;
 }
@@ -64,4 +73,84 @@ a {
 
 .recipe-list-body {
   display: inline-block;
+}
+
+.recipe-create-body {
+display: flex;
+flex-direction: row-reverse;
+
+
+}
+
+.recipe-title-div {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.recipe-title {
+  width: 20rem;
+  margin: .5rem;
+}
+
+.recipe-description {
+  margin: .5rem;
+  width: 30rem;
+}
+
+.image-create-div {
+  float: right;
+}
+
+.image-upload {
+
+  height: 2.5rem;
+  width: 17.5rem;
+}
+
+.image-preview-div {
+  height: 9rem;
+  width: 17.5rem;
+
+}
+
+.image-preview {
+  height: 9rem;
+  width: 17.5rem;
+
+}
+
+
+.recipe-ingredient-div {
+  
+  height: 35rem;
+  width: 20rem;
+
+
+}
+
+.recipe-ingredient-box {
+
+  width: 20rem;
+  height: 40rem;
+
+}
+
+.recipe-instructions-div {
+  height: 35rem;
+}
+
+.recipe-instructions-box {
+  height: 35rem;
+}
+
+
+
+.save-recipe-div {
+
+}
+
+.save-button-recipe {
+  display: flex;
+  float: right;
 }

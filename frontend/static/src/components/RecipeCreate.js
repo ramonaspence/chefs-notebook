@@ -29,7 +29,7 @@ class RecipeCreate extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-
+    console.log(this.state);
 
   }
 
@@ -80,32 +80,42 @@ class RecipeCreate extends Component {
       <div className="row no-gutters">
         <div className="col-10 offset-1">
           <form type='submit' method='post' onSubmit={(e) => this.handleSubmit(e, this.state)}>
-            <label htmlFor="title">Recipe Title:</label>
-            <input type='text' name='title' onChange={this.handleChange} defaultValue='' />
+            <div className="recipe-title-div">
+            <input className="form-control recipe-title" placeholder="title" type='text' name='title' onChange={this.handleChange} defaultValue='' />
 
-            <label htmlFor="description">Description:</label>
-            <input type='text' name='description' onChange={this.handleChange} defaultValue='' />
+            <input className="form-control recipe-description" placeholder="description" type='text' name='description' onChange={this.handleChange} defaultValue='' />
+            </div>
+            <div className="recipe-create-body row no-gutters">
 
-            <label htmlFor="image">Add an Image for this Recipe</label>
-            <input type='file' name='image' onChange={this.handleImageChange} />
+
+
+            <div className="image-create-div col-3 ml-auto">
+            <input className="col-12 image-upload card" type='file' name='image' onChange={this.handleImageChange} />
+            <div className="image-preview-div card">
 
             {this.state.image
               ?
-            <img src={this.state.preview} alt="preview not available" />
+
+            <img className="image-preview card" src={this.state.preview} alt="preview not available" />
+
              :
              (null)
             }
+            </div>
+            </div>
 
-            <label htmlFor="ingredients">Keep your list of ingredients here</label>
-            <input type='text' name='ingredients' onChange={this.handleChange} defaultValue='' />
+            <div className="recipe-ingredient-div card col-3">
+            <textarea className="form-control col-12 recipe-ingredient-box" placeholder='Keep your ingredients and measurements here' type='text' name='ingredients' onChange={this.handleChange} defaultValue='' />
+            </div>
 
-            <label htmlFor="instructions">Tell us how to make it!</label>
-            <input type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
+            <div className="recipe-instructions-div card col-9">
+            <input className="form-control col-12 recipe-instruction-box" type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
+            </div>
 
-
-
-            <button>Save Recipe</button>
-
+            <div className="save-recipe-div">
+            <button className="btn btn-outline-success save-recipe-btn">Save Recipe</button>
+            </div>
+            </div>
           </form>
         </div>
       </div>
