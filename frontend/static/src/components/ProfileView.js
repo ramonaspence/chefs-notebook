@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 
 import { NavLink } from 'react-router-dom';
+import moment from 'moment';
 
 import ListFollowers from './ListFollowers.js';
 import ListFollowing from './ListFollowing.js';
@@ -89,7 +90,7 @@ class ProfileView extends Component {
           </div>
 
           <div className='card-footer'>
-            <p>Member since: {this.state.profile.date_joined}</p>
+            <p>Member since: {moment(this.state.profile.date_joined).format("MMM Do YYYY")}</p>
               </div>
               </div>
               <div className='col-8'>

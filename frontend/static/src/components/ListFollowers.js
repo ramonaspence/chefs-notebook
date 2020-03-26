@@ -3,6 +3,7 @@ import '../App.css';
 
 import Nav from '../containers/Nav.js';
 
+import moment from 'moment';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -38,7 +39,7 @@ class ListFollowers extends Component {
           <div className="title card-body">
             <div className="card-title">
               <h3>{follower.owner.username}</h3>
-              <p>since {follower.created}</p>
+              <p>since {moment(follower.created).format("MMM Do YYYY")}</p>
 
 
             </div>

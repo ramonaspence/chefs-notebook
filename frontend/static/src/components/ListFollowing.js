@@ -4,6 +4,7 @@ import '../App.css';
 import {Link} from 'react-router-dom';
 import Nav from '../containers/Nav.js';
 
+import moment from 'moment';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -41,7 +42,7 @@ class ListFollowing extends Component {
           <div className="title card-body">
             <div className="card-title">
               <Link to={`/users/profile/${connection.following}/`}><h3>{connection.following.username}</h3></Link>
-              <p>since {connection.created}</p>
+              <p>since {moment(connection.created).format("MMM Do YYYY")}</p>
 
             </div>
           </div>

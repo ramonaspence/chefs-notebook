@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 
 import Nav from '../containers/Nav.js';
-
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -70,7 +70,8 @@ class UserRecipeList extends Component {
             <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
 
             <p>{recipe.description}</p>
-            <p>{recipe.date_published}</p>
+            <p>created on {moment(recipe.date_published).format("MMM Do YYYY")}</p>
+            <p>last updated {moment(recipe.date_updated).fromNow()}</p>
             </div>
           </div>
           </div>

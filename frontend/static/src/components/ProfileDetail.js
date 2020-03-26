@@ -7,6 +7,8 @@ import UserRecipeList from './UserRecipeList.js';
 
 import Nav from '../containers/Nav.js';
 
+import moment from 'moment';
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -121,7 +123,7 @@ class ProfileDetail extends Component {
           </div>
 
           <div className='card-footer'>
-            <p>Member since: {this.state.profile.date_joined}</p>
+            <p>Member since: {moment(this.state.profile.date_joined).format("MMM Do YYYY")}</p>
               </div>
               </div>
 

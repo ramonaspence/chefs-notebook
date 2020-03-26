@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 
 import Nav from '../containers/Nav.js';
-
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -17,20 +17,20 @@ class ExploreRecipeList extends Component {
 
       this.state = {
         recipes: [],
-        tagDecoration: null
+        tagpreviews: [],
       }
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyEvent = this.handleKeyEvent.bind(this);
     this.handleSearchInput = this.handleSearchInput.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
 
-  handleKeyDown(e) {
+  handleKeyEvent(e) {
 
     // e.preventDefault();
     if(e.key === ' ' && e.key !== 'Tab') {
-      this.setState({tagDecoration: true});
+      this.setState({tagpreviews: [e.target.value]});
     }
     else {
       return
@@ -83,13 +83,14 @@ class ExploreRecipeList extends Component {
   }
 
   render() {
-    let keyEvent = 'explore-tag';
-    if (this.state.tagDecoration) {
-      let keyEvent = 'explore-tag-keyevent';
-    }
-    else {
 
-    }
+    // let tagpreviews = this.state.tagpreviews.map(tag => (
+    //
+    //       <span className="tags-preview-span">{tag.tagpreviews}</span>
+    //
+    //   ))
+
+
     let recipes = this.state.recipes.map(recipe =>  (
 
         <div className="row no-gutters">
@@ -105,7 +106,7 @@ class ExploreRecipeList extends Component {
             <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
 
             <p>{recipe.description}</p>
-            <p>{recipe.date_published}</p>
+            <p>created on {moment(recipe.date_published).format("MMM Do YYYY")}</p>
             </div>
           </div>
           </div>
@@ -119,12 +120,30 @@ class ExploreRecipeList extends Component {
           :
           <Nav />
         }
-        <form onSubmit={this.handleSearch} className="search form-inline ml-5">
+        <div className="row no-gutters explore-recipe-form">
+        <form role="search" onSubmit={this.handleSearch} className="search form-inline ml-5 col-12">
           <input className="form-control mr-lg-2" type="search" name="title" placeholder="Search by title" aria-label="Search" onChange={this.handleSearchInput} />
           <input className="form-control mr-lg-2" type="search" name="description" placeholder="Search by description" aria-label="Search" onChange={this.handleSearchInput} />
-          <input className={`form-control mr-lg-2 ${this.state.tagDecoration ? keyEvent : null}`} type="search" name="tags" placeholder="Search by tags" aria-label="Search" onKeyDown={this.handleKeyDown} onChange={this.handleSearchInput} />
-          <button className="btn btn-outline-light my-2 my-sm-0" type='submit'>Search</button>
+
+
+          <input className="form-control mr-lg-2" type="search" name="tags" placeholder="Search by tags" aria-label="Search" onKeyUp={this.handleKeyEvent} onChange={this.handleSearchInput} />
+
+
+
+          <button className="btn search-btn btn-outline-dark my-2 my-sm-0" type='submit'>Search</button>
         </form>
+        {this.state.tags
+          ?
+          <div className="tags-preview col-2 offset-4">
+
+          {this.state.tagpreviews}
+
+          </div>
+          :
+          <div className="tags-preview col-2 offset-4">
+          </div>
+        }
+        </div>
         <ul>
           <li>
             {recipes}

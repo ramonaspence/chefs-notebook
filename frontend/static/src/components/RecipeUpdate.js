@@ -20,6 +20,7 @@ class RecipeUpdate extends Component {
       preview: '',
     }
 
+    this.handleVersion = this.handleVersion.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -72,6 +73,24 @@ class RecipeUpdate extends Component {
     .catch(err => console.log(err));
   }
 
+  handleVersion(e) {
+    e.preventDefault();
+
+    let formData = new FormData();
+    formData.append('title', this.state.title);
+    formData.append('description', this.state.description);
+    formData.append('ingredients', this.state.ingredients);
+    formData.append('instructions', this.state.instructions);
+    formData.append('tags', this.state.tags);
+
+
+    if (this.state.image === File) {
+      formData.append('image', this.state.image);
+    } else
+
+    axios.post(`${BASE_URL}`)
+  }
+
   componentDidMount() {
 
     // get request to pull in single recipe
@@ -111,6 +130,7 @@ class RecipeUpdate extends Component {
             <input type='text' name='instructions' onChange={this.handleChange} defaultValue={this.state.instructions} />
 
             <button>Save Recipe</button>
+            <button onSubmit={this.handleVersion}>Save as New Version</button>
 
           </form>
         </div>

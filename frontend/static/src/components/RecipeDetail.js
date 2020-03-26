@@ -4,7 +4,7 @@ import '../App.css';
 import { NavLink } from 'react-router-dom';
 
 import Nav from '../containers/Nav.js';
-
+import moment from 'moment';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -138,7 +138,8 @@ class RecipeDetail extends Component {
 
               <p>{this.state.recipe.instructions}</p>
 
-              <p>{this.state.recipe.date_published}</p>
+              <p>Created On {moment(this.state.recipe.date_published).format("MMM do YYYY")}</p>
+              <p>last updated {moment(this.state.recipe.date_updated).fromNow()}</p>
 
           </div>
           <div className="col-4 ml-auto">
