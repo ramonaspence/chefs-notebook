@@ -31,12 +31,11 @@ class RecipeDetail extends Component {
   }
 
   checkAuth() {
-    if (localStorage.getItem('currentUser').pk === this.state.recipe.owner.id) {
+
+    if (this.state.recipe.owner && localStorage.getItem('currentUser').pk === this.state.recipe.owner.id) {
       this.setState({isAuthorized: true})
     }
-    else {
-      return
-    }
+
   }
 
   handleChange(e) {
@@ -87,7 +86,7 @@ class RecipeDetail extends Component {
   }
 
   render() {
-    // this.checkAuth()
+    this.checkAuth()
     console.log(this.state)
     let comments;
     if(this.state.recipe.comments){
@@ -133,7 +132,7 @@ class RecipeDetail extends Component {
               </div>
             </div>
           </div>
-        
+
             <div className="image-create-div col-4">
               <div className="image-preview-div card">
                 <img className="image-preview" src="" alt="Whoops! Sorry! No can do."/>
@@ -155,10 +154,15 @@ class RecipeDetail extends Component {
             </div>
       </div>
 
-
+          {this.state.isAuthorized
+            ?
+            <React.Fragment>
           <div onClick={this.handleDelete} className="btn btn-outline-danger">Delete Recipe</div>
           <NavLink to={`/update/${this.state.recipe.id}`}><button className="btn btn-outline-primary">Edit Recipe</button></NavLink>
-
+            </React.Fragment>
+            :
+            null
+          }
           <div className="card">
             <div className="card-body">
             <form method="post" type='submit' onSubmit={this.handleSubmit}>
