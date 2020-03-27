@@ -35,27 +35,18 @@ class Signup extends Component {
 
   signUp(e) {
     e.preventDefault();
-    // let formData = new FormData();
-    // formData.append('username', this.state.username);
-    // formData.append('email', this.state.email);
-    // console.log(formData);
 
     console.log(this.state);
     axios.post(`${BASE_URL}/rest-auth/registration/`, this.state,)
     .then(res => {
       localStorage.setItem('current-user', JSON.stringify(res.data));
-      this.setState({redirect: true});
+      this.props.history.push('/users/');
 
     })
     .catch(err => {console.log(err);})
   }
 
   render() {
-    if (this.state.redirect === true) {
-      return (
-        <Redirect to="/login" />
-      )
-  } else
     return (
       <React.Fragment>
       <Nav />

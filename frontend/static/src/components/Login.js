@@ -20,7 +20,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      redirect: null
+
     }
 
     this.captureLogin = this.captureLogin.bind(this)
@@ -35,8 +35,6 @@ class Login extends Component {
   }
 
   captureLogin() {
-
-    console.log('fired');
     axios.get(`${BASE_URL}/rest-auth/user/`,)
     .then(res => {
       localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}));
@@ -46,24 +44,17 @@ class Login extends Component {
 
   handleLogin(e) {
     e.preventDefault();
-    console.log(this.props);
 
-    axios.post(`${BASE_URL}/rest-auth/login/`, this.state,)
-    .then(res => {
-      localStorage.setItem('current-user', JSON.stringify(res.data));
-      console.log(res.data)
-      // this.setState({redirect: 1})
-      this.captureLogin();
-    })
-    .catch(err => {console.log(err);})
-    this.setState({redirect: 1})
+
+    axios.post(`${BASE_URL}/rest-auth/login/`, this.state)
+    .then(res => {localStorage.setItem('current-user', JSON.stringify(res.data))
+      this.captureLogin()
+      this.props.history.push('/users/')})
+    .catch(err => {console.log(err)})
 
   }
 
   render() {
-    if (this.state.redirect) {
-      return(<Redirect to="/" />)
-  } else {
     return (
       <React.Fragment>
       <Nav />

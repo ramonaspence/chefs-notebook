@@ -66,7 +66,7 @@ class ProfileDetail extends Component {
       } else {
         console.log('if clause failed')
       }})
-      
+
   }
 
 
@@ -78,6 +78,7 @@ class ProfileDetail extends Component {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
     .then(res => this.setState({profile: res.data}))
+  
     .catch(err => console.log(err));
   }
 
