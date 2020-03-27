@@ -84,11 +84,11 @@ class ExploreRecipeList extends Component {
 
   render() {
 
-    // let tagpreviews = this.state.tagpreviews.map(tag => (
-    //
-    //       <span className="tags-preview-span">{tag.tagpreviews}</span>
-    //
-    //   ))
+    let tagpreviews = this.state.tagpreviews.map(tag => (
+
+          <span className="tags-preview-span">{tag}</span>
+
+      ))
 
 
     let recipes = this.state.recipes.map(recipe =>  (
@@ -136,7 +136,7 @@ class ExploreRecipeList extends Component {
           ?
           <div className="tags-preview col-2 offset-4">
 
-          {this.state.tagpreviews}
+          {tagpreviews}
 
           </div>
           :

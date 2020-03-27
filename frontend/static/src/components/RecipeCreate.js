@@ -81,41 +81,44 @@ class RecipeCreate extends Component {
         <div className="col-10 offset-1">
           <form type='submit' method='post' onSubmit={(e) => this.handleSubmit(e, this.state)}>
             <div className="recipe-title-div">
-            <input className="form-control recipe-title" placeholder="title" type='text' name='title' onChange={this.handleChange} defaultValue='' />
+              <input className="form-control recipe-title" placeholder="title" type='text' name='title' onChange={this.handleChange} defaultValue='' />
 
-            <input className="form-control recipe-description" placeholder="description" type='text' name='description' onChange={this.handleChange} defaultValue='' />
+              <input className="form-control recipe-description" placeholder="description" type='text' name='description' onChange={this.handleChange} defaultValue='' />
+        </div>
+
+
+
+
+            <div className="image-create-div col-4">
+              <input className="col-12 image-upload card" type='file' name='image' onChange={this.handleImageChange} />
+                <div className="image-preview-div card">
+
+                  {this.state.image
+                  ?
+
+                    <img className="image-preview card" src={this.state.preview} alt="preview not available" />
+
+                  :
+                    (null)
+                  }
+                </div>
             </div>
-            <div className="recipe-create-body row no-gutters">
 
 
-
-            <div className="image-create-div col-3 ml-auto">
-            <input className="col-12 image-upload card" type='file' name='image' onChange={this.handleImageChange} />
-            <div className="image-preview-div card">
-
-            {this.state.image
-              ?
-
-            <img className="image-preview card" src={this.state.preview} alt="preview not available" />
-
-             :
-             (null)
-            }
-            </div>
-            </div>
-
+            <div className="recipe-create-div row no-gutters">
             <div className="recipe-ingredient-div card col-3">
             <textarea className="form-control col-12 recipe-ingredient-box" placeholder='Keep your ingredients and measurements here' type='text' name='ingredients' onChange={this.handleChange} defaultValue='' />
             </div>
 
             <div className="recipe-instructions-div card col-9">
-            <input className="form-control col-12 recipe-instruction-box" type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
+            <textarea className="form-control col-12 recipe-instruction-box" type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
             </div>
 
             <div className="save-recipe-div">
             <button className="btn btn-outline-success save-recipe-btn">Save Recipe</button>
             </div>
             </div>
+
           </form>
         </div>
       </div>

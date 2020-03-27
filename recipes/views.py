@@ -13,7 +13,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-
 class TagListCreateView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer

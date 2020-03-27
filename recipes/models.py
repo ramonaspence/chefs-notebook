@@ -14,6 +14,7 @@ class Tag(models.Model):
         return self.name
 
 class Recipe(models.Model):
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=150)
     description = models.TextField(max_length=255)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
