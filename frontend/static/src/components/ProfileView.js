@@ -67,7 +67,11 @@ class ProfileView extends Component {
       headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).token}`}
     })
     .then(response => this.setState({profile: response.data}))
-    .catch(err => console.log(err));
+    .catch(err => {console.log(err.response)
+      if (err.response.status === 404) {
+        console.log(this.props.history.push('/profile/create/'));
+      }
+      });
 
   }
 

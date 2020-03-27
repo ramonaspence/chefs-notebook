@@ -18,14 +18,11 @@ class RecipeDetail extends Component {
 
     this.state = {
       recipe: {},
-      comment: {
-        recipe: {}
-      },
-      edit: false
+      comment: {},
+      isAuthorized: false,
     }
-    //
-    // this.handleEdit = this.handleEdit.bind(this);
-    // this.toggleEdit = this.toggleEdit.bind(this);
+
+    this.checkAuth = this.checkAuth.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -33,17 +30,14 @@ class RecipeDetail extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  // handleEdit(e) {
-  //   e.preventDefault();
-  //   axios.patch(`${BASE_URL}/api/v1/recipes/comments/${this.state.comment.id}/`)
-  //   .then(res => console.log(res.data))
-  //   .catch(err => console.log(err));
-  // }
-  //
-  // toggleEdit(e) {
-  //   e.preventDefault();
-  //   this.setState({edit: true});
-  // }
+  checkAuth() {
+    if (localStorage.getItem('currentUser').pk === this.state.recipe.owner.id) {
+      this.setState({isAuthorized: true})
+    }
+    else {
+      return
+    }
+  }
 
   handleChange(e) {
     console.log('fired')
@@ -77,6 +71,8 @@ class RecipeDetail extends Component {
 
   }
 
+
+
   componentDidMount() {
 
     console.log(this.props)
@@ -87,16 +83,12 @@ class RecipeDetail extends Component {
     })
     .then(response => this.setState({recipe: response.data}))
     .catch(err => console.log(err));
-    //
-    // axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/comments/`)
-    // .then(response => this.setState({commentlist: response.data}))
-    // .catch(err => console.log(err));
-    //
-    // console.log(this.state);
 
   }
 
   render() {
+    // this.checkAuth()
+    console.log(this.state)
     let comments;
     if(this.state.recipe.comments){
       comments = this.state.recipe.comments.map(comment =>
@@ -120,31 +112,52 @@ class RecipeDetail extends Component {
       <React.Fragment>
       <Nav />
       <div className="row no-gutters">
-        <div className="col-8 offset-2 mr-auto card">
-          <div className="card-body">
-            <div className="card-title">
-              <h2>{this.state.recipe.title}</h2>
+        <div className="col-10 offset-1 mr-auto">
+          <div className="recipe-title-div">
+            <div className="recipe-title">
+              {this.state.recipe.title}
+            </div>
+            <div className="recipe-description">
+              {this.state.recipe.description}
+            </div>
+          </div>
+            {
 
+            }
+            <div className="recipe-times-div">
+              <div className="recipe-created">
+                Created On {moment(this.state.recipe.date_published).format("MMM do YYYY")}
+              </div>
+              <div className="recipe-updated">
+                last updated {moment(this.state.recipe.date_updated).fromNow()}
+              </div>
+            </div>
+          </div>
+        
+            <div className="image-create-div col-4">
+              <div className="image-preview-div card">
+                <img className="image-preview" src="" alt="Whoops! Sorry! No can do."/>
+              </div>
             </div>
 
-                <div onClick={this.handleDelete} className="btn btn-outline-danger">Delete Recipe</div>
+
+            <div className="recipe-create-div row no-gutters">
+              <div className="recipe-ingredient-div card col-3">
+                <div className="form-control col-12 recipe-ingredient-box">
+                  {this.state.recipe.ingredients}
+                </div>
+              </div>
+              <div className="recipe-instructions-div card col-9">
+                <div className="form-control col-12 recipe-instructions-box">
+                  {this.state.recipe.instructions}
+                </div>
+              </div>
+            </div>
+      </div>
 
 
-              <NavLink to={`/update/${this.state.recipe.id}`}><button className="btn btn-outline-primary">Edit Recipe</button></NavLink>
-
-              <p>{this.state.recipe.description}</p>
-
-              <p>{this.state.recipe.ingredients}</p>
-
-              <p>{this.state.recipe.instructions}</p>
-
-              <p>Created On {moment(this.state.recipe.date_published).format("MMM do YYYY")}</p>
-              <p>last updated {moment(this.state.recipe.date_updated).fromNow()}</p>
-
-          </div>
-          <div className="col-4 ml-auto">
-            <img src="" alt="Whoops! Sorry! No can do."/>
-          </div>
+          <div onClick={this.handleDelete} className="btn btn-outline-danger">Delete Recipe</div>
+          <NavLink to={`/update/${this.state.recipe.id}`}><button className="btn btn-outline-primary">Edit Recipe</button></NavLink>
 
           <div className="card">
             <div className="card-body">
@@ -158,10 +171,7 @@ class RecipeDetail extends Component {
           </div>
 
           <div>{comments}</div>
-        </div>
 
-
-      </div>
       </React.Fragment>
     )
   }

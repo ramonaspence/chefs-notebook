@@ -18,7 +18,7 @@ img {
 
 
 a {
-  
+
   text-decoration: none;
 }
 
@@ -43,7 +43,7 @@ a {
 .profile-link {
   display: flex;
   align-items: flex-end;
-  margin-left: 45rem;
+  margin-left: 50rem;
 }
 
 .form-control {
@@ -230,4 +230,19 @@ flex-direction: row-reverse;
 .save-button-recipe {
   display: flex;
   float: right;
+}
+
+.recipe-times-div {
+  float:right;
+
+}
+
+.recipe-created {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.recipe-updated {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
 }

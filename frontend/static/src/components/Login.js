@@ -37,7 +37,8 @@ class Login extends Component {
   captureLogin() {
     axios.get(`${BASE_URL}/rest-auth/user/`,)
     .then(res => {
-      localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}));
+      localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}))
+      console.log(res);
     })
     .catch(err => console.log(err));
   }
@@ -69,7 +70,7 @@ class Login extends Component {
     </div>
     </React.Fragment>
 
-  )}
+  )
   }
 }
 

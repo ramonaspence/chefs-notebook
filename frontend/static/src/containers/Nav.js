@@ -41,7 +41,7 @@ class Nav extends Component {
       localStorage.removeItem('current-user')
       localStorage.removeItem('currentUser')
       console.log('successfully logged out');
-      this.setState({redirect: true})
+      this.props.history.push('/');
 
     })
     .catch(err => {console.log(err);})
@@ -54,11 +54,6 @@ class Nav extends Component {
 
 
   render() {
-
-    if (this.state.redirect) {
-      return (<Redirect to="/" />)
-    }
-    else
     return (
 
       <div className="row no-gutters">
@@ -77,7 +72,6 @@ class Nav extends Component {
 
 
         <div className="profile-link">
-        <Link className="nav-item nav-link ml-lg-3" to="/profile/create/">Create Profile</Link>
         <Link className="nav-item nav-link ml-lg-3" to='/profile/'>Profile</Link>
         {this.state.isAuthenticated
         ?

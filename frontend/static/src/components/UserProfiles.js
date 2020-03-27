@@ -34,7 +34,6 @@ class UserProfiles extends Component {
   }
 
   render() {
-    console.log(this.state.users);
     let users = this.state.users.map(user => {
       return (
         <div className="row no-gutters">
@@ -64,7 +63,7 @@ class UserProfiles extends Component {
         :
         <Nav />
       }
-    
+
           <div>{users}</div>
       </React.Fragment>
     )
