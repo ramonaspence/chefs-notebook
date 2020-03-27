@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background: #eeffff;
+}
+
 ul {
   list-style: none;
 }
@@ -10,10 +14,11 @@ img {
   width: 18rem;
   height: 21rem;
   margin-right: .5rem;
-
 }
 
+
 a {
+  
   text-decoration: none;
 }
 
@@ -31,12 +36,14 @@ a {
   display: inline;
 }
 
-.left {
-  display: flex;
+.navbar {
+  width: 100%;
 }
 
-.right {
+.profile-link {
   display: flex;
+  align-items: flex-end;
+  margin-left: 45rem;
 }
 
 .form-control {
@@ -110,53 +117,91 @@ flex-direction: row-reverse;
 .recipe-title-div {
   display: inline-block;
   width: 35rem;
+
 }
 
 .recipe-title {
   width: 20rem;
-  margin: .5rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
 }
 
 .recipe-description {
-  margin: .5rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
   width: 30rem;
 }
+
 
 .image-create-div {
   display: inline-block;
   width: 20rem;
   float: right;
+  padding-left: 1rem;
+
 
 }
 
 .image-upload {
 
   height: 2.5rem;
-  width: 20rem;
+  width: 100%;
+}
+
+.image-upload::-webkit-file-upload-button {
+  border: rgba(0,0,0,.125) 1px solid;
+  border-radius: 3px;
+  background-color: #eeffff77;
+  margin-top: .25rem;
+  color: #000000aa;
+}
+
+.image-upload::-webkit-file-upload-button:hover{
+  background-color: #eeffffff;
+  border: #00000055 solid 1px;
+  border-radius: 3px;
+}
+
+.image-upload::before {
+
+  display: inline-block;
+  background: linear-gradient(to bottom, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+
+.image-upload:hover {
+  background-color: #
 }
 
 .image-preview-div {
   height: 14rem;
   width: 18.25rem;
-
 }
 
 .image-preview {
   height: 14rem;
   width: 18.25rem;
+  margin-top: 0rem;
 
 }
 
-
 .recipe-ingredient-div {
-
+  margin-left: .001rem;
   height: 40rem;
   width: 20rem;
-
-
 }
 
 .recipe-ingredient-box {
+
   margin-top: 0;
   margin-bottom: 0;
   width: 20rem;
@@ -170,6 +215,7 @@ flex-direction: row-reverse;
 }
 
 .recipe-instructions-box {
+
   margin-top: 0;
   margin-bottom: 0;
   height: 40rem;

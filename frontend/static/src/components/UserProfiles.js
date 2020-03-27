@@ -64,6 +64,7 @@ class UserProfiles extends Component {
         :
         <Nav />
       }
+    
           <div>{users}</div>
       </React.Fragment>
     )

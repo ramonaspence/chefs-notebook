@@ -66,6 +66,7 @@ class ProfileDetail extends Component {
       } else {
         console.log('if clause failed')
       }})
+      
   }
 
 

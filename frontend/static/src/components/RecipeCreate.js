@@ -85,12 +85,13 @@ class RecipeCreate extends Component {
 
               <input className="form-control recipe-description" placeholder="description" type='text' name='description' onChange={this.handleChange} defaultValue='' />
         </div>
-
-
-
+        <div className="save-recipe-div">
+        <button className="btn btn-outline-success save-recipe-btn">Save Recipe</button>
+        </div>
 
             <div className="image-create-div col-4">
               <input className="col-12 image-upload card" type='file' name='image' onChange={this.handleImageChange} />
+
                 <div className="image-preview-div card">
 
                   {this.state.image
@@ -111,12 +112,10 @@ class RecipeCreate extends Component {
             </div>
 
             <div className="recipe-instructions-div card col-9">
-            <textarea className="form-control col-12 recipe-instruction-box" type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
+            <textarea className="form-control col-12 recipe-instructions-box" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
             </div>
 
-            <div className="save-recipe-div">
-            <button className="btn btn-outline-success save-recipe-btn">Save Recipe</button>
-            </div>
+
             </div>
 
           </form>
