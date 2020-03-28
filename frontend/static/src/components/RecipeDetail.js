@@ -109,72 +109,75 @@ class RecipeDetail extends Component {
     }
     return (
       <React.Fragment>
-      <Nav />
-      <div className="row no-gutters">
-        <div className="col-10 offset-1 mr-auto">
-          <div className="recipe-title-div">
-            <div className="recipe-title">
-              {this.state.recipe.title}
-            </div>
-            <div className="recipe-description">
-              {this.state.recipe.description}
-            </div>
-          </div>
-            {
+        <Nav />
+          <div className="row no-gutters">
+            <div className="col-10 offset-1 mr-auto">
+              <div className="form-div">
+              <div className="recipe-title-div">
+                <div className="recipe-detail-title">
+                  {this.state.recipe.title}
+                </div>
+                <div className="recipe-description">
+                  {this.state.recipe.description}
+                </div>
+              </div>
 
+              <div className="recipe-times-div">
+                <div className="recipe-created">
+                  Created On {moment(this.state.recipe.date_published).format("MMM do YYYY")}
+                </div>
+                <div className="recipe-updated">
+                  last updated {moment(this.state.recipe.date_updated).fromNow()}
+                </div>
+              </div>
+            </div>
+
+            {this.state.isAuthorized
+              ?
+              <React.Fragment>
+            <div onClick={this.handleDelete} className="btn btn-outline-danger recipe-save-div">Delete Recipe</div>
+            <NavLink to={`/update/${this.state.recipe.id}`}><button className="btn btn-outline-primary">Edit Recipe</button></NavLink>
+              </React.Fragment>
+              :
+              <div className="recipe-save-div">
+              </div>
             }
-            <div className="recipe-times-div">
-              <div className="recipe-created">
-                Created On {moment(this.state.recipe.date_published).format("MMM do YYYY")}
-              </div>
-              <div className="recipe-updated">
-                last updated {moment(this.state.recipe.date_updated).fromNow()}
-              </div>
-            </div>
-          </div>
 
-            <div className="image-create-div col-4">
+            <div className="image-detail-div col-4">
               <div className="image-preview-div card">
                 <img className="image-preview" src="" alt="Whoops! Sorry! No can do."/>
               </div>
             </div>
 
 
-            <div className="recipe-create-div row no-gutters">
+            <div className="recipe-detail-div row no-gutters">
               <div className="recipe-ingredient-div card col-3">
                 <div className="form-control col-12 recipe-ingredient-box">
                   {this.state.recipe.ingredients}
                 </div>
               </div>
-              <div className="recipe-instructions-div card col-9">
+              <div className="recipe-instructions-div card col-7">
                 <div className="form-control col-12 recipe-instructions-box">
                   {this.state.recipe.instructions}
                 </div>
               </div>
             </div>
-      </div>
-
-          {this.state.isAuthorized
-            ?
-            <React.Fragment>
-          <div onClick={this.handleDelete} className="btn btn-outline-danger">Delete Recipe</div>
-          <NavLink to={`/update/${this.state.recipe.id}`}><button className="btn btn-outline-primary">Edit Recipe</button></NavLink>
-            </React.Fragment>
-            :
-            null
-          }
-          <div className="card">
-            <div className="card-body">
-            <form method="post" type='submit' onSubmit={this.handleSubmit}>
-              <input type='text' name="body" defaultValue='' className="form-control" onChange={this.handleChange} />
-              <div className="input-group-append">
-                <button className="input-group-text">Leave Comment</button>
-              </div>
-            </form>
             </div>
           </div>
 
-          <div>{comments}</div>
+
+            <div className="card col-8 offset-1">
+              <div className="card-body">
+              <form method="post" type='submit' onSubmit={this.handleSubmit}>
+                <input type='text' name="body" defaultValue='' className="form-control" onChange={this.handleChange} />
+                <div className="input-group-append">
+                  <button className="input-group-text">Leave Comment</button>
+                </div>
+              </form>
+              </div>
+            </div>
+
+            <div>{comments}</div>
 
       </React.Fragment>
     )
