@@ -35,9 +35,6 @@ class RecipeDetail extends Component {
     if (this.state.recipe.owner && JSON.parse(localStorage.getItem('currentUser')).userid === this.state.recipe.owner.id) {
       this.setState({isAuthorized: true})
     }
-    else {
-      console.log('failed');
-    }
   }
 
   handleChange(e) {
@@ -103,7 +100,7 @@ class RecipeDetail extends Component {
                   <div className="comment-date-published">
                   posted: {moment(comment.date_published).fromNow()}
                   </div>
-                  { comment.owner.id && comment.owner.id === localStorage.getItem('currentUser').pk
+                  { comment.owner.id && comment.owner.id === JSON.parse(localStorage.getItem('currentUser')).userid
                   ?
                   <button className="btn btn-sm btn-outline-danger delete-comment" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
                   :
