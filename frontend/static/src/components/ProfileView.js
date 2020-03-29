@@ -83,7 +83,7 @@ class ProfileView extends Component {
       <div className='row no-gutters'>
         <div className='col-4 card profile-body'>
           <div className='card-body'>
-            <NavLink to='/profile/update/:userid'>Update Profile</NavLink>
+            <NavLink to={`/profile/update/${this.state.profile.id}`}>Update Profile</NavLink>
             <h2>{this.state.profile.display_name}</h2>
 
               <img src={this.state.profile.avatar} alt="don't know about that" />

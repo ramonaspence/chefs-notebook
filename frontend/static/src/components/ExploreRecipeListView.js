@@ -134,7 +134,7 @@ class ExploreRecipeList extends Component {
         </form>
         {this.state.tags
           ?
-          <div className="tags-preview col-2 offset-4">
+          <div className="tags-preview col-4 offset-4">
 
           {tagpreviews}
 
