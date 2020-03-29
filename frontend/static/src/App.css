@@ -289,15 +289,21 @@ a {
 }
 
 .comment-date-published {
-  font-size: 1rem;
-
+  font-size: .5rem;
+  text-align: right;
 }
 
 .comment {
+  padding: .5rem;
+}
+
+.comment-body-div {
+  padding: .5rem;
   margin: .5rem;
 }
 
 .comment-body {
+  padding: .5rem;
   height: 5rem;
 }
 

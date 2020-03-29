@@ -94,12 +94,10 @@ class RecipeDetail extends Component {
     if(this.state.recipe.comments){
       comments = this.state.recipe.comments.map(comment =>
         (
-          <div className="card">
+          <div className="card comment">
               <div className="card-title">
                 <div className="comment-owner">{comment.owner.username}</div>
-                  <div className="comment-date-published">
-                  posted: {moment(comment.date_published).fromNow()}
-                  </div>
+
                   { comment.owner.id && comment.owner.id === JSON.parse(localStorage.getItem('currentUser')).userid
                   ?
                   <button className="btn btn-sm btn-outline-danger delete-comment" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
@@ -108,13 +106,16 @@ class RecipeDetail extends Component {
                   }
 
               </div>
-              <div className="card comment">
+              <div className="card comment-body-div">
                 <div className="comment-body">
                 {comment.body}
                 </div>
+
               </div>
 
-
+              <div className="comment-date-published">
+              posted: {moment(comment.date_published).fromNow()}
+              </div>
               </div>
 
         ));
@@ -160,19 +161,6 @@ class RecipeDetail extends Component {
               <div className="image-preview-div form-control card">
                 <img className="image-preview" src="" alt="Whoops! Sorry! No can do."/>
               </div>
-              <div className="card col-12">
-                <div className="card-body">
-                <form method="post" type='submit' onSubmit={this.handleSubmit}>
-                  <input type='text' name="body" defaultValue='' className="form-control" onChange={this.handleChange} />
-                  <div className="input-group-append">
-                    <button className="input-group-text">Leave Comment</button>
-                  </div>
-                </form>
-                </div>
-              </div>
-
-              <div>{comments}</div>
-
             </div>
 
 
