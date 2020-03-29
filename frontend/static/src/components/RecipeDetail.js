@@ -31,15 +31,17 @@ class RecipeDetail extends Component {
   }
 
   checkAuth() {
-
-    if (this.state.recipe.owner && localStorage.getItem('currentUser').pk === this.state.recipe.owner.id) {
+    console.log('fires')
+    if (this.state.recipe.owner && JSON.parse(localStorage.getItem('currentUser')).userid === this.state.recipe.owner.id) {
       this.setState({isAuthorized: true})
     }
-
+    else {
+      console.log('failed');
+    }
   }
 
   handleChange(e) {
-    console.log('fired')
+
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
     console.log(this.state);
@@ -52,7 +54,7 @@ class RecipeDetail extends Component {
     .then(res => console.log(res))
     .catch(err => console.log(err));
 
-    console.log(this.state);
+
   }
 
   onDelete(e, id) {
@@ -74,39 +76,53 @@ class RecipeDetail extends Component {
 
   componentDidMount() {
 
-    console.log(this.props)
+
     // get request to pull in single recipe
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`,
       {
         headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
     .then(response => this.setState({recipe: response.data}))
+    .then(response => this.checkAuth())
     .catch(err => console.log(err));
+
+
 
   }
 
   render() {
-    this.checkAuth()
-    console.log(this.state)
+
+
     let comments;
     if(this.state.recipe.comments){
       comments = this.state.recipe.comments.map(comment =>
         (
           <div className="card">
               <div className="card-title">
-                <h4>{comment.owner.username}</h4>
-                  <p>{comment.date_published}</p>
-              </div>
-              <div className="card-body">
-                <p>{comment.body}</p>
-                <div><button className="btn btn-outline-danger" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
+                <div className="comment-owner">{comment.owner.username}</div>
+                  <div className="comment-date-published">
+                  posted: {moment(comment.date_published).fromNow()}
+                  </div>
+                  { comment.owner.id && comment.owner.id === localStorage.getItem('currentUser').pk
+                  ?
+                  <button className="btn btn-sm btn-outline-danger delete-comment" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
+                  :
+                  null
+                  }
 
+              </div>
+              <div className="card comment">
+                <div className="comment-body">
+                {comment.body}
                 </div>
+              </div>
+
 
               </div>
-            </div>
+
         ));
     }
+
     return (
       <React.Fragment>
         <Nav />
@@ -117,7 +133,7 @@ class RecipeDetail extends Component {
                 <div className="recipe-detail-title">
                   {this.state.recipe.title}
                 </div>
-                <div className="recipe-description">
+                <div className="recipe-detail-description">
                   {this.state.recipe.description}
                 </div>
               </div>
@@ -144,9 +160,22 @@ class RecipeDetail extends Component {
             }
 
             <div className="image-detail-div col-4">
-              <div className="image-preview-div card">
+              <div className="image-preview-div form-control card">
                 <img className="image-preview" src="" alt="Whoops! Sorry! No can do."/>
               </div>
+              <div className="card col-12">
+                <div className="card-body">
+                <form method="post" type='submit' onSubmit={this.handleSubmit}>
+                  <input type='text' name="body" defaultValue='' className="form-control" onChange={this.handleChange} />
+                  <div className="input-group-append">
+                    <button className="input-group-text">Leave Comment</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+
+              <div>{comments}</div>
+
             </div>
 
 
@@ -156,7 +185,7 @@ class RecipeDetail extends Component {
                   {this.state.recipe.ingredients}
                 </div>
               </div>
-              <div className="recipe-instructions-div card col-7">
+              <div className="recipe-instructions-div card col-9">
                 <div className="form-control col-12 recipe-instructions-box">
                   {this.state.recipe.instructions}
                 </div>
@@ -177,7 +206,7 @@ class RecipeDetail extends Component {
               </div>
             </div>
 
-            <div>{comments}</div>
+            <div className="card col-8 offset-1">{comments}</div>
 
       </React.Fragment>
     )
