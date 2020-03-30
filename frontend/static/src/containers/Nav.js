@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -56,9 +56,9 @@ class Nav extends Component {
   render() {
     return (
 
-      <div className="row no-gutters">
-        <div className='navbar navbar-expand-lg navbar-dark bg-dark'>
-          <div className='nav navbar-nav'>
+      <div className="row">
+        <div className='navbar navbar-expand-lg navbar-dark navbar-background'>
+          <div id="navlinks" className='nav navbar-nav'>
 
 
         <Link className="nav-item nav-link ml-lg-5" to="/users/">Dashboard (all users)</Link>

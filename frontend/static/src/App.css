@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 * {
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color: #03A9F4;
 }
 
 body {
-  background: #eeffff;
+  background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
 }
 
 ul {
@@ -16,15 +20,174 @@ img {
   margin-right: .5rem;
 }
 
+h1 {
+  color: rgba(237,237,237,1);
+}
+
 
 a {
 
   text-decoration: none;
 }
 
-.nav-avatar {
-  width: 1.5rem;
-  height: 1.5rem;
+.card {
+  background-color: #2C3034;
+  border: solid 2px #DDD;
+  /* box-shadow: 2px 2px #CCCCCC; */
+}
+
+/* begin home sign and login styles */
+
+.backRight {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: #3498db;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.backLeft {
+  position: absolute;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: #2C3034;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.topLayer {
+  width: 200%;
+  height: 100%;
+  position: relative;
+  left: 0;
+  left: -100%;
+}
+
+.left {
+  width: 50%;
+  height: 100%;
+  background: #2C3034;
+  left: 0;
+  position: absolute;
+}
+
+.right {
+  width: 50%;
+  height: 100%;
+  background: #f9f9f9;
+  right: 0;
+  position: absolute;
+}
+
+button {
+  background: #03A9F4;
+  padding: 10px 16px;
+  width: auto;
+  font-weight: 600;
+  text-transform:  uppercase;
+  font-size: 14px;
+  color: #fff;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+  border: 0;
+  outline: 0;
+  margin: 15px 15px 15px 0;
+  transition: all 0.25s;
+}
+
+.home-button:hover {
+  background: #0288D1;
+  box-shadow: 0 4px 7px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.switch {
+  /* font-size: 1rem; */
+  text-transform: uppercase;
+  background: none;
+  color: #03A9F4;
+  box-shadow: none;
+  border: none;
+}
+
+.right .switch:hover {
+  background: #eee;
+  color: #03A9F4;
+  box-shadow: none;
+
+}
+.left .switch:hover {
+  box-shadow: none;
+  color: #03A9F4;
+  background: #363A3D;
+}
+
+.content-right {
+  width: 250px;
+  margin: 0 auto;
+  top: 20vh;
+  position: absolute;
+  left: 50%;
+  margin-left: -125px;
+}
+
+.content-left {
+  width: 250px;
+  margin: 0 auto;
+  top: 20vh;
+  position: absolute;
+  left: 50%;
+  margin-left: 125px;
+}
+
+.content-left h2 {
+  color: #03A9F4;
+  font-weight: 300;
+  font-size: 35px;
+}
+
+#slideBox {
+  width: 50%;
+  max-height: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin-left: 50%;
+  position: absolute;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+#back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -999;
+}
+
+input {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid #45494C;
+  font-size: 14px;
+  color: #959595;
+  padding: 8px 0;
+  margin-top: 20px;
+}
+
+/* end home page and begins navigation bar */
+
+#navlinks a {
+  color: #03A9F4;
+}
+
+.navbar-background {
+  background: #2C3034;
+  border-bottom: 1px solid #000;
+
 }
 
 .card {
@@ -45,6 +208,35 @@ a {
   align-items: flex-end;
   margin-left: 50rem;
 }
+
+/* .signup-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 50vh;
+  text-align: center;
+  margin: auto 0;
+}
+
+.signup-link {
+  width: 40vw;
+  background-color: #DDDDDD22;
+  color: black;
+
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem;
+
+}
+
+.signup-div span {
+  font-size: 1.8rem;
+
+
+} */
 
 .form-control {
   height: 2rem;
@@ -69,7 +261,6 @@ a {
   border: white solid 1px;
   border-radius: .3rem;
   height: 2.25rem;
-  
   margin-left: 28rem;
   padding: .25rem .5rem .25rem 1rem;
 

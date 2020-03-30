@@ -63,8 +63,10 @@ class ProfileDetail extends Component {
         axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}`)
       .then(res => console.log(res))
       .catch(err => console.log(err))
+
       } else {
         console.log('if clause failed')
+      
       }})
 
   }
@@ -78,7 +80,7 @@ class ProfileDetail extends Component {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
     .then(res => this.setState({profile: res.data}))
-  
+
     .catch(err => console.log(err));
   }
 

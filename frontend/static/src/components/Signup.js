@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import {Redirect} from 'react-router-dom';
 
-import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
 
@@ -40,7 +38,7 @@ class Signup extends Component {
     axios.post(`${BASE_URL}/rest-auth/registration/`, this.state,)
     .then(res => {
       localStorage.setItem('current-user', JSON.stringify(res.data));
-      this.props.history.push('/users/');
+      this.props.props.history.push('/profile/create/');
 
     })
     .catch(err => {console.log(err);})
@@ -49,18 +47,24 @@ class Signup extends Component {
   render() {
     return (
       <React.Fragment>
-      <Nav />
+
       <div className="card-body">
         <form method="post" type="submit" onSubmit={this.signUp}>
-          <label htmlFor="username">Username:</label>
-          <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleChange}/>
-          <label htmlFor="email">Email:</label>
-          <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
-          <label htmlFor="password">Password:</label>
-          <input type="password" name="password1" value={this.state.password1} onChange={this.handleChange} />
-          <label htmlFor="password_2">Password Confirm:</label>
-          <input type="password" name="password2" value={this.state.password2} onChange={this.handleChange} />
-          <button className="btn btn-outline-success">Register</button>
+          <div className="form-group">
+            <input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.handleChange}/>
+          </div>
+          <div className="form-group">
+            <input type="email" name="email" placeholder="email" autoComplete="email" value={this.state.email} onChange={this.handleChange} />
+          </div>
+          <div className="form-group">
+            <input type="password" name="password1" placeholder="password" autoComplete="new-password" value={this.state.password1} onChange={this.handleChange} />
+          </div>
+          <div className="form-group">
+            <input type="password" name="password2" placeholder="repeat password" autoComplete="new-password" value={this.state.password2} onChange={this.handleChange} />
+          </div>
+          <button className="home-button">Signup</button>
+          <button className="switch">Login</button>
+
         </form>
       </div>
       </React.Fragment>
