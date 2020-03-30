@@ -25,9 +25,14 @@ class Home extends Component {
       <React.Fragment>
       <Nav />
       <div className="row no-gutters">
-
+        <div className="col-12 signup-div">
+          <span>Sign up and start sharing your recipes today!</span>
+          <Link className="nav-item nav-link" to="/signup">Sign Up</Link>
+        </div>
+      
         <Link className="nav-item nav-link" to="/login">Login</Link>
-        <Link className="nav-item nav-link" to="/signup">Sign Up</Link>
+
+
       </div>
       </React.Fragment>
     )
