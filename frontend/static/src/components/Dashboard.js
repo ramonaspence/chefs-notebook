@@ -14,11 +14,11 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
-class UserProfiles extends Component {
+class Dashboard extends Component {
   constructor() {
     super();
       this.state = {
-        users: [],
+        recipes: [],
         hidenav: true
       }
 
@@ -28,7 +28,7 @@ class UserProfiles extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/profiles/`)
+    axios.get(`${BASE_URL}/api/v1/recipes/`)
     .then(res => this.setState({users: res.data}))
     .catch(err => console.log(err));
   }
@@ -69,4 +69,4 @@ class UserProfiles extends Component {
     )
   }
 }
-export default UserProfiles;
+export default Dashboard;

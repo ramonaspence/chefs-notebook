@@ -18,6 +18,18 @@ class TagListCreateView(generics.ListCreateAPIView):
     serializer_class = TagSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
+class RecipeListByFollowers(generics.ListAPIView):
+    serializer_class = RecipeSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # import pdb; pdb.set_trace()
+        return Recipe.objects.filter(owner__connection__owner=self.request.user)
+        #owner__connection__following brings back people who follow ME
+        #owner__connection__owner brings back recipes by ME
+
+        #owner__connection__followers brings back valueError
+
 
 class RecipeProfileListView(generics.ListAPIView):
     queryset = Recipe.objects.all()

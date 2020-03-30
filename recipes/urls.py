@@ -11,4 +11,5 @@ urlpatterns = [
     path('user/<int:pk>/', views.RecipeProfileListView.as_view(), name='profile_recipes'),
     path('<int:pk>/', views.RecipeDetailView.as_view(), name='detail_recipe'),
     path('<int:pk>/versions/', views.RecipeListView.as_view(), name='version_recipe'),
+    path('dashboard/', views.RecipeListByFollowers.as_view(), name='dashboard'),
 ]

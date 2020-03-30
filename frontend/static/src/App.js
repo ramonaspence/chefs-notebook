@@ -9,7 +9,7 @@ import {
 import ListFollowing from './components/ListFollowing.js';
 import ListFollowers from './components/ListFollowers.js';
 import ProfileDetail from './components/ProfileDetail.js';
-import UserProfiles from './components/UserProfiles.js';
+import Dashboard from './components/Dashboard.js';
 import ProfileUpdate from './components/ProfileUpdate.js';
 import ProfileCreate from './components/ProfileCreate.js';
 import ProfileView from './components/ProfileView.js';
@@ -53,7 +53,7 @@ class App extends Component {
 
           <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/users/" exact component={UserProfiles} />
+          <Route path="/users/" exact component={Dashboard} />
           <Route path="/users/profile/:id" exact component={ProfileDetail} />
           <Route path="/profile/followers/" exact component={ListFollowers} />
           <Route path="/profile/following/" exact component={ListFollowing} />

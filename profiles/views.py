@@ -51,6 +51,12 @@ class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    ## I maybe should be doing a queryset here to return the followers/followings
+    ## of a specific user.
+
+    ## Currenlty the querysets below inside followingListView and FollowerListView
+    ## bring back followers/followings of the self.request.user even on others' profiles.
+
     def perform_create(self, serializer):
         following = get_object_or_404(User, pk=self.request.data['following'])
         serializer.save(owner=self.request.user, following=following);
@@ -66,8 +72,9 @@ class FollowingListView(generics.ListAPIView):
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_queryset(self):
+    def get_queryset(self, **kwargs):
         # import pdb; pdb.set_trace()
+
         return Connection.objects.filter(owner = self.request.user)
 
 class FollowerListView(generics.ListAPIView):
@@ -75,5 +82,6 @@ class FollowerListView(generics.ListAPIView):
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_queryset(self):
+    def get_queryset(self, **kwargs):
+
         return Connection.objects.filter(following = self.request.user)
