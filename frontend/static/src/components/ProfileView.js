@@ -83,18 +83,28 @@ class ProfileView extends Component {
       <div className='row no-gutters'>
         <div className='col-4 card profile-body'>
           <div className='card-body'>
-            <NavLink to={`/profile/update/${this.state.profile.id}`}>Update Profile</NavLink>
-            <h2>{this.state.profile.display_name}</h2>
 
-              <img src={this.state.profile.avatar} alt="don't know about that" />
-              <p>{this.state.profile.bio}</p>
-              <p>{this.state.profile.follows}</p>
+            <div className="profile-username">
+                <h2>{this.state.profile.display_name}</h2>
+              </div>
+              <div className="profile-avatar">
+                <img src={this.state.profile.avatar} alt="don't know about that" />
+              </div>
+              <div className="profile-bio">
+                <p>{this.state.profile.bio}</p>
+              </div>
+
 
 
           </div>
 
           <div className='card-footer'>
-            <p>Member since: {moment(this.state.profile.date_joined).format("MMM Do YYYY")}</p>
+            <div className="profile-date-joined">
+              <p>Member since: {moment(this.state.profile.date_joined).format("MMM Do YYYY")}</p>
+            </div>
+            <div className="profile-update">
+              <NavLink to={`/profile/update/${this.state.profile.id}`}>Update Profile</NavLink>
+            </div>
               </div>
               </div>
               <div className='col-8'>

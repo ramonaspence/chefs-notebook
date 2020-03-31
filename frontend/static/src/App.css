@@ -290,9 +290,63 @@ input {
   color: white;
 }
 
+/* beginning of profile-update and profile-view styling */
+
+.update-display-name {
+  margin: 1rem;
+
+}
+
+.update-display-name input {
+  margin-left: 1.4rem;
+}
+
+.update-avatar {
+  margin: 1rem;
+}
+
+.update-avatar label {
+  display: block;
+  margin-top: 1rem;
+}
+
+.update-avatar input {
+  margin-top: 0;
+  display: inline;
+}
+
+.update-bio {
+  margin: 1rem;
+}
+
+
 .profile-body {
   height: fit-content;
 }
+
+.profile-update a {
+  display: inline;
+  color: #03A9F4;
+}
+
+.profile-username {
+  width: fit-content;
+  margin: 1rem;
+}
+
+.profile-avatar {
+  margin: 1rem;
+}
+
+.profile-bio {
+  margin: 1rem;
+}
+
+.profile-date-joined {
+  width: fit-content;
+}
+
+
 
 .profile-nav {
   text-align: right;

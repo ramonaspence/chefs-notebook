@@ -58,7 +58,7 @@ class ProfileUpdate extends Component {
       formData.append('avatar', this.state.avatar)
     } else
 
-    axios.patch(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}/`, formData, {
+    axios.patch(`${BASE_URL}/api/v1/profiles/user/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
@@ -93,7 +93,7 @@ class ProfileUpdate extends Component {
                   <button>Save Profile</button>
                     <div className="update-display-name">
                       <label htmlFor='display_name'>New Display Name: </label>
-                      <input type='text' name='display_name' defaultValue={this.state.display_name} onChange={this.handleChange} />
+                      <input type='text' name='display_name' placeholder={this.state.display_name} onChange={this.handleChange} />
                     </div>
                     <div className="update-avatar">
                       <img src={this.state.avatar} alt="don't know about that" />
