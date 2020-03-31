@@ -102,7 +102,7 @@ class ProfileView extends Component {
                   <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
                   <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>
                   <button className="btn btn-outline-info" onClick={this.handleFollowers}>Followers</button>
-                  <NavLink to='/add/recipe/' className='add-recipe-btn btn btn-outline-info mr-auto'>Start a New Recipe</NavLink>
+                  <NavLink to='/add/recipe/'><button className="btn btn-outline-info">Start a New Recipe</button></NavLink>
                 </div>
                 { this.state.toggle === 'following'
                 ?

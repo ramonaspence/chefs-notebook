@@ -59,15 +59,17 @@ class Nav extends Component {
     return (
 
       <div className="row">
-        <div className='navbar navbar-expand-lg navbar-dark navbar-background'>
+        <div id="nav-bar" className='navbar navbar-expand-lg navbar-dark navbar-background'>
           <div id="navlinks" className='nav navbar-nav'>
 
 
-        <Link className="nav-item nav-link ml-lg-5" to="/dashboard/">Dashboard (all users)</Link>
+        <Link className="nav-item nav-link ml-lg-5" to="/dashboard/">Dashboard</Link>
 
         <Link className="nav-item nav-link" to="/recipes/">Explore</Link>
 
-
+        <div className="nav-title">
+          <span>Chef's Notebook</span>
+        </div>
 
 
 

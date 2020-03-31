@@ -85,12 +85,17 @@ class UserRecipeList extends Component {
           :
           <Nav />
         }
+        { this.props.hidesearch
+        ?
         <form onSubmit={this.handleSearch} className="search form-inline ml-5">
           <input className="form-control mr-lg-2" type="search" name="title" placeholder="Search by title" aria-label="Search" onChange={this.handleSearchInput} />
           <input className="form-control mr-lg-2" type="search" name="description" placeholder="Search by description" aria-label="Search" onChange={this.handleSearchInput} />
           <input className="form-control mr-lg-2" type="search" name="tags" placeholder="Search by tags" aria-label="Search" onChange={this.handleSearchInput} />
           <button className="btn btn-outline-light my-2 my-sm-0" type='submit'>Search</button>
         </form>
+        :
+        null
+        }
         <ul>
           <li>
             {recipes}

@@ -88,7 +88,7 @@ class RecipeDetail extends Component {
   }
 
   render() {
-
+    console.log(this.state);
 
     let comments;
     if(this.state.recipe.comments){
@@ -100,7 +100,7 @@ class RecipeDetail extends Component {
 
                   { comment.owner.id && comment.owner.id === JSON.parse(localStorage.getItem('currentUser')).userid
                   ?
-                  <button className="btn btn-sm btn-outline-danger delete-comment" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
+                  <button className="btn btn-sm btn-outline-primary delete-comment" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
                   :
                   null
                   }
@@ -133,6 +133,7 @@ class RecipeDetail extends Component {
                 </div>
                 <div className="recipe-detail-description">
                   {this.state.recipe.description}
+
                 </div>
               </div>
 

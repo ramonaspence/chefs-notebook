@@ -28,6 +28,14 @@ class Home extends Component {
       <React.Fragment>
 
       <div className="row">
+        <div id="nav-bar" className='navbar navbar-expand-lg navbar-dark navbar-background'>
+          <div className="nav-title">
+            <span>Chef's Notebook</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
       <div id="back">
         <div className="backRight"></div>
         <div className="backLeft"></div>

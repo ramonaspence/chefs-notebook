@@ -23,6 +23,7 @@ class ProfileDetail extends Component {
       this.state = {
         profile: {},
         hidenav: true,
+        hidesearch: true,
         following: null,
         connections: []
       }
@@ -66,7 +67,7 @@ class ProfileDetail extends Component {
 
       } else {
         console.log('if clause failed')
-      
+
       }})
 
   }
@@ -145,8 +146,9 @@ class ProfileDetail extends Component {
               ?
               <ListFollowers hidenav={this.state.hidenav} />
               :
-              this.state.profile.owner && <UserRecipeList profile={this.state.profile.owner} hidenav={this.state.hidenav} />
-            } {/* uses inline if with && operator to wait until this.state.profile.user is updated, to render the recipe list
+              this.state.profile.owner && <UserRecipeList hidesearch={this.state.hidesearch} profile={this.state.profile.owner} hidenav={this.state.hidenav} />
+              }
+              {/* uses inline if with && operator to wait until this.state.profile.user is updated, to render the recipe list
               this forces the parent component (profiledetail) to NOT pass state until the state is defined */}
 
               </div>

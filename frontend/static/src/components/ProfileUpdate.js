@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
-
+import moment from 'moment';
 import UserRecipeList from './UserRecipeList.js';
 import Nav from '../containers/Nav.js';
 
@@ -87,22 +87,26 @@ class ProfileUpdate extends Component {
           <React.Fragment>
             <Nav />
             <div className='row no-gutters'>
-              <div className='col-3 card'>
+              <div className='col-4 card'>
                 <div className='profile-body card-body'>
                 <form type='submit' onSubmit={this.handleSubmit}>
                   <button>Save Profile</button>
+                    <div className="update-display-name">
+                      <label htmlFor='display_name'>New Display Name: </label>
+                      <input type='text' name='display_name' defaultValue={this.state.display_name} onChange={this.handleChange} />
+                    </div>
+                    <div className="update-avatar">
+                      <img src={this.state.avatar} alt="don't know about that" />
+                      <label htmlFor='avatar'>Choose New Avatar: </label>
+                      <input type='file' name='avatar' defaultValue={this.state.avatar} onChange={this.handleImage}/>
+                    </div>
 
-                  <label htmlFor='display_name'>New Display Name: </label>
-                  <input type='text' name='display_name' defaultValue={this.state.display_name} onChange={this.handleChange} />
-                  <h2>{this.state.display_name}</h2>
+                    <div className="update-bio">
+                      <input type='text' name='bio' defaultValue={this.state.bio} onChange={this.handleChange} />
+                      <p>{this.state.bio}</p>
+                    </div>
+                </form>
 
-                    <img src={this.state.avatar} alt="don't know about that" />
-                    <label htmlFor='avatar'>Choose New Avatar: </label>
-                    <input type='file' name='avatar' defaultValue={this.state.avatar} onChange={this.handleImage}/>
-
-                    <input type='text' name='bio' defaultValue={this.state.bio} onChange={this.handleChange} />
-                    <p>{this.state.bio}</p>
-                    </form>
                     <div className='follows'>
 
 
@@ -111,7 +115,7 @@ class ProfileUpdate extends Component {
                 </div>
 
                 <div className='card-footer'>
-                  <p>Member since: {this.state.date_joined}</p>
+                  <p>Member since: {moment(this.state.date_joined).format("MMM Do YYYY")}</p>
                     </div>
                     </div>
                     <div className='col-9'>
