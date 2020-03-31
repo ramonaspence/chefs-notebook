@@ -28,25 +28,29 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/recipes/`)
-    .then(res => this.setState({users: res.data}))
+    axios.get(`${BASE_URL}/api/v1/recipes/dashboard/`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+    })
+    .then(res => this.setState({recipes: res.data}))
     .catch(err => console.log(err));
   }
 
   render() {
-    let users = this.state.users.map(user => {
+    console.log(this.state);
+    let recipes = this.state.recipes.map(recipe => {
       return (
         <div className="row no-gutters">
           <div className="col-8 ml-auto card d-flex">
             <div className="title card-body">
               <div className="card-title">
-                <h2>{user.display_name}</h2>
-                <img src={user.avatar} alt="oh no!" />
-                <NavLink to={`/users/profile/${user.id}`} className="btn btn-outline-primary">View Profile</NavLink>
+                <h2>{recipe.owner.username}</h2>
+                <img src={recipe.image} alt="oh no!" />
 
               </div>
-              <div>
-                <p>{user.bio}</p>
+              <div className="">
+                <NavLink className="btn btn-outline-secondary" to={`/recipes/${recipe.id}`}>View Recipe</NavLink>
+                //toggle from recipes to followers? Get profile from followers??
+                <p>{recipe.description}</p>
 
               </div>
 
@@ -64,7 +68,7 @@ class Dashboard extends Component {
         <Nav />
       }
 
-          <div>{users}</div>
+          <div>{recipes}</div>
       </React.Fragment>
     )
   }

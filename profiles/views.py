@@ -51,6 +51,10 @@ class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self, **kwargs):
+        # import pdb; pdb.set_trace()
+        return Connection.objects.filter(owner__profile__owner = self.request.user)
+
     ## I maybe should be doing a queryset here to return the followers/followings
     ## of a specific user.
 
@@ -73,7 +77,7 @@ class FollowingListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self, **kwargs):
-        # import pdb; pdb.set_trace()
+        import pdb; pdb.set_trace()
 
         return Connection.objects.filter(owner = self.request.user)
 

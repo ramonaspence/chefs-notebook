@@ -53,7 +53,7 @@ class App extends Component {
 
           <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/users/" exact component={Dashboard} />
+          <Route path="/dashboard/" exact component={Dashboard} />
           <Route path="/users/profile/:id" exact component={ProfileDetail} />
           <Route path="/profile/followers/" exact component={ListFollowers} />
           <Route path="/profile/following/" exact component={ListFollowing} />

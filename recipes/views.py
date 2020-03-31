@@ -24,11 +24,10 @@ class RecipeListByFollowers(generics.ListAPIView):
 
     def get_queryset(self):
         # import pdb; pdb.set_trace()
-        return Recipe.objects.filter(owner__connection__owner=self.request.user)
+        return Recipe.objects.filter(owner__following__owner=self.request.user)
         #owner__connection__following brings back people who follow ME
         #owner__connection__owner brings back recipes by ME
-
-        #owner__connection__followers brings back valueError
+        #owner__following__owner works as desired.
 
 
 class RecipeProfileListView(generics.ListAPIView):

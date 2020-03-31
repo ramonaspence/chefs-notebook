@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -18,7 +18,6 @@ class Login extends Component {
       password: '',
 
     }
-
     this.captureLogin = this.captureLogin.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -36,7 +35,7 @@ class Login extends Component {
       localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}))
       console.log(res);
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
   }
 
   handleLogin(e) {
@@ -44,14 +43,20 @@ class Login extends Component {
 
 
     axios.post(`${BASE_URL}/rest-auth/login/`, this.state)
-    .then(res => {localStorage.setItem('current-user', JSON.stringify(res.data))
-      this.captureLogin()})
-    .then(this.props.props.history.push('/users/'))
+    .then(res => {localStorage.setItem('current-user', JSON.stringify(res.data))})
+    .then(this.captureLogin())
+    .then(this.setState({redirect: true}))
+
+
+
     .catch(err => {console.log(err)})
 
   }
 
   render() {
+    if (this.state.redirect && localStorage.getItem('current-user')) {
+      return (<Redirect to="/dashboard/" />);
+    }
     console.log('login', this.props);
     return (
       <React.Fragment>

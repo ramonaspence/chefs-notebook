@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-import { Link} from 'react-router-dom';
+import { Link, Redirect} from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -40,10 +40,9 @@ class Nav extends Component {
     .then(res => {
       localStorage.removeItem('current-user')
       localStorage.removeItem('currentUser')
-      console.log('successfully logged out');
-      this.props.history.push('/');
+      console.log('successfully logged out')
+      this.setState({redirect: true})})
 
-    })
     .catch(err => {console.log(err);})
   }
 
@@ -54,6 +53,9 @@ class Nav extends Component {
 
 
   render() {
+    if (this.state.redirect) {
+      return (<Redirect to="/" />)
+    }
     return (
 
       <div className="row">
@@ -61,7 +63,7 @@ class Nav extends Component {
           <div id="navlinks" className='nav navbar-nav'>
 
 
-        <Link className="nav-item nav-link ml-lg-5" to="/users/">Dashboard (all users)</Link>
+        <Link className="nav-item nav-link ml-lg-5" to="/dashboard/">Dashboard (all users)</Link>
 
         <Link className="nav-item nav-link" to="/recipes/">Explore</Link>
 

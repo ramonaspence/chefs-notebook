@@ -35,8 +35,8 @@ class ListFollowing extends Component {
 
 
   render() {
-    console.log(this.props.profile);
-    let following = this.state.connections.map(connection => (
+    console.log(this.props);
+    let following = this.props.profile.following.map(connection => (
       <div className="row no-gutters">
         <div className="col-8 ml-auto card d-flex">
           <div className="title card-body">

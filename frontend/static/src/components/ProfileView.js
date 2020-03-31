@@ -106,11 +106,11 @@ class ProfileView extends Component {
                 </div>
                 { this.state.toggle === 'following'
                 ?
-                <ListFollowing hidenav={this.state.hidenav} />
+                <ListFollowing profile={this.state.profile} hidenav={this.state.hidenav} />
                 :
                 this.state.toggle === 'followers'
                 ?
-                <ListFollowers hidenav={this.state.hidenav} />
+                <ListFollowers profile={this.state.profile} hidenav={this.state.hidenav} />
                 :
                 this.state.profile.owner && <UserRecipeList profile={this.state.profile.owner} hidenav={this.state.hidenav} />
                 }
