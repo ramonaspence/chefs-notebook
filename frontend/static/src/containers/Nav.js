@@ -62,10 +62,10 @@ class Nav extends Component {
         <div id="nav-bar" className='navbar navbar-expand-md navbar-dark navbar-background col-lg-12'>
             <div id="navlinks" className='nav navbar-nav col-12'>
 
-              <div className="dashboard-links ml-md-auto col-2 col-1 offset-lg-1">
+              <div className="dashboard-links ml-md-auto col-sm-2 offset-lg-1">
                 <Link className="nav-item nav-link" to="/dashboard/">Dashboard</Link>
               </div>
-              <div className="dashboard-links ml-md-auto col-2 col-1 offset-lg-1">
+              <div className="dashboard-links ml-md-auto col-sm-2 offset-lg-1">
                 <Link className="nav-item nav-link" to="/recipes/">Explore</Link>
               </div>
 
@@ -78,12 +78,12 @@ class Nav extends Component {
 
 
 
-              <div className="profile-link ml-md-auto col-2 col-1 offset-lg-1">
+              <div className="profile-link ml-md-auto col-sm-2 offset-lg-1">
                 <Link className="nav-item nav-link" to='/profile/'>Profile</Link>
               </div>
                 {this.state.isAuthenticated
                   ?
-                  <div className="profile-link ml-md-auto col-2 col-1 offset-lg-1">
+                  <div className="profile-link ml-md-auto col-sm-2 offset-lg-1">
                     <Link className="nav-item nav-link" to="/logout" onClick={this.handleLogout}>Logout</Link>
                   </div>
                   :

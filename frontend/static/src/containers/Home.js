@@ -44,15 +44,15 @@ class Home extends Component {
         <div id="slidebox">
 
             <div className="left">
-              <div className="col-6 content-left">
+              <div className="col-sm-6 col-3 content-left">
                 <h2>Signup</h2>
                 <Signup props={this.props}/>
               </div>
-            
+
           </div>
 
         <div className="right">
-          <div className="col-6 content-right">
+          <div className="col-sm-6 col-3 content-right">
             <h2>Login</h2>
             <Login props={this.props}/>
           </div>

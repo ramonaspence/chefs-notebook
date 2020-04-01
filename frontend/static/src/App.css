@@ -84,6 +84,42 @@ a {
   position: absolute;
 }
 
+@media (max-width: 525px) {
+  .left {
+    width: 100%;
+    height: 50%;
+    background: #2C3034;
+    left: 0;
+    position: absolute;
+  }
+
+  .right {
+    width: 100%;
+    height: 50%;
+    background: #f9f9f9;
+
+  }
+  .backRight {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: 50%;
+    background: #3498db;
+    background-size: cover;
+    background-position: 50% 25%;
+  }
+
+  .backLeft {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: #2C3034;
+    background-size: cover;
+    background-position: 50% 25%;
+  }
+}
+
 button {
   background: #03A9F4;
   padding: 10px 16px;
