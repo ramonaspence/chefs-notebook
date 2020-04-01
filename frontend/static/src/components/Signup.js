@@ -66,7 +66,6 @@ class Signup extends Component {
             <button className="home-button">Signup</button>
             <button className="switch">Login</button>
           </div>
-
         </form>
       </div>
       </React.Fragment>

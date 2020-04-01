@@ -42,22 +42,22 @@ class Home extends Component {
       </div>
 
         <div id="slidebox">
-          <div className="topLayer">
+
             <div className="left">
-              <div className="col-sm-6 col-6 content-left">
+              <div className="col-6 content-left">
                 <h2>Signup</h2>
                 <Signup props={this.props}/>
               </div>
-            </div>
+            
           </div>
-        </div>
+
         <div className="right">
-          <div className="col-sm-6 col-6 content-right">
+          <div className="col-6 content-right">
             <h2>Login</h2>
             <Login props={this.props}/>
           </div>
         </div>
-
+        </div>
       </div>
       </React.Fragment>
     )
