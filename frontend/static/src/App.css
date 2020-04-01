@@ -238,16 +238,36 @@ input {
   display: inline;
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
+  .profile-link {
+    display: flex;
+    align-self: flex-end;
+    margin-right: -1.5rem;
 
-  .nav-item {
-    margin: 0;
-  }
-  #navlinks {
-    display: inline;
   }
 
-} */
+  .dashboard-links {
+    display: flex;
+    align-self: flex-end;
+    margin-left: 1.5rem;
+    flex: 1;
+  }
+
+  .nav-title {
+    align: middle;
+  }
+
+  .nav-title span {
+    color: rgba(237,237,237,1);
+    font-size: 2rem;
+    letter-spacing: .3rem;
+    font-variant: small-caps;
+
+  }
+
+
+
+}
 
 .profile-link {
   display: flex;
