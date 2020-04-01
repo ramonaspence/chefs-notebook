@@ -28,8 +28,8 @@ class Home extends Component {
       <React.Fragment>
 
       <div className="row">
-        <div id="nav-bar" className='navbar navbar-expand-lg navbar-dark navbar-background'>
-          <div className="nav-title">
+        <div id="nav-bar" className='navbar navbar-expand-lg navbar-dark navbar-background col-12'>
+          <div className="nav-title col-lg-5 col-8 offset-5">
             <span>Chef's Notebook</span>
           </div>
         </div>
@@ -44,15 +44,15 @@ class Home extends Component {
         <div id="slidebox">
           <div className="topLayer">
             <div className="left">
-              <div className="content-left">
-                <h2>Sign Up</h2>
+              <div className="col-sm-6 col-6 content-left">
+                <h2>Signup</h2>
                 <Signup props={this.props}/>
               </div>
             </div>
           </div>
         </div>
         <div className="right">
-          <div className="content-right">
+          <div className="col-sm-6 col-6 content-right">
             <h2>Login</h2>
             <Login props={this.props}/>
           </div>

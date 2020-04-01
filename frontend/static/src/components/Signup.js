@@ -62,8 +62,10 @@ class Signup extends Component {
           <div className="form-group">
             <input type="password" name="password2" placeholder="repeat password" autoComplete="new-password" value={this.state.password2} onChange={this.handleChange} />
           </div>
-          <button className="home-button">Signup</button>
-          <button className="switch">Login</button>
+          <div className="login-buttons">
+            <button className="home-button">Signup</button>
+            <button className="switch">Login</button>
+          </div>
 
         </form>
       </div>

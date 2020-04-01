@@ -102,7 +102,7 @@ class ProfileUpdate extends Component {
                     </div>
 
                     <div className="update-bio">
-                      <input type='text' name='bio' defaultValue={this.state.bio} onChange={this.handleChange} />
+                      <textarea type='text' name='bio' defaultValue={this.state.bio} onChange={this.handleChange} />
                       <p>{this.state.bio}</p>
                     </div>
                 </form>

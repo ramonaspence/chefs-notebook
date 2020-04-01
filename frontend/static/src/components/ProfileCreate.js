@@ -72,19 +72,32 @@ class ProfileCreate extends Component {
       <React.Fragment>
       <Nav />
       <div className="row no-gutters">
-        <div className="col-10 offset-1 card">
-          <div className="card-body">
+        <div className="col-4 card">
+          <div className="card-body profile-create-body">
             <form type='submit' method="post" onSubmit={this.handleSubmit}>
-            <label htmlFor="display_name">Choose a display name.</label>
-            <input type='text' name="display_name" defaultValue='' onChange={this.handleChange} />
+              <button>Save Profile</button>
+                <div className="create-display-name">
+                  <label htmlFor="display_name">Display Name</label>
+                  <input type='text' name="display_name" defaultValue='' onChange={this.handleChange} />
+                </div>
+                <div className="create-avatar">
+                  { this.state.preview
+                    ?
+                    <div className="create-avatar-preview">
+                      <img src={this.state.preview} alt="don't know about that" />
+                    </div>
+                    :
+                    <div className="create-avatar-preview">
+                    </div>
+                  }
+                  <label htmlFor="avatar">Upload an Avatar</label>
+                  <input type="file" name="avatar" defaultValue="" onChange={this.handleImage} />
+                </div>
+                <div className="create-bio">
+                  <label htmlFor="bio">Add Bio:</label>
+                  <textarea type='text' name="bio" defaultValue='' onChange={this.handleChange} />
+                </div>
 
-            <label htmlFor="avatar">Choose an Avatar</label>
-            <input type="file" name="avatar" defaultValue="" onChange={this.handleImage} />
-
-            <label htmlFor="bio">Add Bio:</label>
-            <input type='text' name="bio" defaultValue='' onChange={this.handleChange} />
-
-            <button>Save Profile</button>
             </form>
           </div>
         </div>

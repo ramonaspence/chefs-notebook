@@ -9,7 +9,7 @@ class Profile(models.Model):
     owner = models.OneToOneField(User, blank=True, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=20)
     avatar = models.ImageField(upload_to="images/")
-    bio = models.TextField(max_length=255)
+    bio = models.TextField(max_length=255, blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     # followers = models.ManyToManyField(self)
 

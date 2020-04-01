@@ -4,10 +4,13 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   color: #03A9F4;
+  height: fit-content;
+
 }
 
 body {
   background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
+
 }
 
 ul {
@@ -26,7 +29,6 @@ h1 {
 
 
 a {
-
   text-decoration: none;
 }
 
@@ -36,7 +38,7 @@ a {
   /* box-shadow: 2px 2px #CCCCCC; */
 }
 
-/* begin home sign and login styles */
+/* begin home signup and login styles */
 
 .backRight {
   position: absolute;
@@ -45,7 +47,7 @@ a {
   height: 100%;
   background: #3498db;
   background-size: cover;
-  background-position: 50% 50%;
+  background-position: 50% 25%;
 }
 
 .backLeft {
@@ -55,7 +57,7 @@ a {
   height: 100%;
   background: #2C3034;
   background-size: cover;
-  background-position: 50% 50%;
+  background-position: 50% 25%;
 }
 
 .topLayer {
@@ -96,7 +98,7 @@ button {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
   border: 0;
   outline: 0;
-  margin: 15px 15px 15px 0;
+  margin: 15px 20px 15px 0;
   transition: all 0.25s;
 }
 
@@ -112,7 +114,11 @@ button {
   color: #03A9F4;
   box-shadow: none;
   border: none;
+
+
 }
+
+
 
 .right .switch:hover {
   background: #eee;
@@ -127,21 +133,30 @@ button {
 }
 
 .content-right {
-  width: 250px;
+  width: 25rem;
   margin: 0 auto;
   top: 20vh;
-  position: absolute;
-  left: 50%;
-  margin-left: -125px;
+  position: relative;
+  left: 40%;
+  margin-left: -3rem;
 }
 
 .content-left {
-  width: 250px;
+  width: 25rem;
   margin: 0 auto;
   top: 20vh;
-  position: absolute;
-  left: 50%;
-  margin-left: 125px;
+  position: relative;
+  left: 40%;
+  margin-left: 15rem;
+
+}
+
+.content-right h2 {
+  color: #03A9F4;
+  font-weight: 300;
+  font-size: 35px;
+
+
 }
 
 .content-left h2 {
@@ -187,15 +202,25 @@ input {
 .navbar-background {
   background: #2C3034;
   border-bottom: 1px solid #000;
+  height: auto;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
 
 }
 
+@media (max-width: 990px)  {
+
+  .nav-title {
+
+  }
+}
+
+
 .nav-title {
-  display: inline-block;
-  position: absolute;
-  left: 40%;
-
-
+  align: middle center;
 }
 
 .nav-title span {
@@ -203,6 +228,10 @@ input {
   font-size: 2rem;
   letter-spacing: .3rem;
   font-variant: small-caps;
+
+
+
+
 }
 
 .card {
@@ -290,7 +319,56 @@ input {
   color: white;
 }
 
-/* beginning of profile-update and profile-view styling */
+/* beginning of profile-update, profile-create and profile-view styling */
+
+.profile-create-body {
+  height: fit-content;
+}
+
+.create-display-name {
+  margin: 1rem;
+}
+
+
+.create-display-name input {
+  margin-left: 1.4rem;
+}
+
+.create-avatar {
+  margin: 1rem;
+}
+
+.create-avatar label {
+  display: block;
+  margin-top: 1rem;
+}
+
+.create-bio {
+  margin: 1rem;
+
+}
+
+.create-bio label {
+  display: block;
+}
+
+.create-bio textarea {
+  margin-left: 1.4rem;
+  background: none;
+  border: none;
+  resize: none;
+  border-bottom: solid 1px #45494C;
+  font-size: 14px;
+  width: 17rem;
+}
+
+.create-bio textarea:focus {
+  border: none;
+  outline: none;
+  height: 2rem;
+  border-bottom: solid 1px #45494C;
+  font-size:
+}
 
 .update-display-name {
   margin: 1rem;
@@ -312,12 +390,34 @@ input {
 
 .update-avatar input {
   margin-top: 0;
+  margin-left: 1rem;
   display: inline;
 }
 
 .update-bio {
   margin: 1rem;
 }
+
+.update-bio textarea {
+  margin-left: 1.4rem;
+  background: none;
+  border: none;
+  resize: none;
+  min-height: 4rem;
+  width: 17rem;
+  border-bottom: solid 1px #45494C;
+  font-size: 14px;
+
+  }
+
+.update-bio textarea:focus {
+  border: none;
+  outline: none;
+  height: 2rem;
+  border-bottom: solid 1px #45494C;
+  font-size:
+  }
+
 
 
 .profile-body {
@@ -345,7 +445,6 @@ input {
 .profile-date-joined {
   width: fit-content;
 }
-
 
 
 .profile-nav {
