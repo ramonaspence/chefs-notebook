@@ -59,31 +59,42 @@ class Nav extends Component {
     return (
 
       <div className="row">
-        <div id="nav-bar" className='navbar navbar-expand-lg navbar-dark navbar-background'>
-          <div id="navlinks" className='nav navbar-nav'>
+        <div id="nav-bar" className='navbar navbar-expand-lg navbar-dark navbar-background col-lg-12'>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbar1">
+            <div id="navlinks" className='nav navbar-nav col-lg-12 col-2'>
 
-          <div className="col-4">
-            <Link className="nav-item nav-link ml-lg-5" to="/dashboard/">Dashboard</Link>
-
-            <Link className="nav-item nav-link" to="/recipes/">Explore</Link>
-          </div>
-        <div className="nav-title col-4">
-          <span>Chef's Notebook</span>
-        </div>
+              <div className="dashboard-links col-lg-2 col-12 offset-lg-1">
+                <Link className="nav-item nav-link mr-lg-3" to="/dashboard/">Dashboard</Link>
+              </div>
+              <div className="dashboard-links col-lg-2 col-12 offset-lg-1">
+                <Link className="nav-item nav-link mr-lg-3" to="/recipes/">Explore</Link>
+              </div>
 
 
+              <div className="nav-title">
+                <span>Chef's Notebook</span>
+              </div>
 
 
 
-        <div className="profile-link col-4">
-        <Link className="nav-item nav-link ml-lg-3" to='/profile/'>Profile</Link>
-        {this.state.isAuthenticated
-        ?
-        <Link className="nav-item nav-link ml-lg-3" to="/logout" onClick={this.handleLogout}>Logout</Link>
-        :
-        null
-        }
-        </div>
+
+
+              <div className="profile-link col-12 col-lg-2 offset-lg-1">
+                <Link className="nav-item nav-link ml-lg-3" to='/profile/'>Profile</Link>
+              </div>
+                {this.state.isAuthenticated
+                  ?
+                  <div className="profile-link col-12 col-lg-2">
+                    <Link className="nav-item nav-link ml-lg-3" to="/logout" onClick={this.handleLogout}>Logout</Link>
+                  </div>
+                  :
+                  null
+                }
+
+            </div>
           </div>
         </div>
       </div>
