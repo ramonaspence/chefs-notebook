@@ -55,18 +55,21 @@ class ExploreRecipeList extends Component {
       console.log(tags); //gives array of strings
       tags.forEach(tag => tagStr += `&tags=${tag}`) //should concatenate strings into a new string `&tags=${tag1}&tags=${tag2}...`
       console.log(tagStr);
+      axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
+      .then(res => this.setState({recipes: res.data}))
+      .catch(err => console.log(err));
+
     }
     else {
-      tagStr = `&tags=`;
+      let tagStr = `&tags=${this.state.tags}`;
+      console.log(tagStr);
+      axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
+      .then(res => this.setState({recipes: res.data}))
+      .catch(err => console.log(err));
+
     }
 
-    // tags = this.state.tags.forEach(tag => tags = tags + `tags=${tag}&`);
-    axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
-    .then(res => this.setState({recipes: res.data}))
-    .catch(err => console.log(err));
-    // axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${this.state.title ? this.state.title : ''}&description__icontains=${this.state.description ? this.state.description : ''}&tags=${this.state.tags ? this.state.tags : ''}`)
-    // .then(res => this.setState({recipes: res.data}))
-    // .catch(err => console.log(err));
+
   }
 
   componentDidMount() {
@@ -78,6 +81,8 @@ class ExploreRecipeList extends Component {
 
     .then(response => this.setState({recipes: response.data}))
     .catch(err => console.log(err));
+
+    axios.get(`${BASE_URL}/api/v1/users/`)
 
   }
 
