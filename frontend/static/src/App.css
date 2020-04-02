@@ -487,6 +487,13 @@ a .view-recipe-button {
   flex-direction: row-reverse;
 }
 
+@media (max-width: 1000px) {
+  .recipe-detail-div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .recipe-title-div {
   display: inline-block;
   width: 35rem;
@@ -504,7 +511,7 @@ a .view-recipe-button {
   border-radius: 4px;
   padding: .25rem;
   font-size: 1.75rem;
-  width: 50vw;
+  /* width: 50vw; */
 
   margin-top: .5rem;
   margin-bottom: .5rem;
@@ -524,7 +531,7 @@ a .view-recipe-button {
   padding: .25rem;
   margin-top: .5rem;
   margin-bottom: .5rem;
-  width: 30vw;
+  /* width: 30vw; */
 }
 
 .recipe-times-div {
@@ -604,39 +611,38 @@ a .view-recipe-button {
 
 .image-preview-div {
   height: 14rem;
-  width: 18.25rem;
+  margin-top: 0;
 }
 
 .image-preview {
   height: 14rem;
-  width: 18.25rem;
-  margin-top: 0rem;
+  margin-top: 0;
+
 
 }
 
 .recipe-ingredient-div {
+  display: inline-block;
   margin-left: .001rem;
   height: fit-content;
-  width: 20rem;
 
 }
 
 .recipe-ingredient-box {
-
+  padding: 1rem;
   margin-top: 0;
   margin-bottom: 0;
-  width: 20rem;
   height: fit-content;
 
 }
 
 .recipe-instructions-div {
-
+  display: inline-block;
   height: fit-content;
 }
 
 .recipe-instructions-box {
-
+  padding: 1rem;
   margin-top: 0;
   margin-bottom: 0;
   height: fit-content;

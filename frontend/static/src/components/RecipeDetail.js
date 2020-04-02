@@ -126,13 +126,13 @@ class RecipeDetail extends Component {
       <React.Fragment>
         <Nav />
           <div className="row">
-            <div className="col-10 offset-1 mr-auto">
+            <div className="col-12 mr-auto">
               <div className="form-div">
                 <div className="recipe-title-div col-12">
-                  <div className="recipe-detail-title col-md-10 col-sm-6">
+                  <div className="recipe-detail-title col-md-10 col-12">
                     {this.state.recipe.title}
                   </div>
-                  <div className="recipe-detail-description col-10">
+                  <div className="recipe-detail-description col-12">
                     {this.state.recipe.description}
 
                   </div>
@@ -168,15 +168,15 @@ class RecipeDetail extends Component {
             </div>
 
 
-            <div className="recipe-detail-div row">
-              <div className="col-12 ml-auto">
+            <div className=" row">
+              <div className="recipe-detail-div col-12 ml-auto">
                 <div className="recipe-ingredient-div col-lg-3 col-12">
-                  <div className="form-control col-lg-3 col-12 recipe-ingredient-box">
+                  <div className="form-control col-12 recipe-ingredient-box">
                     {this.state.recipe.ingredients}
                   </div>
                 </div>
                 <div className="recipe-instructions-div col-lg-9 col-12">
-                  <div className="form-control col-lg-9 col-12 recipe-instructions-box">
+                  <div className="form-control col-12 recipe-instructions-box">
                     {this.state.recipe.instructions}
                   </div>
                 </div>
@@ -184,7 +184,7 @@ class RecipeDetail extends Component {
               </div>
             </div>
           </div>
-            <div className="card col-12 ml-auto">
+            <div className="card col-lg-6 offset-lg-2 col-12">
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#comments">
                 <i className="fa fa-bars"><span className="comments-toggler-btn">Comments</span></i>
               </button>
