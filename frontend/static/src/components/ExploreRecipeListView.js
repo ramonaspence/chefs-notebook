@@ -17,6 +17,7 @@ class ExploreRecipeList extends Component {
 
       this.state = {
         recipes: [],
+        users: [],
         tagpreviews: [],
       }
     this.handleKeyEvent = this.handleKeyEvent.bind(this);
@@ -72,22 +73,42 @@ class ExploreRecipeList extends Component {
 
   }
 
+
+
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/recipes/`,
-      {
-        headers: {
-          'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
-    }})
+    Promise.all([
+      axios.get(`${BASE_URL}/api/v1/recipes/`),
+      axios.get(`${BASE_URL}/api/v1/users/`)
+    ])
+    .then(([recipeRes, userRes]) => {
+      this.setState({recipes: recipeRes.data, users: userRes.data})
+    })
 
-    .then(response => this.setState({recipes: response.data}))
-    .catch(err => console.log(err));
 
-    axios.get(`${BASE_URL}/api/v1/users/`)
+    // axios.get(`${BASE_URL}/api/v1/recipes/`,
+    //   {
+    //     headers: {
+    //       'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
+    // }}).then(response => console.log(response.data))
+    // .catch(err => console.log(err)),
+    // axios.get(`${BASE_URL}/api/v1/users/`,
+    //   {
+    //     headers: {
+    //       'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
+    //     }
+    //   }).then(response => console.log(response.data))
+    //     .catch(err => console.log(err));
+
+    //
+    // .then(response => this.setState({recipes: response.data}))
+    // .catch(err => console.log(err));
+    //
+    // axios.get(`${BASE_URL}/api/v1/users/`)
 
   }
 
   render() {
-
+    console.log(this.state);
     let tagpreviews = this.state.tagpreviews.map(tag => (
 
           <span className="tags-preview-span">{tag}</span>
