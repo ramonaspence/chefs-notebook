@@ -29,7 +29,7 @@ class Home extends Component {
 
       <div className="row">
         <div id="nav-bar" className='navbar navbar-expand-lg navbar-dark navbar-background col-12'>
-          <div className="nav-title col-lg-5 col-8 offset-5">
+          <div className="nav-title col-md-5 col-12 offset-md-4 offset-sm-2">
             <span>Chef's Notebook</span>
           </div>
         </div>
@@ -44,7 +44,7 @@ class Home extends Component {
         <div id="slidebox">
 
             <div className="left">
-              <div className="col-sm-6 col-3 content-left">
+              <div className="col-sm-6 col-12 content-left">
                 <h2>Signup</h2>
                 <Signup props={this.props}/>
               </div>
@@ -52,7 +52,7 @@ class Home extends Component {
           </div>
 
         <div className="right">
-          <div className="col-sm-6 col-3 content-right">
+          <div className="col-sm-6 col-12 content-right">
             <h2>Login</h2>
             <Login props={this.props}/>
           </div>

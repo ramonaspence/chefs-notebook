@@ -40,7 +40,7 @@ class Dashboard extends Component {
     let recipes = this.state.recipes.map(recipe => {
       return (
         <div className="row no-gutters">
-          <div className="col-8 ml-auto card d-flex">
+          <div className="col-md-8 col-sm-12 ml-auto card d-flex">
             <div className="title card-body">
               <div className="card-title">
                 <h2>{recipe.owner.username}</h2>

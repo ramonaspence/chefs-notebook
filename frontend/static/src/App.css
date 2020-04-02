@@ -40,7 +40,7 @@ a {
 
 /* begin home signup and login styles */
 
-.backRight {
+/* .backRight {
   position: absolute;
   right: 0;
   width: 50%;
@@ -58,7 +58,7 @@ a {
   background: #2C3034;
   background-size: cover;
   background-position: 50% 25%;
-}
+} */
 
 .topLayer {
   width: 200%;
@@ -82,42 +82,6 @@ a {
   background: #f9f9f9;
   right: 0;
   position: absolute;
-}
-
-@media (max-width: 525px) {
-  .left {
-    width: 100%;
-    height: 50%;
-    background: #2C3034;
-    left: 0;
-    position: absolute;
-  }
-
-  .right {
-    width: 100%;
-    height: 50%;
-    background: #f9f9f9;
-
-  }
-  .backRight {
-    position: absolute;
-    right: 0;
-    width: 100%;
-    height: 50%;
-    background: #3498db;
-    background-size: cover;
-    background-position: 50% 25%;
-  }
-
-  .backLeft {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: #2C3034;
-    background-size: cover;
-    background-position: 50% 25%;
-  }
 }
 
 button {
@@ -174,7 +138,7 @@ button {
   top: 20vh;
   position: relative;
   left: 40%;
-  margin-left: -3rem;
+  margin-left: -6rem;
 }
 
 .content-left {
@@ -199,7 +163,22 @@ button {
   color: #03A9F4;
   font-weight: 300;
   font-size: 35px;
+  text-align: left;
 }
+
+/* START responsive design for login on Homepage */
+
+@media (max-width: 425px) {
+  .content-right h2 {
+    margin-left: 1rem;
+  }
+
+  .content-right {
+    margin-left: -5.25rem;
+  }
+}
+
+ /* END responsive design for login on Homepage */
 
 #slideBox {
   width: 50%;
@@ -229,7 +208,7 @@ input {
   margin-top: 20px;
 }
 
-/* end home page and begins navigation bar */
+/* START navigation bar styling */
 
 #navlinks a {
   color: #03A9F4;
@@ -252,9 +231,9 @@ input {
 
 }
 
-
 .nav-title {
   align: middle;
+  margin: .5rem;
 }
 
 .nav-title span {
@@ -262,8 +241,45 @@ input {
   font-size: 2rem;
   letter-spacing: .3rem;
   font-variant: small-caps;
-
 }
+
+.profile-link {
+  display: flex;
+  align-self: flex-end;
+  margin-right: -1.5rem;
+  flex-wrap: wrap;
+}
+
+
+.dashboard-links {
+  display: flex;
+  align-self: flex-end;
+  margin-left: -1.5rem;
+  flex-wrap: wrap;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+  font-size: .6rem;
+  margin: .25rem .5rem .25rem 0rem;
+}
+
+.navbar .nav button {
+  margin: .25rem .5rem .25rem 0rem;
+}
+
+/* START media query for navigation title */
+
+@media (max-width: 425px) {
+  .nav-title {
+    align: middle;
+    margin: .5rem;
+    margin-left: 1.5rem;
+  }
+}
+
+  /* END media query for nav title */
+
+  /* START styles for explore page */
 
 .card {
   margin-bottom: .5rem;
@@ -274,79 +290,6 @@ input {
   display: inline;
 }
 
-@media (max-width: 768px) {
-  .profile-link {
-    display: flex;
-    align-self: flex-end;
-    margin-right: -1.5rem;
-
-  }
-
-  .dashboard-links {
-    display: flex;
-    align-self: flex-end;
-    margin-left: 1.5rem;
-    flex: 1;
-  }
-
-  .nav-title {
-    align: middle;
-  }
-
-  .nav-title span {
-    color: rgba(237,237,237,1);
-    font-size: 2rem;
-    letter-spacing: .3rem;
-    font-variant: small-caps;
-
-  }
-
-
-
-}
-
-.profile-link {
-  display: flex;
-  align-self: flex-end;
-  margin-right: -1.5rem;
-
-}
-
-.dashboard-links {
-  display: flex;
-  align-self: flex-end;
-  margin-left: 1.5rem;
-  flex: 1;
-}
-
-/* .signup-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  height: 50vh;
-  text-align: center;
-  margin: auto 0;
-}
-
-.signup-link {
-  width: 40vw;
-  background-color: #DDDDDD22;
-  color: black;
-
-  border: 2px solid black;
-  border-radius: 4px;
-  padding: 1rem;
-  margin: 1rem;
-
-}
-
-.signup-div span {
-  font-size: 1.8rem;
-
-
-} */
 
 .form-control {
   height: 2rem;
@@ -367,11 +310,9 @@ input {
 }
 
 .tags-preview {
-
-  border: white solid 1px;
   border-radius: .3rem;
   height: 2.25rem;
-  margin-left: 28rem;
+  margin-right: auto;
   padding: .25rem .5rem .25rem 1rem;
 
 }
@@ -382,6 +323,10 @@ input {
   border-radius: .3rem;
   background-color: skyblue;
   color: white;
+}
+
+a .view-recipe-button {
+  margin: .25rem .25rem;
 }
 
 /* beginning of profile-update, profile-create and profile-view styling */

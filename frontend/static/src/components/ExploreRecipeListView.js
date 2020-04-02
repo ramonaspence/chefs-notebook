@@ -94,7 +94,7 @@ class ExploreRecipeList extends Component {
     let recipes = this.state.recipes.map(recipe =>  (
 
         <div className="row no-gutters">
-          <div className="col-8 ml-auto card d-flex">
+          <div className="col-lg-8 col-12 offset-lg-1 mr-lg-auto mr-auto card d-flex">
             <div className="title card-body">
               <h1>{recipe.title}</h1>
               <Link to={`/users/profile/${recipe.owner.id}`}><h5>{recipe.owner.username}</h5></Link>
@@ -103,7 +103,7 @@ class ExploreRecipeList extends Component {
 
 
             <div className='recipe-list-body'>
-            <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
+            <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success view-recipe-btn">View</Link>
 
             <p>{recipe.description}</p>
             <p>created on {moment(recipe.date_published).format("MMM Do YYYY")}</p>
@@ -121,28 +121,28 @@ class ExploreRecipeList extends Component {
           <Nav />
         }
         <div className="row no-gutters explore-recipe-form">
-        <form role="search" onSubmit={this.handleSearch} className="search form-inline ml-5 col-12">
+        <form role="search" onSubmit={this.handleSearch} className="search form-inline col-12">
           <input className="form-control mr-lg-2" type="search" name="title" placeholder="Search by title" aria-label="Search" onChange={this.handleSearchInput} />
           <input className="form-control mr-lg-2" type="search" name="description" placeholder="Search by description" aria-label="Search" onChange={this.handleSearchInput} />
 
 
           <input className="form-control mr-lg-2" type="search" name="tags" placeholder="Search by tags" aria-label="Search" onKeyUp={this.handleKeyEvent} onChange={this.handleSearchInput} />
 
+          {this.state.tags
+            ?
+            <div className="tags-preview col-4 offset-lg-4">
 
+            {tagpreviews}
+
+            </div>
+            :
+            <div className="tags-preview col-2 offset-lg-4">
+            </div>
+          }
 
           <button className="btn search-btn btn-outline-dark my-2 my-sm-0" type='submit'>Search</button>
         </form>
-        {this.state.tags
-          ?
-          <div className="tags-preview col-4 offset-4">
 
-          {tagpreviews}
-
-          </div>
-          :
-          <div className="tags-preview col-2 offset-4">
-          </div>
-        }
         </div>
         <ul>
           <li>
