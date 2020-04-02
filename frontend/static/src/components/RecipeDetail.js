@@ -151,10 +151,11 @@ class RecipeDetail extends Component {
             {this.state.isAuthorized
               ?
               <React.Fragment>
-            <div onClick={this.handleDelete} className="btn btn-outline-danger recipe-save-div">
-              Delete Recipe
-            </div>
-              <NavLink to={`/update/${this.state.recipe.id}`}><button className="btn btn-outline-primary">Edit Recipe</button></NavLink>
+            <div className="recipe-save-div col-12 mr-auto">
+              <button onClick={this.handleDelete}>Delete Recipe</button>
+
+              <NavLink to={`/update/${this.state.recipe.id}`}><button>Edit Recipe</button></NavLink>
+              </div>
               </React.Fragment>
               :
               <div className="recipe-save-div">
@@ -162,13 +163,13 @@ class RecipeDetail extends Component {
             }
 
             <div className="image-detail-div col-lg-4 col-12 mr-auto">
-              <div className="image-preview-div form-control card">
-                <img className="image-preview" src="" alt="Whoops! Sorry! No can do."/>
+              <div className="image-preview-div col-12 form-control card">
+                <img className="image-preview col-12" src={this.state.recipe.image} alt="Whoops! Sorry! No can do."/>
               </div>
             </div>
 
 
-            <div className=" row">
+            <div className="row">
               <div className="recipe-detail-div col-12 ml-auto">
                 <div className="recipe-ingredient-div col-lg-3 col-12">
                   <div className="form-control col-12 recipe-ingredient-box">

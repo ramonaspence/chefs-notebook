@@ -80,54 +80,54 @@ class ProfileView extends Component {
     return (
       <React.Fragment>
       <Nav />
-      <div className='row no-gutters'>
-        <div className='col-4 card profile-body'>
-          <div className='card-body'>
+      <div className='row'>
+        <div className='col-md-4 col-12 card profile-body'>
+          <div className='card-body row'>
 
-            <div className="profile-username">
+              <div className="profile-username col-md-12 col-6 mr-auto">
                 <h2>{this.state.profile.display_name}</h2>
               </div>
-              <div className="profile-avatar">
+
+              <div className="profile-avatar col-md-12 col-6 mr-auto">
                 <img src={this.state.profile.avatar} alt="don't know about that" />
               </div>
-              <div className="profile-bio">
+
+              <div className="profile-bio col-12 mr-auto">
                 <p>{this.state.profile.bio}</p>
               </div>
-
-
-
           </div>
 
-          <div className='card-footer'>
+          <div className='card-footer profile-bio-footer'>
             <div className="profile-date-joined">
               <p>Member since: {moment(this.state.profile.date_joined).format("MMM Do YYYY")}</p>
             </div>
             <div className="profile-update">
               <NavLink to={`/profile/update/${this.state.profile.id}`}>Update Profile</NavLink>
             </div>
-              </div>
-              </div>
-              <div className='col-8'>
-                <div className='profile-nav'>
-                  <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
-                  <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>
-                  <button className="btn btn-outline-info" onClick={this.handleFollowers}>Followers</button>
-                  <NavLink to='/add/recipe/'><button className="btn btn-outline-info">Start a New Recipe</button></NavLink>
-                </div>
-                { this.state.toggle === 'following'
-                ?
-                <ListFollowing profile={this.state.profile} hidenav={this.state.hidenav} />
-                :
-                this.state.toggle === 'followers'
-                ?
-                <ListFollowers profile={this.state.profile} hidenav={this.state.hidenav} />
-                :
-                this.state.profile.owner && <UserRecipeList profile={this.state.profile.owner} hidenav={this.state.hidenav} />
-                }
-
-              </div>
           </div>
-          </React.Fragment>
+        </div>
+        <div className='col-md-8 col-12'>
+          <div className='profile-nav'>
+            <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
+            <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>
+            <button className="btn btn-outline-info" onClick={this.handleFollowers}>Followers</button>
+            <NavLink to='/add/recipe/'><button className="btn btn-outline-info">Start a New Recipe</button></NavLink>
+          </div>
+
+        { this.state.toggle === 'following'
+        ?
+        <ListFollowing profile={this.state.profile} hidenav={this.state.hidenav} />
+        :
+        this.state.toggle === 'followers'
+        ?
+        <ListFollowers profile={this.state.profile} hidenav={this.state.hidenav} />
+        :
+        this.state.profile.owner && <UserRecipeList profile={this.state.profile.owner} hidenav={this.state.hidenav} />
+        }
+
+      </div>
+  </div>
+  </React.Fragment>
 
 
     )

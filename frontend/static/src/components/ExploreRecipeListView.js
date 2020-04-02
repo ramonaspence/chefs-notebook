@@ -79,7 +79,6 @@ class ExploreRecipeList extends Component {
     .then(response => this.setState({recipes: response.data}))
     .catch(err => console.log(err));
 
-
   }
 
   render() {

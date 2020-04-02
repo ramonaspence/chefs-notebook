@@ -57,25 +57,26 @@ class UserRecipeList extends Component {
     console.log(this.props);
    let recipes = this.state.recipes.map(recipe =>  (
 
-        <div className="row no-gutters">
-          <div className="col-8 ml-auto card d-flex">
-            <div className="title card-body">
+        <div className="row">
+          <div className="profile-recipe-list col-md-12 col-10 card">
+            <div className="title card-body col-12">
               <h1>{recipe.title}</h1>
+              <Link to={`/recipes/${recipe.id}`}><button className="view-recipe-btn">View</button></Link>
               <h5>{recipe.owner.username}</h5>
               <img className="recipe-list-img" src={recipe.image} alt="Whoops! Sorry! No can do."/>
+            </div>
 
 
-
-            <div className='recipe-list-body'>
-            <Link to={`/recipes/${recipe.id}`} className="btn btn-outline-success">View</Link>
-
-            <p>{recipe.description}</p>
-            <p>created on {moment(recipe.date_published).format("MMM Do YYYY")}</p>
-            <p>last updated {moment(recipe.date_updated).fromNow()}</p>
+              <div className='recipe-list-body'>
+                <p>{recipe.description}</p>
+              <div className="recipe-datetimes">
+                <p>created on {moment(recipe.date_published).format("MMM Do YYYY")}</p>
+                <p>last updated {moment(recipe.date_updated).fromNow()}</p>
+              </div>
             </div>
           </div>
-          </div>
         </div>
+
       ))
         return (
         <React.Fragment>

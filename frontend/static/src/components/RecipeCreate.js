@@ -77,42 +77,42 @@ class RecipeCreate extends Component {
     return (
       <React.Fragment>
         <Nav />
-          <div className="row no-gutters">
-            <div className="col-10 offset-1">
+          <div className="row">
+            <div className="col-12 mr-auto">
               <form type='submit' method='post' onSubmit={(e) => this.handleSubmit(e, this.state)}>
-                <div className="recipe-title-div">
-                  <input className="form-control recipe-title" placeholder="title" type='text' name='title' onChange={this.handleChange} defaultValue='' />
+                <div className="recipe-title-div col-12">
+                  <input className="form-control recipe-title col-md-10 col-12" placeholder="title" type='text' name='title' onChange={this.handleChange} defaultValue='' />
 
-                  <input className="form-control recipe-description" placeholder="description" type='text' name='description' onChange={this.handleChange} defaultValue='' />
+                  <input className="form-control recipe-description col-12" placeholder="description" type='text' name='description' onChange={this.handleChange} defaultValue='' />
                 </div>
-                <div className="save-recipe-div">
-                  <button className="btn btn-outline-success save-recipe-btn">Save Recipe</button>
+                <div className="save-recipe-div col-12 mr-auto">
+                  <button className="save-recipe-btn">Save Recipe</button>
                 </div>
 
-                <div className="image-create-div col-4">
+                <div className="image-create-div col-lg-4 col-12 mr-auto">
                   <input className="col-12 image-upload card" type='file' name='image' onChange={this.handleImageChange} />
-                    <div className="image-preview-div card">
+                    <div className="image-preview-div col-12 card">
                       {this.state.image
                       ?
-                        <img className="image-preview card" src={this.state.preview} alt="preview not available" />
+                        <img className="image-preview col-12" src={this.state.preview} alt="preview not available" />
                       :
                         (null)
                       }
                     </div>
                 </div>
 
+                <div className="row">
+                  <div className="recipe-create-div col-12 ml-auto">
+                    <div className="recipe-ingredient-div col-lg-3 col-12">
+                      <textarea className="form-control col-12 recipe-ingredient-box" placeholder='Keep your ingredients and measurements here' type='text' name='ingredients' onChange={this.handleChange} defaultValue='' />
+                    </div>
+                    <div className="recipe-instructions-div col-lg-9 col-12">
+                      <textarea className="form-control col-12 recipe-instructions-box" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
+                    </div>
 
-                <div className="recipe-create-div row no-gutters">
-                  <div className="recipe-ingredient-div card col-3">
-                    <textarea className="form-control col-12 recipe-ingredient-box" placeholder='Keep your ingredients and measurements here' type='text' name='ingredients' onChange={this.handleChange} defaultValue='' />
+
                   </div>
-                  <div className="recipe-instructions-div card col-9">
-                    <textarea className="form-control col-12 recipe-instructions-box" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
-                  </div>
-
-
                 </div>
-
               </form>
             </div>
           </div>
