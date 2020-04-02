@@ -66,10 +66,10 @@ class Nav extends Component {
         <div id="nav-bar" className='navbar navbar-expand-md navbar-dark navbar-background col-lg-12'>
             <div id="navlinks" className='nav navbar-nav col-12'>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
-                  <span class="navbar-toggler-icon"></span>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
+                  <span className="navbar-toggler-icon"></span>
                 </button>
-              <div class="collapse navbar-collapse" id="navbar1">
+              <div className="collapse navbar-collapse" id="navbar1">
                 <div className="dashboard-link-parent mr-auto col-sm-2 offset-lg-1">
                   <div className="dashboard-links mr-sm-auto ml-auto col-sm-2 offset-lg-1">
                     <Link className="nav-item nav-link" to="/dashboard/">Dashboard</Link>
