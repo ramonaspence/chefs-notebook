@@ -81,7 +81,8 @@ class ExploreRecipeList extends Component {
       axios.get(`${BASE_URL}/api/v1/users/`)
     ])
     .then(([recipeRes, userRes]) => {
-      this.setState({recipes: recipeRes.data, users: userRes.data})
+      this.setState({recipes: recipeRes.data, users: userRes.data}) //may need to get data into one object,
+      // so I can dig through recipes to profile id inside of the recipes.map()
     })
 
 
