@@ -40,7 +40,7 @@ class ListFollowers extends Component {
         <div className="col-md-8 col-12 ml-auto card d-flex">
           <div className="title card-body">
             <div className="card-title">
-            <Link to={`/users/profile/${follower.following.profile}/`}><h3>{follower.following.username}</h3></Link>
+            <Link to={`/users/profile/${follower.following.profile.id}/`}><h3>{follower.following.username}</h3></Link>
 
               <p>since {moment(follower.following.created).format("MMM Do YYYY")}</p>
 

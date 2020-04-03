@@ -34,6 +34,27 @@ a {
   text-decoration: none;
 }
 
+.bad-request-box {
+  height: fit-content;
+
+}
+
+.bad-request-header {
+  text-align: center;
+}
+
+.bad-request-msg {
+  margin: 1rem;
+  text-align: center;
+  display: block;
+}
+.bad-request-link {
+  display: block;
+  text-align: center;
+  font-size: 1.8rem;
+  border: 1px solid #03A9F4;
+}
+
 .card {
   background-color: #2C3034;
   border: solid 2px #DDD;

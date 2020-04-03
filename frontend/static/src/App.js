@@ -6,6 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 
+import BadRequest from './components/TagSearch400.js';
 import ListFollowing from './components/ListFollowing.js';
 import ListFollowers from './components/ListFollowers.js';
 import ProfileDetail from './components/ProfileDetail.js';
@@ -53,6 +54,7 @@ class App extends Component {
 
           <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/oops/" component={BadRequest} />
           <Route path="/dashboard/" exact component={Dashboard} />
           <Route path="/users/profile/:id" exact component={ProfileDetail} />
           <Route path="/profile/followers/" exact component={ListFollowers} />

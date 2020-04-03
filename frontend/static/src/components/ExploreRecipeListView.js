@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+import BadRequest from './TagSearch400.js';
+
 import Nav from '../containers/Nav.js';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -19,6 +21,7 @@ class ExploreRecipeList extends Component {
         recipes: [],
         tagpreviews: [],
       }
+    this.handleBadRequest = this.handleBadRequest.bind(this);
     this.handleKeyEvent = this.handleKeyEvent.bind(this);
     this.handleSearchInput = this.handleSearchInput.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -43,6 +46,10 @@ class ExploreRecipeList extends Component {
     console.log(this.state);
   }
 
+  handleBadRequest() {
+    this.setState({badRequest: true})
+  }
+
   handleSearch(e) {
     e.preventDefault();
     console.log('fires')
@@ -65,12 +72,14 @@ class ExploreRecipeList extends Component {
       console.log(tagStr);
       axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
       .then(res => this.setState({recipes: res.data}))
-      .catch(err => console.log(err));
+      .catch(err => this.handleBadRequest());
+    }
+
 
     }
 
 
-  }
+
 
   // Promise.all([
   //   axios.get(`${BASE_URL}/api/v1/recipes/`), // auth headers
@@ -91,7 +100,11 @@ class ExploreRecipeList extends Component {
   }
 
   render() {
-    console.log(this.state);
+    if (this.state.badRequest) {
+      return (
+        <Redirect to="/oops/" />
+      )
+    }
     let tagpreviews = this.state.tagpreviews.map(tag => (
 
           <span className="tags-preview-span">{tag}</span>
