@@ -444,7 +444,7 @@ a .view-recipe-button {
 }
 
 .profile-avatar {
-  /* margin: 1rem; */
+  padding: 0;
 }
 
 .profile-bio {
@@ -478,8 +478,8 @@ a .view-recipe-button {
 .profile-recipe-list {
   display: flex;
   flex-direction: column;
-  margin-right: 2.5rem;
-  margin-left: 2.5rem;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
 }
 
 
@@ -504,7 +504,7 @@ a .view-recipe-button {
 }
 
 .recipe-list-img {
-  width: 14rem;
+  width: 12rem;
   height: 12rem;
 }
 

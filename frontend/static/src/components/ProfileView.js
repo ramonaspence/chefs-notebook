@@ -84,11 +84,11 @@ class ProfileView extends Component {
         <div className='col-md-4 col-12 card profile-body'>
           <div className='card-body row'>
 
-              <div className="profile-username col-md-12 col-6 mr-auto">
+              <div className="profile-username col-md-12 col-7 mr-auto">
                 <h2>{this.state.profile.display_name}</h2>
               </div>
 
-              <div className="profile-avatar col-md-12 col-6 mr-auto">
+              <div className="profile-avatar col-md-12 col-5">
                 <img src={this.state.profile.avatar} alt="don't know about that" />
               </div>
 

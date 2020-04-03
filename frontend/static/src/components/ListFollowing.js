@@ -41,7 +41,7 @@ class ListFollowing extends Component {
         <div className="col-8 ml-auto card d-flex">
           <div className="title card-body">
             <div className="card-title">
-              <Link to={`/users/profile/${connection.following}/`}><h3>{connection.following.username}</h3></Link>
+              <Link to={`/users/profile/${connection.following.profile.id}/`}><h3>{connection.following.username}</h3></Link>
               <p>since {moment(connection.created).format("MMM Do YYYY")}</p>
 
             </div>

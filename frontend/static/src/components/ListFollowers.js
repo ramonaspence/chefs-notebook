@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-
+import {Link} from 'react-router-dom'
 import Nav from '../containers/Nav.js';
 
 import moment from 'moment';
@@ -17,7 +17,7 @@ class ListFollowers extends Component {
     super();
 
     this.state = {
-      connections: [],
+      followers: [],
     }
 
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -27,19 +27,22 @@ class ListFollowers extends Component {
     axios.get(`${BASE_URL}/api/v1/profiles/followers`,{
       headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).token}`}
     })
-    .then(res => this.setState({connections: res.data}))
+    .then(res => this.setState({followers: res.data}))
     .catch(err => console.log(err));
   }
 
   render() {
-    let followers = this.state.connections.map(follower => (
+    console.log(this.state)
 
-      <div className="row no-gutters">
-        <div className="col-8 ml-auto card d-flex">
+    let followers = this.state.followers.map(follower => (
+
+      <div className="row">
+        <div className="col-md-8 col-12 ml-auto card d-flex">
           <div className="title card-body">
             <div className="card-title">
-              <h3>{follower.owner.username}</h3>
-              <p>since {moment(follower.created).format("MMM Do YYYY")}</p>
+            <Link to={`/users/profile/${follower.following.profile}/`}><h3>{follower.following.username}</h3></Link>
+
+              <p>since {moment(follower.following.created).format("MMM Do YYYY")}</p>
 
 
             </div>

@@ -17,7 +17,6 @@ class ExploreRecipeList extends Component {
 
       this.state = {
         recipes: [],
-        users: [],
         tagpreviews: [],
       }
     this.handleKeyEvent = this.handleKeyEvent.bind(this);
@@ -73,39 +72,22 @@ class ExploreRecipeList extends Component {
 
   }
 
+  // Promise.all([
+  //   axios.get(`${BASE_URL}/api/v1/recipes/`), // auth headers
+  //   axios.get(`${BASE_URL}/api/v1/users/`)
+  // ])
+  // .then(([recipeRes, userRes]) => {
+  //   this.setState({recipes: recipeRes.data, users: userRes.data}) //may need to get data into one object,
+  //   // so I can dig through recipes to profile id inside of the recipes.map()
+  // })
 
 
   componentDidMount() {
-    Promise.all([
-      axios.get(`${BASE_URL}/api/v1/recipes/`),
-      axios.get(`${BASE_URL}/api/v1/users/`)
-    ])
-    .then(([recipeRes, userRes]) => {
-      this.setState({recipes: recipeRes.data, users: userRes.data}) //may need to get data into one object,
-      // so I can dig through recipes to profile id inside of the recipes.map()
+    axios.get(`${BASE_URL}/api/v1/recipes/`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
-
-
-    // axios.get(`${BASE_URL}/api/v1/recipes/`,
-    //   {
-    //     headers: {
-    //       'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
-    // }}).then(response => console.log(response.data))
-    // .catch(err => console.log(err)),
-    // axios.get(`${BASE_URL}/api/v1/users/`,
-    //   {
-    //     headers: {
-    //       'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
-    //     }
-    //   }).then(response => console.log(response.data))
-    //     .catch(err => console.log(err));
-
-    //
-    // .then(response => this.setState({recipes: response.data}))
-    // .catch(err => console.log(err));
-    //
-    // axios.get(`${BASE_URL}/api/v1/users/`)
-
+    .then(res => this.setState({recipes: res.data}))
+    .catch(err => console.log(err))
   }
 
   render() {
@@ -115,6 +97,13 @@ class ExploreRecipeList extends Component {
           <span className="tags-preview-span">{tag}</span>
 
       ))
+    // let profiles = this.state.users.map(profile => {
+    //   if (this.state.user.id === this.state.recipes.owner.id) {
+    //     let profileID = this.state.user.profile.id;
+    //     return (<Link to={`/users/profile/${profile.id}`}><h5>{this.state.recipe.owner.username}</h5></Link>)
+    //   }
+    // })
+
 
 
     let recipes = this.state.recipes.map(recipe =>  (
@@ -123,7 +112,9 @@ class ExploreRecipeList extends Component {
           <div className="col-lg-8 col-12 offset-lg-1 mr-lg-auto mr-auto card d-flex">
             <div className="title card-body">
               <h1>{recipe.title}</h1>
-              <Link to={`/users/profile/${recipe.owner.id}`}><h5>{recipe.owner.username}</h5></Link>
+
+              <Link to={`/users/profile/${recipe.owner.profile.id}`}><h5>{recipe.owner.username}</h5></Link>
+
               <img className="recipe-list-img" src={recipe.image} alt="Whoops! Sorry! No can do."/>
 
 

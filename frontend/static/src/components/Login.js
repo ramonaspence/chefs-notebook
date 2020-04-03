@@ -35,6 +35,7 @@ class Login extends Component {
       localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}))
       console.log(res);
     })
+      .then(this.setState({redirect: true}))
     .catch(err => console.log(err))
   }
 
@@ -44,10 +45,7 @@ class Login extends Component {
 
     axios.post(`${BASE_URL}/rest-auth/login/`, this.state)
     .then(res => {localStorage.setItem('current-user', JSON.stringify(res.data))})
-    .then(this.captureLogin())
-    .then(this.setState({redirect: true}))
-
-
+    .then(res => this.captureLogin())
 
     .catch(err => {console.log(err)})
 

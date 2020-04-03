@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import *
 from django.conf import settings
 
+from accounts.serializers import UserSerializer
 
 import json
 
@@ -26,12 +27,12 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
-
+    owner = UserSerializer() ## for some reason allows profile details to be in recipe object in backend, I don't quite understand this fully
     class Meta:
         model = Recipe
         fields = '__all__' ##['title', 'description', 'image', 'ingredients', 'instructions', 'tags',]
         owner = serializers.ReadOnlyField(source='owner.username')
-        depth = 1
+        depth = 3
 
     ## modified create method to save recipe before adding tags from clarifai api
     ## because tags is a ManyToManyField, tags must be defined before saving to an instance of recipe

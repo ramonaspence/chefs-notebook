@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from .models import *
-
+from accounts.serializers import UserSerializer
 
 class ConnectionSerializer(serializers.ModelSerializer):
+    following = UserSerializer()
+
     class Meta:
         model = Connection
         fields = '__all__'
@@ -17,4 +19,4 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__' ##['display_name', 'bio', 'avatar', 'date_joined',]
-        
+        depth = 2

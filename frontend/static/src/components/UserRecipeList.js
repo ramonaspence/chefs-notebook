@@ -41,7 +41,7 @@ class UserRecipeList extends Component {
 
   componentDidMount() {
     console.log(this.props);
-    axios.get(`${BASE_URL}/api/v1/recipes/user/${this.props.profile}`,
+    axios.get(`${BASE_URL}/api/v1/recipes/user/${this.props.profile.id}`,
       {
         headers: {
           'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
@@ -58,7 +58,7 @@ class UserRecipeList extends Component {
    let recipes = this.state.recipes.map(recipe =>  (
 
         <div className="row">
-          <div className="profile-recipe-list col-md-12 col-10 card">
+          <div className="profile-recipe-list col-md-12 col-10 ml-auto card">
             <div className="title card-body col-12">
               <h1>{recipe.title}</h1>
               <Link to={`/recipes/${recipe.id}`}><button className="view-recipe-btn">View</button></Link>
