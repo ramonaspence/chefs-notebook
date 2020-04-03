@@ -58,7 +58,7 @@ class UserRecipeList extends Component {
    let recipes = this.state.recipes.map(recipe =>  (
 
         <div className="row">
-          <div className="profile-recipe-list col-md-12 col-10 ml-auto card">
+          <div className="profile-recipe-list col-lg-8 ml-lg-auto mr-lg-4 mr-auto ml-auto col-10 card">
             <div className="title card-body col-12">
               <h1>{recipe.title}</h1>
               <Link to={`/recipes/${recipe.id}`}><button className="view-recipe-btn">View</button></Link>
@@ -88,14 +88,14 @@ class UserRecipeList extends Component {
         }
         { this.props.hidesearch
         ?
+        null
+        :
         <form onSubmit={this.handleSearch} className="search form-inline ml-5">
           <input className="form-control mr-lg-2" type="search" name="title" placeholder="Search by title" aria-label="Search" onChange={this.handleSearchInput} />
           <input className="form-control mr-lg-2" type="search" name="description" placeholder="Search by description" aria-label="Search" onChange={this.handleSearchInput} />
           <input className="form-control mr-lg-2" type="search" name="tags" placeholder="Search by tags" aria-label="Search" onChange={this.handleSearchInput} />
           <button className="btn btn-outline-light my-2 my-sm-0" type='submit'>Search</button>
         </form>
-        :
-        null
         }
         <ul>
           <li>

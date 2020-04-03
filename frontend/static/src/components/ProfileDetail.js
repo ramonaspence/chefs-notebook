@@ -114,46 +114,55 @@ class ProfileDetail extends Component {
 
     return(
       <React.Fragment>
-      <Nav />
-      <div className='row no-gutters'>
-        <div className='col-4 card profile-body'>
-          <div className='card-body'>
-            <h2>{this.state.profile.display_name}</h2>
+        <Nav />
+          <div className='row'>
+            <div className='col-md-4 col-12 card profile-body'>
+              <div className='card-body row'>
 
-              <img src={this.state.profile.avatar} alt="don't know about that" />
-              <p>{this.state.profile.bio}</p>
+              <div className="profile-username col-md-12 col-7 mr-auto">
+                <h2>{this.state.profile.display_name}</h2>
+              </div>
+              <div className="profile-avatar col-md-12 col-5">
+                <img src={this.state.profile.avatar} alt="don't know about that" />
+              </div>
+              <div className="profile-bio col-12 mr-auto">
+                <p>{this.state.profile.bio}</p>
+              </div>
+              <div className="follow-btn">
+                {button}
+              </div>
 
-              {button}
+            </div>
 
+            <div className='card-footer profile-bio-footer'>
+              <div className="profile-date-joined">
+                <p>Member since: {moment(this.state.profile.date_joined).format("MMM Do YYYY")}</p>
+              </div>
+            </div>
           </div>
 
-          <div className='card-footer'>
-            <p>Member since: {moment(this.state.profile.date_joined).format("MMM Do YYYY")}</p>
-              </div>
-              </div>
-
-              <div className='col-8'>
-              <div className='profile-nav'>
-              <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
-              <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>
-              <button className="btn btn-outline-info" onClick={this.handleFollowers}>Followers</button>
-              </div>
-              { this.state.toggle === 'following'
-              ?
-              <ListFollowing profile={this.state.profile} hidenav={this.state.hidenav} />
-              :
-              this.state.toggle === 'followers'
-              ?
-              <ListFollowers hidenav={this.state.hidenav} />
-              :
-              this.state.profile.owner && <UserRecipeList hidesearch={this.state.hidesearch} profile={this.state.profile.owner} hidenav={this.state.hidenav} />
-              }
-              {/* uses inline if with && operator to wait until this.state.profile.user is updated, to render the recipe list
-              this forces the parent component (profiledetail) to NOT pass state until the state is defined */}
-
-              </div>
+        <div className='col-md-8 col-12'>
+          <div className='profile-nav'>
+            <button className='btn btn-outline-info' onClick={this.handleRecipes}>Recipes</button>
+            <button className='btn btn-outline-info' onClick={this.handleFollowing}>Following</button>
+            <button className="btn btn-outline-info" onClick={this.handleFollowers}>Followers</button>
           </div>
-          </React.Fragment>
+            { this.state.toggle === 'following'
+            ?
+            <ListFollowing profile={this.state.profile} hidenav={this.state.hidenav} />
+            :
+            this.state.toggle === 'followers'
+            ?
+            <ListFollowers hidenav={this.state.hidenav} />
+            :
+            this.state.profile.owner && <UserRecipeList hidesearch={this.state.hidesearch} profile={this.state.profile.owner} hidenav={this.state.hidenav} />
+            }
+            {/* uses inline if with && operator to wait until this.state.profile.user is updated, to render the recipe list
+            this forces the parent component (profiledetail) to NOT pass state until the state is defined */}
+
+        </div>
+      </div>
+    </React.Fragment>
 
     )
   }

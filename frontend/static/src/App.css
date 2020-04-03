@@ -332,6 +332,8 @@ a .view-recipe-button {
 
 .profile-create-body {
   height: fit-content;
+
+  margin: 0 auto;
 }
 
 .create-display-name {
@@ -344,7 +346,12 @@ a .view-recipe-button {
 }
 
 .create-avatar {
+  height: fit-content;
   margin: 1rem;
+}
+
+.create-avatar input {
+  height: 3rem;
 }
 
 .create-avatar label {
@@ -354,7 +361,6 @@ a .view-recipe-button {
 
 .create-bio {
   margin: 1rem;
-
 }
 
 .create-bio label {
@@ -368,6 +374,7 @@ a .view-recipe-button {
   resize: none;
   border-bottom: solid 1px #45494C;
   font-size: 14px;
+  min-height: 8rem;
   width: 17rem;
 }
 
@@ -380,35 +387,33 @@ a .view-recipe-button {
 }
 
 .update-display-name {
-  margin: 1rem;
+  /* margin: 1rem; */
 
 }
 
 .update-display-name input {
-  margin-left: 1.4rem;
+  /* margin-left: 1.4rem; */
 }
 
 .update-avatar {
-  margin: 1rem;
+  /* margin: 1rem; */
 }
 
 .update-avatar label {
   display: block;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 }
 
 .update-avatar input {
-  margin-top: 0;
-  margin-left: 1rem;
-  display: inline;
+  height: 3rem;
 }
 
 .update-bio {
-  margin: 1rem;
+  /* margin: 1rem; */
 }
 
 .update-bio textarea {
-  margin-left: 1.4rem;
+  /* margin-left: 1.4rem; */
   background: none;
   border: none;
   resize: none;
@@ -431,6 +436,15 @@ a .view-recipe-button {
 
 .profile-body {
   height: fit-content;
+}
+
+.profile-update-body {
+  height: fit-content;
+  margin: 0 auto;
+}
+
+.profile-update {
+  font-size: 1rem;
 }
 
 .profile-update a {
@@ -478,8 +492,8 @@ a .view-recipe-button {
 .profile-recipe-list {
   display: flex;
   flex-direction: column;
-  margin-right: 1.5rem;
-  margin-left: 1.5rem;
+
+  margin-left: 3rem;
 }
 
 

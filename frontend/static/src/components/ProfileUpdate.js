@@ -84,45 +84,45 @@ class ProfileUpdate extends Component {
     }
     else
     return (
-          <React.Fragment>
-            <Nav />
-            <div className='row no-gutters'>
-              <div className='col-4 card'>
-                <div className='profile-body card-body'>
+      <React.Fragment>
+        <Nav />
+          <div className='row'>
+            <div className='col-md-6 col-12 card profile-update-body'>
+              <div className='card-body row'>
+
                 <form type='submit' onSubmit={this.handleSubmit}>
-                  <button>Save Profile</button>
-                    <div className="update-display-name">
-                      <label htmlFor='display_name'>New Display Name: </label>
-                      <input type='text' name='display_name' placeholder={this.state.display_name} onChange={this.handleChange} />
-                    </div>
-                    <div className="update-avatar">
+
+                <button>Save Profile</button>
+
+                  <div className="update-display-name col-md-12 col-7 mr-auto">
+                    <label htmlFor='display_name'>New Display Name: </label>
+                    <input type='text' name='display_name' placeholder={this.state.display_name} onChange={this.handleChange} />
+                  </div>
+                  <div className="update-avatar col-md-12 col-5">
+                    { this.state.preview
+                      ?
+                      <div className="update-avatar-preview">
+                      <img src={this.state.preview} alt="don't know about that" />
+                      </div>
+                      :
                       <img src={this.state.avatar} alt="don't know about that" />
+                    }
                       <label htmlFor='avatar'>Choose New Avatar: </label>
                       <input type='file' name='avatar' defaultValue={this.state.avatar} onChange={this.handleImage}/>
-                    </div>
+                  </div>
 
-                    <div className="update-bio">
-                      <textarea type='text' name='bio' defaultValue={this.state.bio} onChange={this.handleChange} />
-                      <p>{this.state.bio}</p>
-                    </div>
+                  <div className="update-bio col-12 mr-auto">
+                    <textarea type='text' name='bio' defaultValue={this.state.bio} onChange={this.handleChange} />
+                  </div>
                 </form>
+              </div>
 
-                    <div className='follows'>
-
-
-                    </div>
-
-                </div>
-
-                <div className='card-footer'>
+                <div className='card-footer profile-bio-footer'>
                   <p>Member since: {moment(this.state.date_joined).format("MMM Do YYYY")}</p>
-                    </div>
-                    </div>
-                    <div className='col-9'>
-                      <UserRecipeList hidenav={this.state.hidenav} />
-                    </div>
                 </div>
-                </React.Fragment>
+            </div>
+          </div>
+        </React.Fragment>
     )
   }
 }

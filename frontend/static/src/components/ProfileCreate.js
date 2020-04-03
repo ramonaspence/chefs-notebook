@@ -71,16 +71,16 @@ class ProfileCreate extends Component {
     return(
       <React.Fragment>
       <Nav />
-      <div className="row no-gutters">
-        <div className="col-4 card">
-          <div className="card-body profile-create-body">
+      <div className="row">
+        <div className="col-md-4 col-12 card profile-create-body">
+          <div className="card-body row">
             <form type='submit' method="post" onSubmit={this.handleSubmit}>
               <button>Save Profile</button>
-                <div className="create-display-name">
+                <div className="create-display-name col-md-12 col-7 mr-auto">
                   <label htmlFor="display_name">Display Name</label>
                   <input type='text' name="display_name" defaultValue='' onChange={this.handleChange} />
                 </div>
-                <div className="create-avatar">
+                <div className="create-avatar col-md-12 col-5">
                   { this.state.preview
                     ?
                     <div className="create-avatar-preview">
@@ -93,7 +93,7 @@ class ProfileCreate extends Component {
                   <label htmlFor="avatar">Upload an Avatar</label>
                   <input type="file" name="avatar" defaultValue="" onChange={this.handleImage} />
                 </div>
-                <div className="create-bio">
+                <div className="create-bio col-12 mr-auto">
                   <label htmlFor="bio">Add Bio:</label>
                   <textarea type='text' name="bio" defaultValue='' onChange={this.handleChange} />
                 </div>
