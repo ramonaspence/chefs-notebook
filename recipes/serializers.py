@@ -32,7 +32,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = '__all__' ##['title', 'description', 'image', 'ingredients', 'instructions', 'tags',]
         owner = serializers.ReadOnlyField(source='owner.username')
-        depth = 3
+        depth = 1
 
     ## modified create method to save recipe before adding tags from clarifai api
     ## because tags is a ManyToManyField, tags must be defined before saving to an instance of recipe

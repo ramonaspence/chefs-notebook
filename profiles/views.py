@@ -1,4 +1,4 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, authentication
 from .permissions import IsOwnerOrReadOnly
 from .models import Profile
 from django.shortcuts import render, get_object_or_404, redirect
@@ -13,6 +13,7 @@ class ProfileDetailView(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permissions_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
 
 
 
@@ -20,6 +21,7 @@ class ProfileUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    authentication_classes = [authentication.TokenAuthentication]
 
     def get_object(self):
         # import pdb; pdb.set_trace()
@@ -38,6 +40,7 @@ class ProfileListCreateView(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -50,18 +53,14 @@ class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
 
     def get_queryset(self, **kwargs):
         # import pdb; pdb.set_trace()
         return Connection.objects.filter(owner__profile__owner = self.request.user)
 
-    ## I maybe should be doing a queryset here to return the followers/followings
-    ## of a specific user.
-
-    ## Currenlty the querysets below inside followingListView and FollowerListView
-    ## bring back followers/followings of the self.request.user even on others' profiles.
-
     def perform_create(self, serializer):
+        # import pdb; pdb.set_trace()
         following = get_object_or_404(User, pk=self.request.data['following'])
         serializer.save(owner=self.request.user, following=following);
 
@@ -69,12 +68,14 @@ class ConnectionRetrieveDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    authentication_classes = [authentication.TokenAuthentication]
 
 
 class FollowingListView(generics.ListAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
 
     def get_queryset(self, **kwargs):
         if (self.kwargs):
@@ -92,6 +93,7 @@ class FollowerListView(generics.ListAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
 
     def get_queryset(self):
         return Connection.objects.filter(owner = self.request.user)

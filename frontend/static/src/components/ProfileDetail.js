@@ -76,13 +76,15 @@ class ProfileDetail extends Component {
 
 
   addFollow(e) {
+
     e.preventDefault();
-    axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.owner.id}, {
+    axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.owner},{
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
     })
     .then(res => this.setState({profile: res.data}))
-
+    .then(res => console.log(res.data))
     .catch(err => console.log(err));
+
   }
 
 
@@ -99,6 +101,7 @@ class ProfileDetail extends Component {
 
 
   render() {
+
     const owner = JSON.parse(localStorage.getItem('currentUser')).userid;
     let button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>;
 

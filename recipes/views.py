@@ -1,4 +1,4 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, authentication
 from .permissions import IsOwnerOrReadOnly
 from django.shortcuts import get_object_or_404
 
@@ -21,6 +21,7 @@ class TagListCreateView(generics.ListCreateAPIView):
 class RecipeListByFollowers(generics.ListAPIView):
     serializer_class = RecipeSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
 
     def get_queryset(self):
         # import pdb; pdb.set_trace()
@@ -34,6 +35,8 @@ class RecipeProfileListView(generics.ListAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
+
 
     def get_queryset(self, **kwargs):
         ## this queryset defaults to all recipe objects except when user
@@ -55,30 +58,31 @@ class RecipeListView(generics.ListCreateAPIView):
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = RecipeFilter
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
 
         ## perform_create method allows me to automatically save the logged in user as author to the Recipe instance.
     def perform_create(self, serializer):
         serializer.save(owner = self.request.user)
-
-    # def get_queryset(self):
-    #     import pdb; pdb.set_trace()
 
 
 class RecipeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    authentication_classes = [authentication.TokenAuthentication]
 
 
 class RecipeUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    authentication_classes = [authentication.TokenAuthentication]
 
 class CommentListCreateView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
 
     def get_queryset(self):
 
@@ -96,3 +100,4 @@ class CommentRUDView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    authentication_classes = [authentication.TokenAuthentication]
