@@ -57,24 +57,30 @@ class ExploreRecipeList extends Component {
     const description = this.state.description ? this.state.description : '';
     // const tags = this.state.tags ? this.state.tags : '';
     let tagStr = '';
-    if (this.state.tags.includes(' ')) {
-      let tags = this.state.tags.split(' ');
-      console.log(tags); //gives array of strings
-      tags.forEach(tag => tagStr += `&tags=${tag}`) //should concatenate strings into a new string `&tags=${tag1}&tags=${tag2}...`
-      console.log(tagStr);
-      axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
-      .then(res => this.setState({recipes: res.data}))
-      .catch(err => console.log(err));
+    if (this.state.tags) {
+      if (this.state.tags.includes(' ')) {
+        let tags = this.state.tags.split(' ');
+        console.log(tags); //gives array of strings
+        tags.forEach(tag => tagStr += `&tags=${tag}`) //should concatenate strings into a new string `&tags=${tag1}&tags=${tag2}...`
+        console.log(tagStr);
+        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
+        .then(res => this.setState({recipes: res.data}))
+        .catch(err => console.log(err));
 
+      }
+      else {
+        let tagStr = `&tags=${this.state.tags}`;
+        console.log(tagStr);
+        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
+        .then(res => this.setState({recipes: res.data}))
+        .catch(err => this.handleBadRequest());
+      }
     }
-    else {
-      let tagStr = `&tags=${this.state.tags}`;
-      console.log(tagStr);
-      axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
-      .then(res => this.setState({recipes: res.data}))
-      .catch(err => this.handleBadRequest());
-    }
-
+      else {
+        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
+        .then(res => this.setState({recipes: res.data}))
+        .catch(err => console.log(err));
+      }
 
     }
 
