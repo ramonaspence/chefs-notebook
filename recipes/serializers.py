@@ -68,5 +68,3 @@ class RecipeSerializer(serializers.ModelSerializer):
                 recipe.tags.add(tag)
         recipe.save() ## saves recipe instance with tags added
         return recipe
-
-    
