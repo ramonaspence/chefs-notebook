@@ -17,6 +17,7 @@ class TagListCreateView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    authentication_classes = [authentication.TokenAuthentication]
 
 class RecipeListByFollowers(generics.ListAPIView):
     serializer_class = RecipeSerializer
@@ -36,7 +37,6 @@ class RecipeProfileListView(generics.ListAPIView):
     serializer_class = RecipeSerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.TokenAuthentication]
-
 
     def get_queryset(self, **kwargs):
         ## this queryset defaults to all recipe objects except when user

@@ -44,7 +44,7 @@ class UserRecipeList extends Component {
     axios.get(`${BASE_URL}/api/v1/recipes/user/${this.props.profile.id}`,
       {
         headers: {
-          'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
+          'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
     }})
 
     .then(response => this.setState({recipes: response.data}))

@@ -61,7 +61,7 @@ class ProfileUpdate extends Component {
     axios.patch(`${BASE_URL}/api/v1/profiles/user/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
 
 
       }
@@ -73,7 +73,7 @@ class ProfileUpdate extends Component {
   componentDidMount() {
 
     axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
-      headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).token}`}
+      headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState(response.data))
     .catch(err => console.log(err))

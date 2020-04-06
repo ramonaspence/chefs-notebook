@@ -64,7 +64,10 @@ class RecipeDetail extends Component {
   }
 
   handleDelete(e) {
-    axios.delete(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`,)
+    axios.delete(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`,
+      {
+        headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
     .then(response => console.log(response))
     .catch(err => console.log(err));
 
@@ -78,7 +81,7 @@ class RecipeDetail extends Component {
     // get request to pull in single recipe
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`,
       {
-        headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+        headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState({recipe: response.data}))
     .then(response => this.checkAuth())

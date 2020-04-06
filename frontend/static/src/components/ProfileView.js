@@ -53,7 +53,7 @@ class ProfileView extends Component {
   getFollows() {
     console.log(this.props);
     axios.get(`${BASE_URL}/api/v1/profiles/follows/`, {
-      headers: {'Authorization': `Token ${JSON.stringify(localStorage.setItem('current-user')).token}`}
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.setItem('current-user')).key}`}
     })
     .then(res => this.setState({follows: res.data}))
     .catch(err => console.log(err))
@@ -65,7 +65,7 @@ class ProfileView extends Component {
 
     axios.get(`${BASE_URL}/api/v1/profiles/user`,
     {
-      headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).token}`}
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState({profile: response.data}))
     .catch(err => {console.log(err.response)

@@ -66,7 +66,7 @@ class RecipeUpdate extends Component {
     axios.patch(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
 
     })
     .then(response => console.log(response))
@@ -94,7 +94,9 @@ class RecipeUpdate extends Component {
   componentDidMount() {
 
     // get request to pull in single recipe
-    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`)
+    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
     .then(response => this.setState({recipes: response.data}))
     .catch(err => console.log(err));
   }

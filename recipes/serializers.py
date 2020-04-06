@@ -27,6 +27,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
+    ## does not save currentUser as owner with line below
+    ## but this is what lets' me link to user profiles on explore page
     owner = UserSerializer() ## for some reason allows profile details to be in recipe object in backend, I don't quite understand this fully
     class Meta:
         model = Recipe
@@ -64,6 +66,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             else:
                 tag = Tag.objects.create(name=concept)
                 recipe.tags.add(tag)
-
         recipe.save() ## saves recipe instance with tags added
         return recipe
+
+    

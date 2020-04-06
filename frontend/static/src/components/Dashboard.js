@@ -29,8 +29,8 @@ class Dashboard extends Component {
 
   componentDidMount() {
     axios.get(`${BASE_URL}/api/v1/recipes/dashboard/`, {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
-    })
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
+    }})
     .then(res => this.setState({recipes: res.data}))
     .catch(err => console.log(err));
   }

@@ -3,7 +3,7 @@ from .models import *
 from accounts.serializers import UserSerializer
 
 class ConnectionSerializer(serializers.ModelSerializer):
-    following = UserSerializer()
+    # following = UserSerializer()
 
     class Meta:
         model = Connection

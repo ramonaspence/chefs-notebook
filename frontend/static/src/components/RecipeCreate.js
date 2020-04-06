@@ -59,7 +59,7 @@ class RecipeCreate extends Component {
     axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
         }
 
     })
