@@ -28,8 +28,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
-    owner = UserSerializer() ## for some reason allows profile details to be in recipe object in backend, I don't quite understand this fully
-    owner = serializers.ReadOnlyField(source='owner.username')
+    owner = UserSerializer(read_only=True) ## for some reason allows profile details to be in recipe object in backend, I don't quite understand this fully
     ## owner = UserSerializer() allows for nested serializer in api endpoint
     ## owner = serialziers.ReadOnlyField sets the owner automatically
     ## but these two lines conflict each other, how to separate them and achieve same functionality?
@@ -38,14 +37,15 @@ class RecipeSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = '__all__' ##['title', 'description', 'image', 'ingredients', 'instructions', 'tags',]
         depth = 1
+        owner = serializers.ReadOnlyField(source='owner.username')
 
     ## modified create method to save recipe before adding tags from clarifai api
     ## because tags is a ManyToManyField, tags must be defined before saving to an instance of recipe
     ## once the recipe is saved, and the tags are defined in the db, a relationship between them can be made
     ## this create method is how I'm doing that.
     def create(self, validated_data):
-
         recipe = Recipe.objects.create(**validated_data)
+
         model = app.public_models.food_model ## specifies food_model for api prediction
         response = model.predict_by_url(recipe.image.url)
         ## instead of digging all the way into object returned by Clarifai, I need to slice results

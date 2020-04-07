@@ -3,7 +3,7 @@ from .models import *
 from accounts.serializers import UserSerializer
 
 class ConnectionSerializer(serializers.ModelSerializer):
-    # following = UserSerializer()
+    following = UserSerializer(read_only=True)
 
     class Meta:
         model = Connection
@@ -19,4 +19,4 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__' ##['display_name', 'bio', 'avatar', 'date_joined',]
-        depth = 2
+        depth = 1

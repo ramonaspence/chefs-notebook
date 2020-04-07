@@ -61,7 +61,9 @@ class ProfileDetail extends Component {
     this.state.profile.followers.map(connection => {
       if (connection.owner.id === userid) {
         let conid = connection.id
-        axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}`)
+        axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}`, {
+          headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+        })
       .then(res => console.log(res))
       .catch(err => console.log(err))
 

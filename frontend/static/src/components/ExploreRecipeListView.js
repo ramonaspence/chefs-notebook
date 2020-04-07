@@ -87,17 +87,22 @@ class ExploreRecipeList extends Component {
 
 
 
-  // Promise.all([
-  //   axios.get(`${BASE_URL}/api/v1/recipes/`), // auth headers
-  //   axios.get(`${BASE_URL}/api/v1/users/`)
-  // ])
-  // .then(([recipeRes, userRes]) => {
-  //   this.setState({recipes: recipeRes.data, users: userRes.data}) //may need to get data into one object,
-  //   // so I can dig through recipes to profile id inside of the recipes.map()
-  // })
+
 
 
   componentDidMount() {
+    // Promise.all([
+    //   axios.get(`${BASE_URL}/api/v1/recipes/`, {
+    //       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    //     }),
+    //   axios.get(`${BASE_URL}/api/v1/users/`, {
+    //       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    //     })
+    // ])
+    // .then(([recipeRes, userRes]) => {
+    //   this.setState({recipes: recipeRes.data, users: userRes.data}) //may need to get data into one object,
+    //   // so I can dig through recipes to profile id inside of the recipes.map()
+    // })
     axios.get(`${BASE_URL}/api/v1/recipes/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
@@ -106,6 +111,7 @@ class ExploreRecipeList extends Component {
   }
 
   render() {
+    console.log(this.state);
     if (this.state.badRequest) {
       return (
         <Redirect to="/oops/" />

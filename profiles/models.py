@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from recipes.models import Recipe
 
 User = get_user_model();
 
@@ -30,6 +29,6 @@ class Connection(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE) ##the user who chooses to follow
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following") ## the set of users who get followed by user field above
-    
+
     def __str__(self):
         return self.owner.username
