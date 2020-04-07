@@ -27,13 +27,16 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
-    ## does not save currentUser as owner with line below
-    ## but this is what lets' me link to user profiles on explore page
+
     owner = UserSerializer() ## for some reason allows profile details to be in recipe object in backend, I don't quite understand this fully
+    owner = serializers.ReadOnlyField(source='owner.username')
+    ## owner = UserSerializer() allows for nested serializer in api endpoint
+    ## owner = serialziers.ReadOnlyField sets the owner automatically
+    ## but these two lines conflict each other, how to separate them and achieve same functionality?
+
     class Meta:
         model = Recipe
         fields = '__all__' ##['title', 'description', 'image', 'ingredients', 'instructions', 'tags',]
-        owner = serializers.ReadOnlyField(source='owner.username')
         depth = 1
 
     ## modified create method to save recipe before adding tags from clarifai api

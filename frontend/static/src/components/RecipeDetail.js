@@ -77,7 +77,7 @@ class RecipeDetail extends Component {
 
   componentDidMount() {
 
-
+  
     // get request to pull in single recipe
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`,
       {
@@ -85,6 +85,7 @@ class RecipeDetail extends Component {
     })
     .then(response => this.setState({recipe: response.data}))
     .then(response => this.checkAuth())
+    .then(res => console.log(this.state))
     .catch(err => console.log(err));
 
 
