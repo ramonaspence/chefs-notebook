@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 import Nav from '../containers/Nav.js';
 import moment from 'moment';
@@ -48,7 +48,7 @@ class RecipeDetail extends Component {
   handleSubmit(e) {
     e.preventDefault();
     axios.post(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/comments/`, this.state, {
-    headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}})
+    headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}})
     .then(res => console.log(res))
     .catch(err => console.log(err));
 
@@ -58,8 +58,11 @@ class RecipeDetail extends Component {
   onDelete(e, id) {
 
     console.log(e);
-    axios.delete(`${BASE_URL}/api/v1/recipes/comments/${e}`)
-    .then(response => console.log(response))
+    axios.delete(`${BASE_URL}/api/v1/recipes/comments/${e}`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
+    .then(response => this.setState({deleted: true}))
+
     .catch(err => console.log(err));
   }
 
@@ -77,7 +80,7 @@ class RecipeDetail extends Component {
 
   componentDidMount() {
 
-  
+
     // get request to pull in single recipe
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`,
       {
@@ -93,7 +96,7 @@ class RecipeDetail extends Component {
   }
 
   render() {
-    console.log(this.state);
+
 
     let comments;
     if(this.state.recipe.comments){
@@ -125,6 +128,10 @@ class RecipeDetail extends Component {
 
         ));
     }
+    if (this.state.deleted) {
+      return (<Redirect to="/profile/" />)
+    }
+    else {
 
     return (
       <React.Fragment>
@@ -209,6 +216,6 @@ class RecipeDetail extends Component {
       </React.Fragment>
     )
   }
-
+}
 }
 export default RecipeDetail;

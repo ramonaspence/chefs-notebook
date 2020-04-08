@@ -34,6 +34,7 @@ a {
   text-decoration: none;
 }
 
+
 .bad-request-box {
   height: fit-content;
 
@@ -720,6 +721,10 @@ a .view-recipe-button {
 
 }
 
+form .ingredient-form {
+  display: inline-block;
+}
+
 .recipe-ingredient-box {
   padding: 1rem;
   margin-top: 0;
@@ -727,6 +732,7 @@ a .view-recipe-button {
   height: fit-content;
 
 }
+
 
 .recipe-instructions-div {
   display: inline-block;

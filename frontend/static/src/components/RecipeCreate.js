@@ -18,12 +18,33 @@ class RecipeCreate extends Component {
     this.state = {
         recipe: {},
         preview: '',
-        redirect: null
+        redirect: null,
+        ingredients: [],
       }
 
+    this.submitIngredients = this.submitIngredients.bind(this);
+    this.handleIngredients = this.handleIngredients.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
+  }
+
+  handleIngredients(e) {
+    e.preventDefault();
+
+    this.setState({ingStr: e.target.value})
+    console.log(this.state);
+  }
+
+  submitIngredients(e, ingStr) {
+    e.preventDefault();
+    let ingredients = [];
+    ingredients.push(ingStr);
+    this.setState({ingredients: ingredients})
+    console.log('button', this.state);
+    this.refs.ingredientField.value = '';
+
+
   }
 
   handleChange(e) {
@@ -73,7 +94,13 @@ class RecipeCreate extends Component {
     if (this.state.redirect) {
       return (<Redirect to="/profile/" />)
     }
-    else
+    if (this.state.ingredients) {
+      let ingredients = this.state.ingredients.map(ingredient => (
+        <div className="col-12">
+          <span className="form-control col-12 recipe-ingredient-box">{ingredient}</span>
+        </div>
+      ))
+
     return (
       <React.Fragment>
         <Nav />
@@ -103,9 +130,14 @@ class RecipeCreate extends Component {
 
                 <div className="row">
                   <div className="recipe-create-div col-12 ml-auto">
-                    <div className="recipe-ingredient-div col-lg-3 col-12">
-                      <textarea className="form-control col-12 recipe-ingredient-box" placeholder='Keep your ingredients and measurements here' type='text' name='ingredients' onChange={this.handleChange} defaultValue='' />
+                  <form className="ingredient-form col-lg-3 col-12">
+                    <div className="recipe-ingredient-div col-12">
+                      {ingredients}
+                      <input className="form-control col-12 recipe-ingredient-box" ref="ingredientField" onChange={this.handleIngredients} placeholder='Keep your ingredients and measurements here' type='text' name='ingredients'  defaultValue='' />
+                      <button type="submit" onClick={(e) => this.submitIngredients(e, this.state.ingStr)}>Add</button>
                     </div>
+                  </form>
+
                     <div className="recipe-instructions-div col-lg-9 col-12">
                       <textarea className="form-control col-12 recipe-instructions-box" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
                     </div>
@@ -120,7 +152,7 @@ class RecipeCreate extends Component {
 
 
     )
-  }
+  }}
 
 }
 
