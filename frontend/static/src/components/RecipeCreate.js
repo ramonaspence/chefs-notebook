@@ -20,14 +20,40 @@ class RecipeCreate extends Component {
         preview: '',
         redirect: null,
         ingredients: [],
+        instructions: []
       }
 
+    this.deleteInstruction = this.deleteInstruction.bind(this);
+    this.submitInstructions = this.submitInstructions.bind(this);
+    this.handleInstructions = this.handleInstructions.bind(this);
     this.deleteIngredient = this.deleteIngredient.bind(this);
     this.submitIngredients = this.submitIngredients.bind(this);
     this.handleIngredients = this.handleIngredients.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
+  }
+
+  handleInstructions(e) {
+    e.preventDefault();
+    this.setState({instructStr: e.target.value})
+
+  }
+
+  submitInstructions(e, instructStr) {
+    e.preventDefault();
+    let instructions = [...this.state.instructions];
+    instructions.push(instructStr);
+    this.setState({instructions: instructions});
+    this.refs.instructionsField.value = '';
+  }
+
+  deleteInstruction(e, instruction) {
+    e.preventDefault();
+    let instructions = [...this.state.instructions];
+    let i = instructions.indexOf(instruction);
+    instructions.splice(i, 1);
+    this.setState({instructions: instructions});
   }
 
   deleteIngredient(e, ingredient) {
@@ -115,11 +141,24 @@ class RecipeCreate extends Component {
     if (this.state.redirect) {
       return (<Redirect to="/profile/" />)
     }
+
+    if (this.state.instructions) {
+      let instructions = this.state.instructions.map(instruction => (
+        <div id="instruction-preview" className="form-control instruction-preview col-12">
+          <div className="col-12 recipe-instruction-box">{instruction}
+          <button type="button" onClick={(e) => this.deleteInstruction(e, instruction)} className="icon"><i className="fa fa-times-circle" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      ))
+
+
     if (this.state.ingredients) {
       let ingredients = this.state.ingredients.map(ingredient => (
         <div id="ingredient-preview" className="form-control ingredient-preview col-12">
-          <span className="col-12 recipe-ingredient-box">{ingredient}</span>
+          <span className="col-12 recipe-ingredient-box">
+          {ingredient}
           <button type="button" onClick={(e) => this.deleteIngredient(e, ingredient)} className="icon"><i className="fa fa-times-circle" aria-hidden="true"></i></button>
+          </span>
         </div>
       ))
 
@@ -159,10 +198,13 @@ class RecipeCreate extends Component {
                       <button type="submit" onClick={(e) => this.submitIngredients(e, this.state.ingStr)}>Add</button>
                     </div>
                   </form>
-
-                    <div className="recipe-instructions-div col-lg-9 col-12">
-                      <textarea className="form-control col-12 recipe-instructions-box" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleChange} defaultValue='' />
+                  <form className="instruction-form col-lg-9 col-12">
+                    <div className="recipe-instructions-div col-12">
+                      {instructions}
+                      <input className="form-control col-12 recipe-instructions-box" ref="instructionsField" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleInstructions} defaultValue='' />
+                      <button type="submit" onClick={(e) => this.submitInstructions(e, this.state.instructStr)}>Add</button>
                     </div>
+                  </form>
 
 
                   </div>
@@ -174,7 +216,7 @@ class RecipeCreate extends Component {
 
 
     )
-  }}
+  }}}
 
 }
 

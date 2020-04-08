@@ -742,6 +742,21 @@ div .form-control .ingredient-preview {
 
 }
 
+#instruction-preview i {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#instruction-preview {
+  margin-top: 0;
+  height: auto;
+}
+
+#ingredient-preview i {
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+
 #ingredient-preview {
   margin-top: 0;
   height: auto;
