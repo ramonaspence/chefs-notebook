@@ -777,6 +777,7 @@ form .ingredient-form {
 
 .recipe-ingredient-box span {
   height: fit-content;
+  padding: .25rem;
 }
 
 
@@ -790,6 +791,7 @@ form .ingredient-form {
   margin-top: 0;
   margin-bottom: 1rem;
   height: fit-content;
+  color: #495057;
 }
 
 

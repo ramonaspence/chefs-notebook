@@ -138,7 +138,7 @@ class RecipeDetail extends Component {
     if (this.state.instructions) {
       instructions = this.state.instructions.map(instruction => (
         <div id="instruction-preview" className="form-control instruction-preview col-12">
-          <span className="col-12 recipe-instruction-box">{instruction}</span>
+          <span className="col-12 recipe-instructions-box">{instruction}</span>
         </div>
       ))
     }
@@ -200,7 +200,9 @@ class RecipeDetail extends Component {
             <div className="row">
               <div className="recipe-detail-div col-12 ml-auto">
                 <div className="recipe-ingredient-div col-lg-3 col-12">
+                  <div className="form-control col-12 recipe-ingredient-box">
                   {ingredients}
+                  </div>
                 </div>
                 <div className="recipe-instructions-div col-lg-9 col-12">
                   <div className="form-control col-12 recipe-instructions-box">
