@@ -96,7 +96,7 @@ class ProfileUpdate extends Component {
 
                   <div className="update-display-name col-md-12 col-7 mr-auto">
                     <label htmlFor='display_name'>New Display Name: </label>
-                    <input type='text' name='display_name' placeholder={this.state.display_name} onChange={this.handleChange} />
+                    <input type='text' name='display_name'  defaultValue={this.state.display_name} onChange={this.handleChange} />
                   </div>
                   <div className="update-avatar col-md-12 col-5">
                     { this.state.preview

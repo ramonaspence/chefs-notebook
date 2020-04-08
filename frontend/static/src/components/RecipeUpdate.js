@@ -18,13 +18,71 @@ class RecipeUpdate extends Component {
     this.state = {
       recipes: {},
       preview: '',
+      ingredients: [],
+      instructions: [],
     }
 
+    this.deleteInstruction = this.deleteInstruction.bind(this);
+    this.submitInstructions = this.submitInstructions.bind(this);
+    this.handleInstructions = this.handleInstructions.bind(this);
+    this.deleteIngredient = this.deleteIngredient.bind(this);
+    this.submitIngredients = this.submitIngredients.bind(this);
+    this.handleIngredients = this.handleIngredients.bind(this);
     this.handleVersion = this.handleVersion.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleInstructions(e) {
+    e.preventDefault();
+    this.setState({instructStr: e.target.value})
+
+  }
+
+  submitInstructions(e, instructStr) {
+    e.preventDefault();
+    let instructions = [...this.state.instructions];
+    instructions.push(instructStr);
+    this.setState({instructions: instructions});
+    this.refs.instructionsField.value = '';
+  }
+
+  deleteInstruction(e, instruction) {
+    e.preventDefault();
+    let instructions = [...this.state.instructions];
+    let i = instructions.indexOf(instruction);
+    instructions.splice(i, 1);
+    this.setState({instructions: instructions});
+  }
+
+  deleteIngredient(e, ingredient) {
+    e.preventDefault();
+    let ingredients = [...this.state.ingredients];
+    let i = ingredients.indexOf(ingredient);
+    console.log(i);
+    ingredients.splice(i, 1);
+    this.setState({ingredients: ingredients})
+    console.log(this.state);
+  }
+
+  handleIngredients(e) {
+    e.preventDefault();
+
+    this.setState({ingStr: e.target.value})
+    console.log(this.state);
+  }
+
+  submitIngredients(e, ingStr) {
+    e.preventDefault();
+    let ingredients = [...this.state.ingredients];
+    ingredients.push(ingStr);
+    this.setState({ingredients: ingredients})
+    console.log('button', this.state);
+    this.refs.ingredientField.value = '';
+
+
   }
 
   handleChange(e) {
@@ -97,12 +155,31 @@ class RecipeUpdate extends Component {
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response => this.setState({recipes: response.data}))
+    .then(response => this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), recipes: response.data}))
     .catch(err => console.log(err));
   }
 
   render() {
-    console.log(this.state);
+    let ingredients
+    if (this.state.ingredients) {
+      ingredients = this.state.ingredients.map(ingredient => (
+        <div id="ingredient-preview" className="form-control ingredient-preview col-12">
+
+          {ingredient}
+          <button type="button" onClick={(e) => this.deleteIngredient(e, ingredient)} className="icon"><i className="fa fa-times-circle" aria-hidden="true"></i></button>
+        </div>
+      ))
+    }
+    let instructions;
+    if (this.state.instructions) {
+      instructions = this.state.instructions.map(instruction => (
+        <div id="instruction-preview" className="form-control instruction-preview col-12">
+          <div className="col-12 recipe-instruction-box">{instruction}
+          <button type="button" onClick={(e) => this.deleteInstruction(e, instruction)} className="icon"><i className="fa fa-times-circle" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      ))
+    }
     return(
       <React.Fragment>
       <Nav />
@@ -132,11 +209,17 @@ class RecipeUpdate extends Component {
 
             <div className="row">
               <div className="recipe-create-div col-12 ml-auto">
+
                 <div className="recipe-ingredient-div col-lg-3 col-12">
-                  <textarea className="form-control col-12 recipe-ingredient-box"  type='text' name='ingredients' onChange={this.handleChange} defaultValue={this.state.recipes.ingredients} />
+                  {ingredients}
+                  <input className="col-12 recipe-ingredient-box" />
+                  <button type="submit" onClick={(e) => this.submitIngredients(e, this.state.ingStr)}>Add</button>
                 </div>
+
                 <div className="recipe-instructions-div col-lg-9 col-12">
-                  <textarea className="form-control col-12 recipe-instructions-box"  defaultValue={this.state.recipes.instructions} type='text' name='instructions' onChange={this.handleChange} />
+                  {instructions}
+                  <input className="form-control col-12 recipe-instructions-box" ref="instructionsField" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleInstructions} defaultValue='' />
+                  <button type="submit" onClick={(e) => this.submitInstructions(e, this.state.instructStr)}>Add</button>
                 </div>
               </div>
             </div>
