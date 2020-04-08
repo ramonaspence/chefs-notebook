@@ -47,27 +47,31 @@ class RecipeSerializer(serializers.ModelSerializer):
         recipe = Recipe.objects.create(**validated_data)
 
         model = app.public_models.food_model ## specifies food_model for api prediction
-        response = model.predict_by_url(recipe.image.url)
-        ## instead of digging all the way into object returned by Clarifai, I need to slice results
-        ## so I can go straight to the concepts that are brought back like below
-        concepts = response['outputs'][0]['data']['concepts']
-        concepts = concepts[0:5] ## just taking first five, the response from api is ordered by probability
-        conceptlist = []
-        for concept in concepts:
-            concept = concept.get('name')
-            conceptlist.append(concept)
-        print(conceptlist)
-        ## now loop through the concepts, check if they exist in db, if they don't, save to database.
-        ## and if they do exist, save appropriate tags to recipe instance.
-        # import pdb; pdb.set_trace()
-        for concept in conceptlist:
+        if recipe.image != None:
+            response = model.predict_by_url(recipe.image.url)
+            ## instead of digging all the way into object returned by Clarifai, I need to slice results
+            ## so I can go straight to the concepts that are brought back like below
+            concepts = response['outputs'][0]['data']['concepts']
+            concepts = concepts[0:5] ## just taking first five, the response from api is ordered by probability
+            conceptlist = []
+            for concept in concepts:
+                concept = concept.get('name')
+                conceptlist.append(concept)
+            print(conceptlist)
+            ## now loop through the concepts, check if they exist in db, if they don't, save to database.
+            ## and if they do exist, save appropriate tags to recipe instance.
+            # import pdb; pdb.set_trace()
+            for concept in conceptlist:
 
-            if Tag.objects.filter(name=concept).exists():
-                tag = Tag.objects.get(name=concept)
-                recipe.tags.add(tag)
+                if Tag.objects.filter(name=concept).exists():
+                    tag = Tag.objects.get(name=concept)
+                    recipe.tags.add(tag)
 
-            else:
-                tag = Tag.objects.create(name=concept)
-                recipe.tags.add(tag)
-        recipe.save() ## saves recipe instance with tags added
-        return recipe
+                else:
+                    tag = Tag.objects.create(name=concept)
+                    recipe.tags.add(tag)
+            recipe.save() ## saves recipe instance with tags added
+            return recipe
+        else:
+            recipe.save()
+            return recipe

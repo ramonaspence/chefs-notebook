@@ -22,7 +22,7 @@ class Recipe(models.Model):
     description = models.TextField(max_length=255)
     ingredients = models.TextField()
     instructions = models.TextField()
-    image = models.ImageField(upload_to='images/', blank=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     date_published = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, blank=True)

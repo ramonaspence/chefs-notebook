@@ -721,10 +721,9 @@ a .view-recipe-button {
 
 }
 
-/* .form-control .ingredient-preview {
-  display: flex;
-  justify-content: flex-end;
-} */
+div .form-control .ingredient-preview {
+  height: auto;
+}
 
 .icon {
   background: none;
@@ -736,7 +735,7 @@ a .view-recipe-button {
 }
 
 .form-control .ingredient-preview span {
-  height: 2rem;
+  height: fit-content;
   padding: .25rem;
   margin-top: 0;
 
@@ -745,7 +744,7 @@ a .view-recipe-button {
 
 #ingredient-preview {
   margin-top: 0;
-
+  height: auto;
 }
 
 form .ingredient-form {
@@ -756,9 +755,13 @@ form .ingredient-form {
   padding: 1rem;
   margin-top: 0;
   margin-bottom: 0;
-  height: fit-content;
+  height: auto;
   color: #495057;
 
+}
+
+.recipe-ingredient-box span {
+  height: fit-content;
 }
 
 

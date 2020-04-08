@@ -67,26 +67,36 @@ class RecipeCreate extends Component {
 
   handleImageChange(e) {
     e.preventDefault();
-    let file = e.target.files[0];
+    let file
+    if (e.target.files) {
+    file = e.target.files[0];
     this.setState({[e.target.name]: file});
 
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => this.setState({preview: reader.result});
+  }
 
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => this.setState({preview: reader.result});
+
   }
 
   handleSubmit(e, recipe) {
     e.preventDefault();
     let formData = new FormData();
 
-    formData.append('title', recipe.title);
-    formData.append('description', recipe.description);
-    formData.append('image', recipe.image);
-    formData.append('ingredients', JSON.stringify(recipe.ingredients));
-    formData.append('instructions', recipe.instructions);
-
-    // formData.append(<user>, recipe.author);
+    if (recipe.image) {
+      formData.append('image', recipe.image);
+      formData.append('title', recipe.title);
+      formData.append('description', recipe.description);
+      formData.append('ingredients', JSON.stringify(recipe.ingredients));
+      formData.append('instructions', recipe.instructions);
+    }
+    else {
+      formData.append('title', recipe.title);
+      formData.append('description', recipe.description);
+      formData.append('ingredients', JSON.stringify(recipe.ingredients));
+      formData.append('instructions', recipe.instructions);
+    }
 
     axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
       headers: {
@@ -107,7 +117,7 @@ class RecipeCreate extends Component {
     }
     if (this.state.ingredients) {
       let ingredients = this.state.ingredients.map(ingredient => (
-        <div className="form-control ingredient-preview col-12">
+        <div id="ingredient-preview" className="form-control ingredient-preview col-12">
           <span className="col-12 recipe-ingredient-box">{ingredient}</span>
           <button type="button" onClick={(e) => this.deleteIngredient(e, ingredient)} className="icon"><i className="fa fa-times-circle" aria-hidden="true"></i></button>
         </div>
