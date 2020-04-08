@@ -72,6 +72,7 @@ class RecipeDetail extends Component {
         headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => console.log(response))
+    .then(response => this.setState({redirect: true}))
     .catch(err => console.log(err));
 
   }
@@ -86,7 +87,7 @@ class RecipeDetail extends Component {
       {
         headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response =>  this.setState({ingredients: JSON.parse(response.data.ingredients), recipe: response.data}))
+    .then(response =>  this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), recipe: response.data}))
     // .then(res => this.setState({recipe: res.data}))
     .then(response => this.checkAuth())
     .then(res => console.log(this.state))
@@ -97,7 +98,9 @@ class RecipeDetail extends Component {
   }
 
   render() {
-
+    if (this.state.redirect) {
+      return (<Redirect to="/profile/" />)
+    }
 
     let comments;
     if (this.state.comments) {
@@ -129,8 +132,15 @@ class RecipeDetail extends Component {
 
         ));
     }
-    if (this.state.deleted) {
-      return (<Redirect to="/profile/" />)
+
+
+    let instructions;
+    if (this.state.instructions) {
+      instructions = this.state.instructions.map(instruction => (
+        <div id="instruction-preview" className="form-control instruction-preview col-12">
+          <span className="col-12 recipe-instruction-box">{instruction}</span>
+        </div>
+      ))
     }
     let ingredients;
     if (this.state.ingredients) {
@@ -194,7 +204,7 @@ class RecipeDetail extends Component {
                 </div>
                 <div className="recipe-instructions-div col-lg-9 col-12">
                   <div className="form-control col-12 recipe-instructions-box">
-                    {this.state.recipe.instructions}
+                    {instructions}
                   </div>
                 </div>
               </div>

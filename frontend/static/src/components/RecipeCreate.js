@@ -115,13 +115,13 @@ class RecipeCreate extends Component {
       formData.append('title', recipe.title);
       formData.append('description', recipe.description);
       formData.append('ingredients', JSON.stringify(recipe.ingredients));
-      formData.append('instructions', recipe.instructions);
+      formData.append('instructions', JSON.stringify(recipe.instructions));
     }
     else {
       formData.append('title', recipe.title);
       formData.append('description', recipe.description);
       formData.append('ingredients', JSON.stringify(recipe.ingredients));
-      formData.append('instructions', recipe.instructions);
+      formData.append('instructions', JSON.stringify(recipe.instructions));
     }
 
     axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
