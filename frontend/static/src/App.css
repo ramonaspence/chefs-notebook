@@ -721,6 +721,33 @@ a .view-recipe-button {
 
 }
 
+/* .form-control .ingredient-preview {
+  display: flex;
+  justify-content: flex-end;
+} */
+
+.icon {
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1rem;
+}
+
+.form-control .ingredient-preview span {
+  height: 2rem;
+  padding: .25rem;
+  margin-top: 0;
+
+
+}
+
+#ingredient-preview {
+  margin-top: 0;
+
+}
+
 form .ingredient-form {
   display: inline-block;
 }
@@ -730,6 +757,7 @@ form .ingredient-form {
   margin-top: 0;
   margin-bottom: 0;
   height: fit-content;
+  color: #495057;
 
 }
 

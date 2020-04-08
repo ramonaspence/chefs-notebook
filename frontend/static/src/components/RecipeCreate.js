@@ -22,11 +22,22 @@ class RecipeCreate extends Component {
         ingredients: [],
       }
 
+    this.deleteIngredient = this.deleteIngredient.bind(this);
     this.submitIngredients = this.submitIngredients.bind(this);
     this.handleIngredients = this.handleIngredients.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
+  }
+
+  deleteIngredient(e, ingredient) {
+    e.preventDefault();
+    let ingredients = [...this.state.ingredients];
+    let i = ingredients.indexOf(ingredient);
+    console.log(i);
+    ingredients.splice(i, 1);
+    this.setState({ingredients: ingredients})
+    console.log(this.state);
   }
 
   handleIngredients(e) {
@@ -38,7 +49,7 @@ class RecipeCreate extends Component {
 
   submitIngredients(e, ingStr) {
     e.preventDefault();
-    let ingredients = [];
+    let ingredients = [...this.state.ingredients];
     ingredients.push(ingStr);
     this.setState({ingredients: ingredients})
     console.log('button', this.state);
@@ -72,7 +83,7 @@ class RecipeCreate extends Component {
     formData.append('title', recipe.title);
     formData.append('description', recipe.description);
     formData.append('image', recipe.image);
-    formData.append('ingredients', recipe.ingredients);
+    formData.append('ingredients', JSON.stringify(recipe.ingredients));
     formData.append('instructions', recipe.instructions);
 
     // formData.append(<user>, recipe.author);
@@ -96,8 +107,9 @@ class RecipeCreate extends Component {
     }
     if (this.state.ingredients) {
       let ingredients = this.state.ingredients.map(ingredient => (
-        <div className="col-12">
-          <span className="form-control col-12 recipe-ingredient-box">{ingredient}</span>
+        <div className="form-control ingredient-preview col-12">
+          <span className="col-12 recipe-ingredient-box">{ingredient}</span>
+          <button type="button" onClick={(e) => this.deleteIngredient(e, ingredient)} className="icon"><i className="fa fa-times-circle" aria-hidden="true"></i></button>
         </div>
       ))
 

@@ -49,7 +49,6 @@ class Dashboard extends Component {
               </div>
               <div className="">
                 <NavLink className="btn btn-outline-secondary" to={`/recipes/${recipe.id}`}>View Recipe</NavLink>
-                //toggle from recipes to followers? Get profile from followers??
                 <p>{recipe.description}</p>
                 <p>{moment(recipe.date_updated).fromNow()}</p>
               </div>

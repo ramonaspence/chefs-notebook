@@ -86,7 +86,8 @@ class RecipeDetail extends Component {
       {
         headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response => this.setState({recipe: response.data}))
+    .then(response =>  this.setState({ingredients: JSON.parse(response.data.ingredients), recipe: response.data}))
+    // .then(res => this.setState({recipe: res.data}))
     .then(response => this.checkAuth())
     .then(res => console.log(this.state))
     .catch(err => console.log(err));
@@ -99,7 +100,7 @@ class RecipeDetail extends Component {
 
 
     let comments;
-    if(this.state.recipe.comments){
+    if (this.state.comments) {
       comments = this.state.recipe.comments.map(comment =>
         (
           <div className="card comment">
@@ -131,8 +132,14 @@ class RecipeDetail extends Component {
     if (this.state.deleted) {
       return (<Redirect to="/profile/" />)
     }
-    else {
-
+    let ingredients;
+    if (this.state.ingredients) {
+      ingredients = this.state.ingredients.map(ingredient => (
+      <div id="ingredient-preview" className="form-control ingredient-preview col-12">
+        <span className="col-12 recipe-ingredient-box">{ingredient}</span>
+      </div>
+    ));
+  }
     return (
       <React.Fragment>
         <Nav />
@@ -183,9 +190,7 @@ class RecipeDetail extends Component {
             <div className="row">
               <div className="recipe-detail-div col-12 ml-auto">
                 <div className="recipe-ingredient-div col-lg-3 col-12">
-                  <div className="form-control col-12 recipe-ingredient-box">
-                    {this.state.recipe.ingredients}
-                  </div>
+                  {ingredients}
                 </div>
                 <div className="recipe-instructions-div col-lg-9 col-12">
                   <div className="form-control col-12 recipe-instructions-box">
@@ -215,7 +220,7 @@ class RecipeDetail extends Component {
             </div>
       </React.Fragment>
     )
-  }
+
 }
 }
 export default RecipeDetail;
