@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import moment from 'moment';
 
 import Nav from '../containers/Nav.js';
@@ -44,7 +44,7 @@ class Dashboard extends Component {
           <div className="col-md-8 col-sm-12 ml-auto card d-flex">
             <div className="title card-body">
               <div className="card-title">
-                <h2>{recipe.owner.username}</h2>
+                <Link to={`/users/profile/${recipe.owner.profile.id}`}><h2>{recipe.owner.username}</h2></Link>
                 <img src={recipe.image} alt="oh no!" />
 
               </div>
@@ -82,7 +82,11 @@ class Dashboard extends Component {
         :
         <Nav />
       }
-
+        <div className="row">
+          <div className="card col-lg-6 offset-lg-3 col-10 offset-1">
+            <span className="dashboard-msg">Your Dashbaord is where you'll find activity from cooks that you choose to follow.</span>
+          </div>
+        </div>
           <div>{recipes}</div>
       </React.Fragment>
     )

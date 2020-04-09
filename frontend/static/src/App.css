@@ -285,6 +285,14 @@ input {
 
   /* END media query for nav title */
 
+  /* STYLES FOR DASHBOARD */
+
+.dashboard-msg {
+  color: #EDEDEDEE;
+  margin: .5rem;
+  text-align: center;
+}
+
   /* START styles for explore page */
 
 .card {

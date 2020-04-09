@@ -64,7 +64,7 @@ class ProfileDetail extends Component {
         axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}`, {
           headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
         })
-      .then(res => console.log(res))
+      .then(res => this.setState({following: false}))
       .catch(err => console.log(err))
 
       } else {
@@ -83,8 +83,8 @@ class ProfileDetail extends Component {
     axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.owner.id},{
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(res => this.setState({profile: res.data}))
-    .then(res => console.log(res.data))
+    .then(res => this.setState({following: true}))
+    .then(res => console.log(this.state))
     .catch(err => console.log(err));
 
   }
