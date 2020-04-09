@@ -27,7 +27,7 @@ class ProfileDetail extends Component {
         following: null,
         connections: []
       }
-
+      this.removeFollowState = this.removeFollowState.bind(this);
       this.removeFollow = this.removeFollow.bind(this);
       this.addFollow = this.addFollow.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
@@ -53,8 +53,17 @@ class ProfileDetail extends Component {
     this.setState({toggle: 'followers'})
   }
 
+  removeFollowState(userid, conid) {
+    let followers = [...this.state.profile.followers];
+  
+    let i = connections.indexOf(conid);
+    connections.splice(i, 1);
+    this.setState({followers: followers})
+  }
+
   removeFollow(e) {
     e.preventDefault();
+
 
     let userid = JSON.parse(localStorage.getItem('currentUser')).userid
 
@@ -64,13 +73,17 @@ class ProfileDetail extends Component {
         axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}`, {
           headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
         })
-      .then(res => this.setState({following: false}))
-      .catch(err => console.log(err))
+      .then(res => console.log(res))//remove loggedin user from followers array on state
+      .catch(err => console.log(err));
 
-      } else {
+
+      this.removeFollowState(userid, conid);
+      console.log(this.state);
+    }
+      else {
         console.log('if clause failed')
 
-      }})
+      }});
 
   }
 
@@ -103,7 +116,7 @@ class ProfileDetail extends Component {
 
 
   render() {
-
+    console.log(this.state);
     const owner = JSON.parse(localStorage.getItem('currentUser')).userid;
     let button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>;
 
@@ -111,6 +124,7 @@ class ProfileDetail extends Component {
       this.state.profile.followers.map(follower => {
         if (follower.owner.id === owner) {
           button = <div><button className="btn btn-outline-primary" onClick={this.removeFollow}>UnFollow</button></div>
+          //fat arrow on removeFollow to pass in user.id of following
         }
 
       });
