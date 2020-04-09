@@ -33,6 +33,7 @@ class ProfileUpdate extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
+    
 
   }
 
@@ -73,9 +74,10 @@ class ProfileUpdate extends Component {
   componentDidMount() {
 
     axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
-      headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).key}`}
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState(response.data))
+    .then(res => console.log(this.state))
     .catch(err => console.log(err))
   }
   render() {

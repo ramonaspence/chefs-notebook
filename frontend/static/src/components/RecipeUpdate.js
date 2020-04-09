@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-
+import {Redirect} from 'react-router-dom';
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
@@ -38,7 +38,7 @@ class RecipeUpdate extends Component {
   handleInstructions(e) {
     e.preventDefault();
     this.setState({instructStr: e.target.value})
-
+    console.log(this.state);
   }
 
   submitInstructions(e, instructStr) {
@@ -46,7 +46,9 @@ class RecipeUpdate extends Component {
     let instructions = [...this.state.instructions];
     instructions.push(instructStr);
     this.setState({instructions: instructions});
+    console.log('submit', this.state);
     this.refs.instructionsField.value = '';
+
   }
 
   deleteInstruction(e, instruction) {
@@ -69,8 +71,7 @@ class RecipeUpdate extends Component {
 
   handleIngredients(e) {
     e.preventDefault();
-
-    this.setState({ingStr: e.target.value})
+    this.setState({ingStr: e.target.value});
     console.log(this.state);
   }
 
@@ -88,7 +89,7 @@ class RecipeUpdate extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-
+    console.log(this.state);
   }
 
   handleImageChange(e) {
@@ -103,23 +104,23 @@ class RecipeUpdate extends Component {
 
   }
 
-    handleSubmit(e) {
+    handleSubmit(e, recipe) {
       e.preventDefault();
 
       let formData = new FormData();
-      formData.append('title', this.state.title);
-      formData.append('description', this.state.description);
-      formData.append('ingredients', this.state.ingredients);
-      formData.append('instructions', this.state.instructions);
-      formData.append('tags', this.state.tags);
-
-
-      if (this.state.image === File) {
-        formData.append('image', this.state.image);
+      if (recipe.image) {
+        formData.append('image', recipe.image);
+        formData.append('title', recipe.title);
+        formData.append('description', recipe.description);
+        formData.append('ingredients', JSON.stringify(recipe.ingredients));
+        formData.append('instructions', JSON.stringify(recipe.instructions));
       }
-
-
-
+      else {
+        formData.append('title', recipe.title);
+        formData.append('description', recipe.description);
+        formData.append('ingredients', JSON.stringify(recipe.ingredients));
+        formData.append('instructions', JSON.stringify(recipe.instructions));
+      }
 
     axios.patch(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, formData, {
       headers: {
@@ -128,6 +129,7 @@ class RecipeUpdate extends Component {
 
     })
     .then(response => console.log(response))
+    .then(res => this.setState({redirect: true}))
     .catch(err => console.log(err));
   }
 
@@ -155,11 +157,15 @@ class RecipeUpdate extends Component {
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response => this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), recipes: response.data}))
+    .then(response => this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), title: response.data.title, description: response.data.description, recipes: response.data}))
+    .then(res => console.log(this.state))
     .catch(err => console.log(err));
   }
 
   render() {
+    if (this.state.redirect) {
+      return (<Redirect to="/profile/" />)
+    }
     let ingredients
     if (this.state.ingredients) {
       ingredients = this.state.ingredients.map(ingredient => (
@@ -212,13 +218,13 @@ class RecipeUpdate extends Component {
 
                 <div className="recipe-ingredient-div col-lg-3 col-12">
                   {ingredients}
-                  <input className="col-12 recipe-ingredient-box" />
+                  <input className="form-control col-12 recipe-ingredient-box" ref="ingredientField" onChange={this.handleIngredients} placeholder='Keep your ingredients here' type='text' name='ingredients' defaultValue="" />
                   <button type="submit" onClick={(e) => this.submitIngredients(e, this.state.ingStr)}>Add</button>
                 </div>
 
                 <div className="recipe-instructions-div col-lg-9 col-12">
                   {instructions}
-                  <input className="form-control col-12 recipe-instructions-box" ref="instructionsField" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleInstructions} defaultValue='' />
+                  <input className="form-control col-12 recipe-instructions-box" ref="instructionsField" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleInstructions} defaultValue="" />
                   <button type="submit" onClick={(e) => this.submitInstructions(e, this.state.instructStr)}>Add</button>
                 </div>
               </div>

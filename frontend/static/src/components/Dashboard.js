@@ -36,10 +36,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(this.state);
-    let recipes = this.state.recipes.map(recipe => {
+    let recipes;
+    if (this.state.recipes) {
+      recipes = this.state.recipes.map(recipe => {
       return (
-        <div className="row no-gutters">
+        <div className="row">
           <div className="col-md-8 col-sm-12 ml-auto card d-flex">
             <div className="title card-body">
               <div className="card-title">
@@ -58,6 +59,21 @@ class Dashboard extends Component {
         </div>
       )
     })
+  }
+  else {
+    return (
+      <div className="row">
+        <div className="no-followers col-lg-4 offset-lg-4 col-10 offset-1">
+          <div className="card col-12">
+            <span className="card-body col-12">
+              Welcome to your dashboard! Once you follow some other cooks, their activity will be shown here. <br />
+              Until then check out the Explore page to find recipes by anyone!
+            </span>
+          </div>
+        </div>
+      </div>
+    )}
+
     return(
       <React.Fragment>
       { this.props.hidenav
@@ -70,6 +86,7 @@ class Dashboard extends Component {
           <div>{recipes}</div>
       </React.Fragment>
     )
+
   }
 }
 export default Dashboard;
