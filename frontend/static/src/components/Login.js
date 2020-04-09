@@ -66,7 +66,6 @@ class Login extends Component {
           <input type="password" value={this.state.password} autoComplete="current-password" name="password" onChange={this.handleChange} />
           <div className="login-buttons">
             <button className="home-button">Login</button>
-            <button onClick={this.handleSwitch} className="switch">Signup</button>
           </div>
       </form>
     </div>

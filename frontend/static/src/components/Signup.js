@@ -64,7 +64,6 @@ class Signup extends Component {
           </div>
           <div className="login-buttons">
             <button className="home-button">Signup</button>
-            <button className="switch">Login</button>
           </div>
         </form>
       </div>

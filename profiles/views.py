@@ -75,7 +75,7 @@ class FollowingListView(generics.ListAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication]
+    # authentication_classes = [authentication.TokenAuthentication]
 
     def get_queryset(self, **kwargs):
         if (self.kwargs):
@@ -93,7 +93,7 @@ class FollowerListView(generics.ListAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication]
+    # authentication_classes = [authentication.TokenAuthentication]
 
     def get_queryset(self):
         return Connection.objects.filter(owner = self.request.user)
