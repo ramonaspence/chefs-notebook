@@ -40,7 +40,7 @@ class ProfileListCreateView(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication]
+    # authentication_classes = [authentication.TokenAuthentication]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -53,11 +53,11 @@ class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication]
+    # authentication_classes = [authentication.TokenAuthentication]
 
-    def get_queryset(self, **kwargs):
-        # import pdb; pdb.set_trace()
-        return Connection.objects.filter(owner__profile__owner = self.request.user)
+    # def get_queryset(self, **kwargs):
+    #     # import pdb; pdb.set_trace()
+    #     return Connection.objects.filter(owner__profile__owner = self.request.user)
 
     def perform_create(self, serializer):
         # import pdb; pdb.set_trace()
@@ -68,7 +68,7 @@ class ConnectionRetrieveDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    authentication_classes = [authentication.TokenAuthentication]
+    # authentication_classes = [authentication.TokenAuthentication]
 
 
 class FollowingListView(generics.ListAPIView):
@@ -84,7 +84,7 @@ class FollowingListView(generics.ListAPIView):
             return Connection.objects.filter(owner = self.request.user)
 
         if user is not None:
-            queryset = queryset.filter(owner__following=user)
+            queryset = queryset.filter(owner__profile__owner=user)
             return queryset
         else:
             return Connection.objects.filter(owner = self.request.user)
@@ -94,9 +94,17 @@ class FollowerListView(generics.ListAPIView):
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
     # authentication_classes = [authentication.TokenAuthentication]
-
-    def get_queryset(self):
-        return Connection.objects.filter(owner = self.request.user)
+    # 
+    # def get_queryset(self, **kwargs):
+    #     if (self.kwargs):
+    #         user = self.kwargs['pk']
+    #         return Connection.objects.filter(owner = user)
+    #     else:
+    #         return Connection.objects.all()
+    #     if user is not None:
+    #         queryset = queryset.filter(followers__owner__following = user)
+    #     else:
+    #         return Connection.objects.filter(owner = user)
     # def get_queryset(self, **kwargs):
     #     if (self.kwargs):
     #         user = self.kwargs['pk']

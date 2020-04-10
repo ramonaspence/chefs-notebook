@@ -55,9 +55,9 @@ class ProfileDetail extends Component {
 
   removeFollowState(userid, conid) {
     let followers = [...this.state.profile.followers];
-  
-    let i = connections.indexOf(conid);
-    connections.splice(i, 1);
+
+    let i = followers.indexOf(conid);
+    followers.splice(i, 1);
     this.setState({followers: followers})
   }
 
@@ -78,7 +78,7 @@ class ProfileDetail extends Component {
 
 
       this.removeFollowState(userid, conid);
-      console.log(this.state);
+      console.log('removefollow', this.state);
     }
       else {
         console.log('if clause failed')
@@ -118,13 +118,15 @@ class ProfileDetail extends Component {
   render() {
     console.log(this.state);
     const owner = JSON.parse(localStorage.getItem('currentUser')).userid;
-    let button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>;
+    let button;
 
     if (this.state.profile.followers) {
       this.state.profile.followers.map(follower => {
         if (follower.owner.id === owner) {
           button = <div><button className="btn btn-outline-primary" onClick={this.removeFollow}>UnFollow</button></div>
-          //fat arrow on removeFollow to pass in user.id of following
+        }
+        else {
+          button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>
         }
 
       });
@@ -172,7 +174,7 @@ class ProfileDetail extends Component {
             :
             this.state.toggle === 'followers'
             ?
-            <ListFollowers hidenav={this.state.hidenav} />
+            <ListFollowers profile={this.state.profile} hidenav={this.state.hidenav} />
             :
             this.state.profile.owner && <UserRecipeList hidesearch={this.state.hidesearch} profile={this.state.profile.owner} hidenav={this.state.hidenav} />
             }

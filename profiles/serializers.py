@@ -4,6 +4,7 @@ from accounts.serializers import UserSerializer
 
 class ConnectionSerializer(serializers.ModelSerializer):
     following = UserSerializer(read_only=True)
+    owner = UserSerializer(read_only=True)
 
     class Meta:
         model = Connection

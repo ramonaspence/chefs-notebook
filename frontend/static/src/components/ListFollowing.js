@@ -30,11 +30,13 @@ class ListFollowing extends Component {
       headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).key}`}
     })
     .then(res => this.setState({connections: res.data}))
+    .then(res => console.log(this.state))
     .catch(err => console.log(err));
   }
 
 
   render() {
+
     console.log(this.props);
     let following = this.props.profile.following.map(connection => (
       <div className="row no-gutters">

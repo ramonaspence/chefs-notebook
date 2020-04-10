@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import Nav from '../containers/Nav.js';
 
 import moment from 'moment';
@@ -28,28 +28,35 @@ class ListFollowers extends Component {
       headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).key}`}
     })
     .then(res => this.setState({followers: res.data}))
+    .then(res => console.log('yo', this.state))
+    .then(res => console.log('props', this.props))
     .catch(err => console.log(err));
   }
 
   render() {
     console.log(this.state)
 
-    let followers = this.state.followers.map(follower => (
+      let followers = this.state.followers.map(follower => {
+        if (follower.following.id === this.props.profile.owner.id) {
+          return (
+          <div className="row">
+            <div className="col-md-8 col-12 ml-auto card d-flex">
+              <div className="title card-body">
+                <div className="card-title">
+                <NavLink to={`/users/profile/${follower.owner.profile.id}/`}><h3>{follower.owner.username}</h3></NavLink>
 
-      <div className="row">
-        <div className="col-md-8 col-12 ml-auto card d-flex">
-          <div className="title card-body">
-            <div className="card-title">
-            <Link to={`/users/profile/${follower.following.profile.id}/`}><h3>{follower.following.username}</h3></Link>
-
-              <p>since {moment(follower.following.created).format("MMM Do YYYY")}</p>
+                  <p>since {moment(follower.owner.created).format("MMM Do YYYY")}</p>
 
 
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    ))
+        )
+        }
+      });
+
+
     return (
       <React.Fragment>
       { this.props.hidenav ?
@@ -58,7 +65,7 @@ class ListFollowers extends Component {
       <Nav /> }
       <div>{followers}</div>
       </React.Fragment>
-    )
-  }
+      );
+    }
 }
 export default ListFollowers;
