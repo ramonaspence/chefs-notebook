@@ -27,7 +27,7 @@ class ProfileDetail extends Component {
         following: null,
         connections: []
       }
-      this.removeFollowState = this.removeFollowState.bind(this);
+
       this.removeFollow = this.removeFollow.bind(this);
       this.addFollow = this.addFollow.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
@@ -53,14 +53,6 @@ class ProfileDetail extends Component {
     this.setState({toggle: 'followers'})
   }
 
-  removeFollowState(userid, conid) {
-    let followers = [...this.state.profile.followers];
-
-    let i = followers.indexOf(conid);
-    followers.splice(i, 1);
-    this.setState({followers: followers})
-  }
-
   removeFollow(e) {
     e.preventDefault();
 
@@ -77,8 +69,12 @@ class ProfileDetail extends Component {
       .catch(err => console.log(err));
 
 
-      this.removeFollowState(userid, conid);
-      console.log('removefollow', this.state);
+      let profile = {...this.state.profile};
+
+      let i = profile.followers.indexOf(conid);
+      profile.followers.splice(i, 1);
+      this.setState({profile: profile})
+
     }
       else {
         console.log('if clause failed')
@@ -96,9 +92,14 @@ class ProfileDetail extends Component {
     axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.owner.id},{
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(res => this.setState({following: true}))
-    .then(res => console.log(this.state))
+    .then(res => console.log('follow', this.state))
     .catch(err => console.log(err));
+
+    let userid = JSON.parse(localStorage.getItem('currentUser')).userid
+    let profile = {...this.state.profile};
+
+    profile.followers.push({following: this.state.profile.owner, owner: {id: userid}});
+    this.setState({profile: profile});
 
   }
 
@@ -122,7 +123,7 @@ class ProfileDetail extends Component {
 
     if (this.state.profile.followers) {
       this.state.profile.followers.map(follower => {
-        if (follower.owner.id === owner) {
+        if (follower.owner && follower.owner.id === owner) {
           button = <div><button className="btn btn-outline-primary" onClick={this.removeFollow}>UnFollow</button></div>
         }
         else {
