@@ -51,7 +51,7 @@ class RecipeDetail extends Component {
     console.log(data);
     recipe.comments.push(data);
     this.setState({comments: recipe.comments})
-    console.log('submit', this.state);
+    this.refs.commentField.value = '';
   }
 
   handleSubmit(e) {
@@ -65,23 +65,27 @@ class RecipeDetail extends Component {
 
   }
 
-  commentDelete(e, id) {
+  commentDelete(id) {
+    console.log(id)
+    let recipe = {...this.state.recipe}
     let comments = [...this.state.recipe.comments];
-    let i = comments.indexOf(id);
-    comments.splice(i, 1);
-    this.setState({comments: comments})
-
+    let i = recipe.comments.findIndex(comment => comment.id === id);
+    console.log('i',i)
+    recipe.comments.splice(i, 1);
+    this.setState({comments: recipe.comments})
+    console.log(this.state);
   }
 
   onDelete(e, id) {
 
-    console.log(e);
+
     axios.delete(`${BASE_URL}/api/v1/recipes/comments/${e}`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response => this.commentDelete(e, id))
     .then(response => console.log('res',response))
     .catch(err => console.log(err));
+
+    this.commentDelete(e);
   }
 
   handleDelete(e) {
@@ -238,7 +242,7 @@ class RecipeDetail extends Component {
               <div className="collapse navbar-collapse" id="comments">
                 <div className="card-body">
                 <form method="post" type='submit' onSubmit={this.handleSubmit}>
-                  <input type='text' name="body" defaultValue='' className="form-control" onChange={this.handleChange} />
+                  <input type='text' name="body" ref="commentField" defaultValue='' className="form-control" onChange={this.handleChange} />
                   <div className="input-group-append">
                     <button className="input-group-text">Leave Comment</button>
                   </div>
