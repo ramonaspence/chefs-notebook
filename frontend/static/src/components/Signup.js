@@ -32,7 +32,11 @@ class Signup extends Component {
   }
 
   captureLogin() {
-    axios.get(`${BASE_URL}/rest-auth/user/`,)
+    axios.get(`${BASE_URL}/rest-auth/user/`, {
+      headers: {
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
+      }
+    })
     .then(res => {
       localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}))
       console.log(res);
