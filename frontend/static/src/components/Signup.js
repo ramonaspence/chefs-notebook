@@ -31,6 +31,16 @@ class Signup extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  captureLogin() {
+    axios.get(`${BASE_URL}/rest-auth/user/`,)
+    .then(res => {
+      localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}))
+      console.log(res);
+    })
+      .then(this.setState({redirect: true}))
+    .catch(err => console.log(err))
+  }
+
   signUp(e) {
     e.preventDefault();
 
@@ -42,6 +52,8 @@ class Signup extends Component {
 
     })
     .catch(err => {console.log(err);})
+
+    this.captureLogin()
   }
 
   render() {
