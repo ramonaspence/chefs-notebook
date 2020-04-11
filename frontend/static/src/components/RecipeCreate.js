@@ -132,9 +132,9 @@ class RecipeCreate extends Component {
 
     })
 
-    .then(res => console.log(res))
+    .then(res => this.setState({redirect: true}))
     .catch(err => console.log(err));
-    this.setState({redirect: true});
+
   }
 
   render() {
