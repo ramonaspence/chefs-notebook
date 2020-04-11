@@ -55,9 +55,9 @@ class Signup extends Component {
       this.props.props.history.push('/profile/create/');
 
     })
+    .then(res => this.captureLogin())
     .catch(err => {console.log(err);})
 
-    this.captureLogin()
   }
 
   render() {
