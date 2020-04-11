@@ -22,7 +22,7 @@ class RecipeDetail extends Component {
       comment: {},
       isAuthorized: false,
     }
-
+    this.commentSubmit = this.commentSubmit.bind(this);
     this.checkAuth = this.checkAuth.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,13 +45,31 @@ class RecipeDetail extends Component {
     console.log(this.state);
   }
 
+  commentSubmit(data) {
+    let recipe = {...this.state.recipe};
+    let comments = [...this.state.recipe.comments]
+    console.log(data);
+    recipe.comments.push(data);
+    this.setState({comments: recipe.comments})
+    console.log('submit', this.state);
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     axios.post(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/comments/`, this.state, {
     headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}})
-    .then(res => console.log(res))
+    .then(res => this.commentSubmit(res.data))
     .catch(err => console.log(err));
 
+    console.log(this.state);
+
+  }
+
+  commentDelete(e, id) {
+    let comments = [...this.state.recipe.comments];
+    let i = comments.indexOf(id);
+    comments.splice(i, 1);
+    this.setState({comments: comments})
 
   }
 
@@ -61,8 +79,8 @@ class RecipeDetail extends Component {
     axios.delete(`${BASE_URL}/api/v1/recipes/comments/${e}`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response => this.setState({deleted: true}))
-
+    .then(response => this.commentDelete(e, id))
+    .then(response => console.log('res',response))
     .catch(err => console.log(err));
   }
 
@@ -103,7 +121,7 @@ class RecipeDetail extends Component {
     }
 
     let comments;
-    if (this.state.comments) {
+    if (this.state.recipe.comments) {
       comments = this.state.recipe.comments.map(comment =>
         (
           <div className="card comment">

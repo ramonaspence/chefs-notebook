@@ -63,7 +63,7 @@ class Login extends Component {
         <div className="form-group">
           <input type="text" value={this.state.username} autoComplete="username" placeholder="username" name="username" onChange={this.handleChange} />
         </div>
-          <input type="password" value={this.state.password} autoComplete="current-password" name="password" onChange={this.handleChange} />
+          <input type="password" value={this.state.password} autoComplete="current-password" placeholder="password" name="password" onChange={this.handleChange} />
           <div className="login-buttons">
             <button className="home-button">Login</button>
           </div>
