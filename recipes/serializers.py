@@ -28,39 +28,33 @@ class CommentSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
-    owner = UserSerializer(read_only=True) ## for some reason allows profile details to be in recipe object in backend, I don't quite understand this fully
-    ## owner = UserSerializer() allows for nested serializer in api endpoint
-    ## owner = serialziers.ReadOnlyField sets the owner automatically
-    ## but these two lines conflict each other, how to separate them and achieve same functionality?
+    owner = UserSerializer(read_only=True)
 
     class Meta:
         model = Recipe
-        fields = '__all__' ##['title', 'description', 'image', 'ingredients', 'instructions', 'tags',]
+        fields = '__all__' 
         depth = 1
         owner = serializers.ReadOnlyField(source='owner.username')
 
-    ## modified create method to save recipe before adding tags from clarifai api
-    ## because tags is a ManyToManyField, tags must be defined before saving to an instance of recipe
-    ## once the recipe is saved, and the tags are defined in the db, a relationship between them can be made
-    ## this create method is how I'm doing that.
+  
     def create(self, validated_data):
+        """
+        Grabs `tags` from Clarifai and checks if the `tags` are in the db.
+        If they already exist, they are added to the recipe and the recipe is saved.
+        If they do not exist, they are saved to the db, then added to recipe, and the recipe is saved.
+        """
         recipe = Recipe.objects.create(**validated_data)
 
-        model = app.public_models.food_model ## specifies food_model for api prediction
+        model = app.public_models.food_model 
         if recipe.image != None:
             response = model.predict_by_url(recipe.image.url)
-            ## instead of digging all the way into object returned by Clarifai, I need to slice results
-            ## so I can go straight to the concepts that are brought back like below
             concepts = response['outputs'][0]['data']['concepts']
-            concepts = concepts[0:5] ## just taking first five, the response from api is ordered by probability
+            concepts = concepts[0:5] 
             conceptlist = []
             for concept in concepts:
                 concept = concept.get('name')
                 conceptlist.append(concept)
             print(conceptlist)
-            ## now loop through the concepts, check if they exist in db, if they don't, save to database.
-            ## and if they do exist, save appropriate tags to recipe instance.
-            # import pdb; pdb.set_trace()
             for concept in conceptlist:
 
                 if Tag.objects.filter(name=concept).exists():
@@ -70,7 +64,7 @@ class RecipeSerializer(serializers.ModelSerializer):
                 else:
                     tag = Tag.objects.create(name=concept)
                     recipe.tags.add(tag)
-            recipe.save() ## saves recipe instance with tags added
+            recipe.save() 
             return recipe
         else:
             recipe.save()

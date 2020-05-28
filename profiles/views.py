@@ -24,43 +24,28 @@ class ProfileUpdateView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [authentication.TokenAuthentication]
 
     def get_object(self):
-        # import pdb; pdb.set_trace()
         queryset = self.get_queryset()
         obj = get_object_or_404(queryset, owner=self.request.user)
         return obj
-    ## this method keeps me from seeing other people's profiles! I need them to be seen by others, but not be able to update them
-
-    # def get_queryset(self):
-    #     # import pdb; pdb.set_trace()
-    #     user = self.request.user.id
-    #     return Profile.objects.filter(user=user)
+    
 
 
 class ProfileListCreateView(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
-    # authentication_classes = [authentication.TokenAuthentication]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return Profile.objects.filter(user=user) ## this get_queryset method filters in the backend. Only letting me see what belongs to the user that is logged in
-
+    
 class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create and read followers and followings
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
-    # authentication_classes = [authentication.TokenAuthentication]
 
-    # def get_queryset(self, **kwargs):
-    #     # import pdb; pdb.set_trace()
-    #     return Connection.objects.filter(owner__profile__owner = self.request.user)
 
     def perform_create(self, serializer):
-        # import pdb; pdb.set_trace()
         following = get_object_or_404(User, pk=self.request.data['following'])
         serializer.save(owner=self.request.user, following=following);
 
@@ -68,14 +53,12 @@ class ConnectionRetrieveDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    # authentication_classes = [authentication.TokenAuthentication]
 
 
 class FollowingListView(generics.ListAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
-    # authentication_classes = [authentication.TokenAuthentication]
 
     def get_queryset(self, **kwargs):
         if (self.kwargs):
@@ -93,26 +76,4 @@ class FollowerListView(generics.ListAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
-    # authentication_classes = [authentication.TokenAuthentication]
-    # 
-    # def get_queryset(self, **kwargs):
-    #     if (self.kwargs):
-    #         user = self.kwargs['pk']
-    #         return Connection.objects.filter(owner = user)
-    #     else:
-    #         return Connection.objects.all()
-    #     if user is not None:
-    #         queryset = queryset.filter(followers__owner__following = user)
-    #     else:
-    #         return Connection.objects.filter(owner = user)
-    # def get_queryset(self, **kwargs):
-    #     if (self.kwargs):
-    #         user = self.kwargs['pk']
-    #     else:
-    #         return Connection.objects.filter(owner = self.request.user)
-    #
-    #     if user is not None:
-    #         queryset = queryset.filter(owner_followers=user)
-    #         return queryset
-    #     else:
-    #         return Connection.objects.filter(owner = self.request.user)
+ 

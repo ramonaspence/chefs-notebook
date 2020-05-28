@@ -5,7 +5,7 @@ app_name = "profiles"
 
 
 urlpatterns = [
-    ## these patterns all point to api endpoints! The urls you see in the app itself are comming from react-router-dom
+    
     path('', views.ProfileListCreateView.as_view(), name="profile"),  ## this endpoint contains all the profiles, so I can list them out in a 'userlist'
     path('<int:pk>/', views.ProfileDetailView.as_view(), name='profile_detail'), ## this endpoint contains one user's profile, to be seen by someone else
     path('followers/', views.FollowerListView.as_view(), name='list_followers'),
