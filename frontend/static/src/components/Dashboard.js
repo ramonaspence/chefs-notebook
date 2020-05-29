@@ -82,11 +82,7 @@ class Dashboard extends Component {
         :
         <Nav />
       }
-        <div className="row">
-          <div className="card col-lg-6 offset-lg-3 col-10 offset-1">
-            <span className="dashboard-msg">Your Dashbaord is where you'll find activity from cooks that you choose to follow.</span>
-          </div>
-        </div>
+        
           <div>{recipes}</div>
       </React.Fragment>
     )
