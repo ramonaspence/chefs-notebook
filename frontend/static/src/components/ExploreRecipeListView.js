@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import BadRequest from './TagSearch400.js';
-
 import Nav from '../containers/Nav.js';
 import moment from 'moment';
 import { Link, Redirect } from 'react-router-dom';
@@ -20,6 +18,7 @@ class ExploreRecipeList extends Component {
       this.state = {
         recipes: [],
         tagpreviews: [],
+        loading: true
       }
     this.handleBadRequest = this.handleBadRequest.bind(this);
     this.handleKeyEvent = this.handleKeyEvent.bind(this);
@@ -50,11 +49,33 @@ class ExploreRecipeList extends Component {
     this.setState({badRequest: true})
   }
 
+
   handleSearch(e) {
     e.preventDefault();
     
     const title = this.state.title ? this.state.title : '';
     const description = this.state.description ? this.state.description : '';
+
+    const filterAPICall = (tagStr) => {
+      axios.get(
+        `${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
+          headers: {
+            'Authorization': `Token ${
+              JSON.parse(localStorage.getItem('current-user')).key
+            }`
+          }
+        }
+      )
+      .then((res) => {
+        if (res.data.length !== 0) {
+          this.setState({ recipes: res.data });
+        }
+        else {
+          this.setState({ badRequest: true })
+        }
+      })
+      .catch((err) => this.handleBadRequest());
+    };
 
     let tagStr = '';
     if (this.state.tags) {
@@ -65,36 +86,26 @@ class ExploreRecipeList extends Component {
         axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
           headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
         })
-        .then(res => this.setState({recipes: res.data}))
+        .then(res => this.setState({recipes: res.data, loading: false}))
         .catch(err => this.handleBadRequest());
 
       }
       else {
         let tagStr = `&tags=${this.state.tags}`;
-
-        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
-          headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-        })
-        .then(res => this.setState({recipes: res.data}))
-        .catch(err => this.handleBadRequest());
       }
+      filterAPICall(tagStr);
     }
     else {
-      axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
-        headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-      })
-      .then(res => this.setState({recipes: res.data}))
-      .catch(err => this.handleBadRequest());
+      filterAPICall('');
     }
-
-    }
+  }
 
 
   componentDidMount() {
     axios.get(`${BASE_URL}/api/v1/recipes/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(res => this.setState({recipes: res.data}))
+    .then(res => this.setState({recipes: res.data, loading: false}))
     .catch(err => console.log(err))
   }
 
@@ -167,11 +178,17 @@ class ExploreRecipeList extends Component {
         </form>
 
         </div>
+        {
+          this.state.loading
+          ?
+          <img className="loader" src={require('../images/loader.gif')} alt="loading..." />
+          :
         <ul>
           <li>
             {recipes}
           </li>
         </ul>
+        } 
       </React.Fragment>
     )
 
