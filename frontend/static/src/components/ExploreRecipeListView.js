@@ -52,57 +52,45 @@ class ExploreRecipeList extends Component {
 
   handleSearch(e) {
     e.preventDefault();
-    console.log('fires')
+    
     const title = this.state.title ? this.state.title : '';
     const description = this.state.description ? this.state.description : '';
-    // const tags = this.state.tags ? this.state.tags : '';
+
     let tagStr = '';
     if (this.state.tags) {
       if (this.state.tags.includes(' ')) {
         let tags = this.state.tags.split(' ');
-        console.log(tags); //gives array of strings
         tags.forEach(tag => tagStr += `&tags=${tag}`) //should concatenate strings into a new string `&tags=${tag1}&tags=${tag2}...`
-        console.log(tagStr);
-        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
+        
+        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
+          headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+        })
         .then(res => this.setState({recipes: res.data}))
-        .catch(err => console.log(err));
+        .catch(err => this.handleBadRequest());
 
       }
       else {
         let tagStr = `&tags=${this.state.tags}`;
-        console.log(tagStr);
-        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
+
+        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
+          headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+        })
         .then(res => this.setState({recipes: res.data}))
         .catch(err => this.handleBadRequest());
       }
     }
-      else {
-        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`)
-        .then(res => this.setState({recipes: res.data}))
-        .catch(err => console.log(err));
-      }
+    else {
+      axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
+        headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+      })
+      .then(res => this.setState({recipes: res.data}))
+      .catch(err => this.handleBadRequest());
+    }
 
     }
 
 
-
-
-
-
-
   componentDidMount() {
-    // Promise.all([
-    //   axios.get(`${BASE_URL}/api/v1/recipes/`, {
-    //       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    //     }),
-    //   axios.get(`${BASE_URL}/api/v1/users/`, {
-    //       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    //     })
-    // ])
-    // .then(([recipeRes, userRes]) => {
-    //   this.setState({recipes: recipeRes.data, users: userRes.data}) //may need to get data into one object,
-    //   // so I can dig through recipes to profile id inside of the recipes.map()
-    // })
     axios.get(`${BASE_URL}/api/v1/recipes/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
@@ -111,7 +99,7 @@ class ExploreRecipeList extends Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log(this.state.recipes)
     if (this.state.badRequest) {
       return (
         <Redirect to="/oops/" />
@@ -122,15 +110,8 @@ class ExploreRecipeList extends Component {
           <span className="tags-preview-span">{tag}</span>
 
       ))
-    // let profiles = this.state.users.map(profile => {
-    //   if (this.state.user.id === this.state.recipes.owner.id) {
-    //     let profileID = this.state.user.profile.id;
-    //     return (<Link to={`/users/profile/${profile.id}`}><h5>{this.state.recipe.owner.username}</h5></Link>)
-    //   }
-    // })
 
-
-
+    
     let recipes = this.state.recipes.map(recipe =>  (
 
         <div className="row no-gutters">
