@@ -17,13 +17,10 @@ class Home extends Component {
       isAuthenticated: false,
       hidenav: null,
     }
-
-
   }
 
 
   render() {
-    console.log(this.props);
     return (
       <React.Fragment>
 
@@ -63,5 +60,4 @@ class Home extends Component {
     )
   }
 }
-
 export default Home;
