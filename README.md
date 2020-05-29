@@ -1,4 +1,6 @@
-######## The Chef's Notebook ########
+## The Chef's Notebook ##
+
+
 ## The purpose of this app is:
 * To provide a space for hobbyist cooks where
 * they can record and edit recipes of their own
