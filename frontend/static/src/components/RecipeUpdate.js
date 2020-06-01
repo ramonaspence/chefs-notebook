@@ -4,6 +4,8 @@ import '../App.css';
 import {Redirect} from 'react-router-dom';
 import Nav from '../containers/Nav.js';
 
+
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -38,7 +40,6 @@ class RecipeUpdate extends Component {
   handleInstructions(e) {
     e.preventDefault();
     this.setState({instructStr: e.target.value})
-    console.log(this.state);
   }
 
   submitInstructions(e, instructStr) {

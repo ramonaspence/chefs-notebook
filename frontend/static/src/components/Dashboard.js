@@ -66,7 +66,7 @@ class Dashboard extends Component {
         <div className="no-followers col-lg-4 offset-lg-4 col-10 offset-1">
           <div className="card col-12">
             <span className="card-body col-12">
-              Welcome to your dashboard! Once you follow some other cooks, their activity will be shown here. <br />
+              Welcome to your dashboard! Once you follow other cooks, their activity will be shown here. <br />
               Until then check out the Explore page to find recipes by anyone!
             </span>
           </div>
