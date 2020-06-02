@@ -3,6 +3,8 @@ import '../App.css';
 
 import {Redirect} from 'react-router-dom';
 
+import ProfileForm from '../utils/profileForm.js';
+
 import Nav from '../containers/Nav.js';
 import axios from 'axios';
 
@@ -74,7 +76,11 @@ class ProfileCreate extends Component {
       <div className="row">
         <div className="col-md-4 col-12 card profile-create-body">
           <div className="card-body row">
-            <form type='submit' method="post" onSubmit={this.handleSubmit}>
+
+            <ProfileForm profile={this.state.profile} preview={this.state.preview}/>
+
+
+            {/* <form type='submit' method="post" onSubmit={this.handleSubmit}>
               <button>Save Profile</button>
                 <div className="create-display-name col-md-12 col-7 mr-auto">
                   <label htmlFor="display_name">Display Name</label>
@@ -98,7 +104,7 @@ class ProfileCreate extends Component {
                   <textarea type='text' name="bio" defaultValue='' onChange={this.handleChange} />
                 </div>
 
-            </form>
+            </form> */}
           </div>
         </div>
       </div>

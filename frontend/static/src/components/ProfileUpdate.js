@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import UserRecipeList from './UserRecipeList.js';
 import Nav from '../containers/Nav.js';
+import ProfileForm from '../utils/profileForm.js';
 
 import axios from 'axios';
 
@@ -71,15 +72,17 @@ class ProfileUpdate extends Component {
     .catch(err => console.log(err));
   }
 
-  componentDidMount() {
+  async componentDidMount() {
 
-    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
+    await axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState(response.data))
     .then(res => console.log(this.state))
     .catch(err => console.log(err))
   }
+
+  
   render() {
     if (this.state.redirect) {
       return (<Redirect to="/profile/" />)
@@ -92,7 +95,9 @@ class ProfileUpdate extends Component {
             <div className='col-md-6 col-12 card profile-update-body'>
               <div className='card-body row'>
 
-                <form type='submit' onSubmit={this.handleSubmit}>
+                <ProfileForm profile={this.state.profile} preview={this.state.preview}/>
+
+                {/* <form type='submit' onSubmit={this.handleSubmit}>
 
                 <button>Save Profile</button>
 
@@ -116,7 +121,7 @@ class ProfileUpdate extends Component {
                   <div className="update-bio col-12 mr-auto">
                     <textarea type='text' name='bio' defaultValue={this.state.bio} onChange={this.handleChange} />
                   </div>
-                </form>
+                </form> */}
               </div>
 
                 <div className='card-footer profile-bio-footer'>

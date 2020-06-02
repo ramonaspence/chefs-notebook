@@ -44,12 +44,16 @@ class Dashboard extends Component {
           <div className="col-md-8 col-sm-12 ml-auto card d-flex">
             <div className="title card-body">
               <div className="card-title">
-                <Link to={`/users/profile/${recipe.owner.profile.id}`}><h2>{recipe.owner.username}</h2></Link>
+                <Link to={`/users/profile/${recipe.owner.profile.id}`}>
+                  <h2>{recipe.owner.username}</h2>
+                </Link>
                 <img src={recipe.image} alt="oh no!" />
 
               </div>
               <div className="">
-                <NavLink className="btn btn-outline-secondary" to={`/recipes/${recipe.id}`}>View Recipe</NavLink>
+                <NavLink className="btn btn-outline-secondary" to={`/recipes/${recipe.id}`}>
+                  View Recipe
+                </NavLink>
                 <p>{recipe.description}</p>
                 <p>{moment(recipe.date_updated).fromNow()}</p>
               </div>

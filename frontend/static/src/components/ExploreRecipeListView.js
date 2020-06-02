@@ -103,22 +103,12 @@ class ExploreRecipeList extends Component {
 
 
   componentDidMount() {
-    const recipes = loadData(
-      `${BASE_URL}/api/v1/recipes`
-    );
-    this.setState({
-      recipes
-    });
-    
+    axios.get(`${BASE_URL}/api/v1/recipes/`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
+    .then(res => this.setState({recipes: res.data, loading: false}))
+    .catch(err => console.log(err))
   }
-
-
-  //   axios.get(`${BASE_URL}/api/v1/recipes/`, {
-  //     headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-  //   })
-  //   .then(res => this.setState({recipes: res.data, loading: false}))
-  //   .catch(err => console.log(err))
-  // }
 
   render() {
     console.log(this.state.recipes)
