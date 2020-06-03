@@ -4,6 +4,8 @@ import '../App.css';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faGriplines } from '@fortawesome/free-regular-svg-icons'
 
+import checkAuthentication from '../utils/checkLoggedIn.js';
+
 import { Link, Redirect} from 'react-router-dom';
 
 import axios from 'axios';
@@ -21,6 +23,8 @@ class Nav extends Component {
         redirect: null,
         isAuthenticated: false,
       }
+
+    
     this.checkAuth = this.checkAuth.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
 
@@ -51,7 +55,9 @@ class Nav extends Component {
   }
 
   componentDidMount() {
-    this.checkAuth();
+    const loggedIn = checkAuthentication();
+    this.setState({isAuthenticated: loggedIn})
+
   }
 
 
@@ -59,6 +65,7 @@ class Nav extends Component {
   render() {
     if (this.state.redirect) {
       return (<Redirect to="/" />)
+      //redirects to homepage after logging out
     }
     return (
 

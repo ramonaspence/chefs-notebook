@@ -101,6 +101,7 @@ class ProfileView extends Component {
             <div className="profile-date-joined">
               <p>Member since: {moment(this.state.profile.date_joined).format("MMM Do YYYY")}</p>
             </div>
+            
             <div className="profile-update">
               <NavLink to={`/profile/update/${this.state.profile.id}`}>Update Profile</NavLink>
             </div>
