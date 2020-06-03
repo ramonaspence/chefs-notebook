@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 
 export default const makeAPICall = (endpoint) => {
     const response = await axios.get(`${BASE_URL}/api/v1/${endpoint}`);

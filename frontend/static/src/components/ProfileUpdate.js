@@ -82,8 +82,9 @@ class ProfileUpdate extends Component {
     .catch(err => console.log(err))
   }
 
-  
+
   render() {
+    console.log('state', this.state)
     if (this.state.redirect) {
       return (<Redirect to="/profile/" />)
     }
@@ -95,7 +96,7 @@ class ProfileUpdate extends Component {
             <div className='col-md-6 col-12 card profile-update-body'>
               <div className='card-body row'>
 
-                <ProfileForm profile={this.state.profile} preview={this.state.preview}/>
+                <ProfileForm profile={this.state} preview={this.state.preview}/>
 
                 {/* <form type='submit' onSubmit={this.handleSubmit}>
 

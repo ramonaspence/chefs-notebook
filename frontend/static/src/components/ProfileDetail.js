@@ -25,7 +25,7 @@ class ProfileDetail extends Component {
         hidenav: true,
         hidesearch: true,
         following: null,
-        connections: []
+        connections: [],
       }
 
       this.removeFollow = this.removeFollow.bind(this);

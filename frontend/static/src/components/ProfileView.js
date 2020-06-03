@@ -77,7 +77,6 @@ class ProfileView extends Component {
   }
 
   render() {
-
     return (
       <React.Fragment>
       <Nav />
