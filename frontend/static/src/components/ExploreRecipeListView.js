@@ -103,10 +103,9 @@ class ExploreRecipeList extends Component {
 
 
   componentDidMount() {
-    const recipes = makeAPICall('recipes');
-    
-    this.setState({recipes: recipes, loading: false})
-    console.log('state', this.state);
+    makeAPICall('recipes')
+    .then(res => this.setState({recipes: res.data, loading: false}))
+    .catch(err => console.log(err));
 
 
 
