@@ -1,8 +1,16 @@
 import axios from "axios";
 
-export default const makeAPICall = (endpoint) => {
-    const response = await axios.get(`${BASE_URL}/api/v1/${endpoint}`);
-    const data = await response.json();
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+let data
 
-    return data;
+export const makeAPICall = (endpoint) => {
+    axios.get(`${BASE_URL}/api/v1/${endpoint}/`, {
+        headers: {
+            'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
+        }
+    })
+    .then(res => {return res})
+    .catch(err => console.log(err));
+
 }
+export default makeAPICall;

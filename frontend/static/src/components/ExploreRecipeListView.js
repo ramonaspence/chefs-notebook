@@ -5,7 +5,7 @@ import Nav from '../containers/Nav.js';
 import moment from 'moment';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { loadRecipes, makeAPICall, loadData } from '../utils/loadRecipes';
+import { makeAPICall } from '../utils/makeAPICall.js';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -103,15 +103,22 @@ class ExploreRecipeList extends Component {
 
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/recipes/`, {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    })
-    .then(res => this.setState({recipes: res.data, loading: false}))
-    .catch(err => console.log(err))
+    const recipes = makeAPICall('recipes');
+    
+    this.setState({recipes: recipes, loading: false})
+    console.log('state', this.state);
+
+
+
+    // axios.get(`${BASE_URL}/api/v1/recipes/`, {
+    //   headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    // })
+    // .then(res => this.setState({recipes: res.data, loading: false}))
+    // .catch(err => console.log(err))
   }
 
   render() {
-    console.log(this.state.recipes)
+    console.log('state', this.state)
     if (this.state.badRequest) {
       return (
         <Redirect to="/oops/" />

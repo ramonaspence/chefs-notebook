@@ -4,7 +4,7 @@ import '../App.css';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faGriplines } from '@fortawesome/free-regular-svg-icons'
 
-import checkAuthentication from '../utils/checkLoggedIn.js';
+import checkAuthentication from '../utils/checkAuthentication.js';
 
 import { Link, Redirect} from 'react-router-dom';
 
@@ -24,19 +24,8 @@ class Nav extends Component {
         isAuthenticated: false,
       }
 
-    
-    this.checkAuth = this.checkAuth.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
+      this.handleLogout = this.handleLogout.bind(this);
 
-  }
-
-  checkAuth() {
-    if (localStorage.getItem('current-user')) {
-      this.setState({isAuthenticated: true})
-    }
-    else {
-      return
-    }
   }
 
   handleLogout(e) {
