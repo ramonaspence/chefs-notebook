@@ -53,7 +53,7 @@ class ProfileCreate extends Component {
     formData.append('bio', this.state.bio)
     formData.append('avatar', this.state.avatar)
 
-
+    // Do I want a post request template broken out like the get requests?
     axios.post(`${BASE_URL}/api/v1/profiles/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -79,32 +79,6 @@ class ProfileCreate extends Component {
 
             <ProfileForm profile={this.state.profile} preview={this.state.preview}/>
 
-
-            {/* <form type='submit' method="post" onSubmit={this.handleSubmit}>
-              <button>Save Profile</button>
-                <div className="create-display-name col-md-12 col-7 mr-auto">
-                  <label htmlFor="display_name">Display Name</label>
-                  <input type='text' name="display_name" defaultValue='' onChange={this.handleChange} />
-                </div>
-                <div className="create-avatar col-md-12 col-5">
-                  { this.state.preview
-                    ?
-                    <div className="create-avatar-preview">
-                      <img src={this.state.preview} alt="don't know about that" />
-                    </div>
-                    :
-                    <div className="create-avatar-preview">
-                    </div>
-                  }
-                  <label htmlFor="avatar">Upload an Avatar</label>
-                  <input type="file" name="avatar" defaultValue="" onChange={this.handleImage} />
-                </div>
-                <div className="create-bio col-12 mr-auto">
-                  <label htmlFor="bio">Add Bio:</label>
-                  <textarea type='text' name="bio" defaultValue='' onChange={this.handleChange} />
-                </div>
-
-            </form> */}
           </div>
         </div>
       </div>

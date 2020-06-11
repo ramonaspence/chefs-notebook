@@ -5,6 +5,7 @@ import Nav from '../containers/Nav.js';
 
 import moment from 'moment';
 import axios from 'axios';
+import makeAPICall from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -24,12 +25,8 @@ class ListFollowers extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/profiles/followers`,{
-      headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).key}`}
-    })
+    makeAPICall('profiles/followers/')
     .then(res => this.setState({followers: res.data}))
-    .then(res => console.log('yo', this.state))
-    .then(res => console.log('props', this.props))
     .catch(err => console.log(err));
   }
 

@@ -6,6 +6,8 @@ import moment from 'moment';
 
 import Nav from '../containers/Nav.js';
 
+import makeAPICall from '../utils/makeAPICall.js';
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -22,15 +24,12 @@ class Dashboard extends Component {
         hidenav: true
       }
 
-
     this.componentDidMount = this.componentDidMount.bind(this);
 
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/recipes/dashboard/`, {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
-    }})
+    makeAPICall('recipes/dashboard/')
     .then(res => this.setState({recipes: res.data}))
     .catch(err => console.log(err));
   }

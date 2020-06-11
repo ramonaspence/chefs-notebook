@@ -42,11 +42,9 @@ class Login extends Component {
   handleLogin(e) {
     e.preventDefault();
 
-
     axios.post(`${BASE_URL}/rest-auth/login/`, this.state)
-    .then(res => {localStorage.setItem('current-user', JSON.stringify(res.data))})
+    .then(res => localStorage.setItem('current-user', JSON.stringify(res.data)))
     .then(res => this.captureLogin())
-
     .catch(err => {console.log(err)})
 
   }
@@ -74,6 +72,4 @@ class Login extends Component {
   )
   }
 }
-
-
 export default Login;

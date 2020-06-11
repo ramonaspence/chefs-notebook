@@ -107,13 +107,6 @@ class ExploreRecipeList extends Component {
     .then(res => this.setState({recipes: res.data, loading: false}))
     .catch(err => console.log(err));
 
-
-
-    // axios.get(`${BASE_URL}/api/v1/recipes/`, {
-    //   headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    // })
-    // .then(res => this.setState({recipes: res.data, loading: false}))
-    // .catch(err => console.log(err))
   }
 
   render() {
