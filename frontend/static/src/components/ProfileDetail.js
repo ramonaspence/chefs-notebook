@@ -63,11 +63,12 @@ class ProfileDetail extends Component {
       if (connection.owner.id === userid) {
         let conid = connection.id
         axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}`, {
-          headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-        })
-      .then(res => console.log(res))//remove loggedin user from followers array on state
-      .catch(err => console.log(err));
-
+          headers: {
+            'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+          }
+        )
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
 
       let profile = {...this.state.profile};
 
@@ -75,12 +76,11 @@ class ProfileDetail extends Component {
       profile.followers.splice(i, 1);
       this.setState({profile: profile})
 
-    }
+      }
       else {
         console.log('if clause failed')
-
-      }});
-
+      }
+    });
   }
 
   addFollow(e) {
@@ -119,7 +119,9 @@ class ProfileDetail extends Component {
   render() {
     const owner = JSON.parse(localStorage.getItem('currentUser')).userid;
     let button;
-
+    // button will default to `Follow` until componentDidMount() runs, then the if/else below does the rest.
+    button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>
+    
     if (this.state.profile.followers) {
       this.state.profile.followers.map(follower => {
         if (follower.owner && follower.owner.id === owner) {
@@ -128,9 +130,9 @@ class ProfileDetail extends Component {
         else {
           button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>
         }
-      });
+      })
     }
-
+    
 
     return(
       <React.Fragment>
@@ -149,7 +151,7 @@ class ProfileDetail extends Component {
                 <p>{this.state.profile.bio}</p>
               </div>
               <div className="follow-btn">
-                {button}
+                {button} 
               </div>
 
             </div>
