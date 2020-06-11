@@ -10,6 +10,7 @@ import UserRecipeList from './UserRecipeList.js'
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
+import makeAPICall from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -62,18 +63,13 @@ class ProfileView extends Component {
 
 
   componentDidMount() {
-
-    axios.get(`${BASE_URL}/api/v1/profiles/user`,
-    {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    })
-    .then(response => this.setState({profile: response.data}))
-    .catch(err => {console.log(err.response)
+    makeAPICall('profiles/user/')
+    .then(res => this.setState({profile: res.data}))
+    .catch(err => {
       if (err.response.status === 404) {
-        console.log(this.props.history.push('/profile/create/'));
+        console.log(this.props.history.push('/profile/create'));
       }
-      });
-
+    });
   }
 
   render() {

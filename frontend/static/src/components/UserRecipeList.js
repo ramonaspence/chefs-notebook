@@ -45,7 +45,8 @@ class UserRecipeList extends Component {
       {
         headers: {
           'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
-    }})
+        }
+      })
 
     .then(response => this.setState({recipes: response.data}))
     .catch(err => console.log(err));

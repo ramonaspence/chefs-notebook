@@ -98,31 +98,6 @@ class ProfileUpdate extends Component {
 
                 <ProfileForm profile={this.state} preview={this.state.preview}/>
 
-                {/* <form type='submit' onSubmit={this.handleSubmit}>
-
-                <button>Save Profile</button>
-
-                  <div className="update-display-name col-md-12 col-7 mr-auto">
-                    <label htmlFor='display_name'>New Display Name: </label>
-                    <input type='text' name='display_name'  defaultValue={this.state.display_name} onChange={this.handleChange} />
-                  </div>
-                  <div className="update-avatar col-md-12 col-5">
-                    { this.state.preview
-                      ?
-                      <div className="update-avatar-preview">
-                      <img src={this.state.preview} alt="don't know about that" />
-                      </div>
-                      :
-                      <img src={this.state.avatar} alt="don't know about that" />
-                    }
-                      <label htmlFor='avatar'>Choose New Avatar: </label>
-                      <input type='file' name='avatar' defaultValue={this.state.avatar} onChange={this.handleImage}/>
-                  </div>
-
-                  <div className="update-bio col-12 mr-auto">
-                    <textarea type='text' name='bio' defaultValue={this.state.bio} onChange={this.handleChange} />
-                  </div>
-                </form> */}
               </div>
 
                 <div className='card-footer profile-bio-footer'>
