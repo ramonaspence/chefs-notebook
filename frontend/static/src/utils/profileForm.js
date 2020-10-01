@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
 class ProfileForm extends Component {
-    constructor(props) {
-        super(props);
-    }
+    
     render() {
         console.log('props', this.props)
         return (

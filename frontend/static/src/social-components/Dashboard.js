@@ -13,9 +13,6 @@ import axios from 'axios';
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
-
 class Dashboard extends Component {
   constructor() {
     super();

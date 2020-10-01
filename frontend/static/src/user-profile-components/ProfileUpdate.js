@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
-import UserRecipeList from './UserRecipeList.js';
 import Nav from '../containers/Nav.js';
 import ProfileForm from '../utils/profileForm.js';
 
@@ -64,8 +63,6 @@ class ProfileUpdate extends Component {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
-
-
       }
     })
     .then(res => this.setState({redirect: true}))

@@ -7,6 +7,7 @@ import { NavLink, Redirect } from 'react-router-dom';
 import Nav from '../containers/Nav.js';
 import moment from 'moment';
 import axios from 'axios';
+import GetAPICall, { PostAPICall } from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -32,7 +33,6 @@ class RecipeDetail extends Component {
   }
 
   checkAuth() {
-    console.log('fires')
     if (this.state.recipe.owner && JSON.parse(localStorage.getItem('currentUser')).userid === this.state.recipe.owner.id) {
       this.setState({isAuthorized: true})
     }
@@ -42,12 +42,11 @@ class RecipeDetail extends Component {
 
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
-    console.log(this.state);
   }
 
   commentSubmit(data) {
     let recipe = {...this.state.recipe};
-    let comments = [...this.state.recipe.comments]
+    // let comments = [...this.state.recipe.comments]
     console.log(data);
     recipe.comments.push(data);
     this.setState({comments: recipe.comments})
@@ -56,28 +55,21 @@ class RecipeDetail extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    axios.post(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/comments/`, this.state, {
-    headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}})
+    PostAPICall(`/recipes/${this.props.match.params.id}/comments/`, this.state)
     .then(res => this.commentSubmit(res.data))
     .catch(err => console.log(err));
-
-    console.log(this.state);
-
   }
 
   commentDelete(id) {
     console.log(id)
     let recipe = {...this.state.recipe}
-    let comments = [...this.state.recipe.comments];
+    // let comments = [...this.state.recipe.comments];
     let i = recipe.comments.findIndex(comment => comment.id === id);
-    console.log('i',i)
     recipe.comments.splice(i, 1);
     this.setState({comments: recipe.comments})
-    console.log(this.state);
   }
 
   onDelete(e, id) {
-
 
     axios.delete(`${BASE_URL}/api/v1/recipes/comments/${e}`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
@@ -93,7 +85,6 @@ class RecipeDetail extends Component {
       {
         headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response => console.log(response))
     .then(response => this.setState({redirect: true}))
     .catch(err => console.log(err));
 
@@ -102,17 +93,10 @@ class RecipeDetail extends Component {
 
 
   componentDidMount() {
-
-
     // get request to pull in single recipe
-    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`,
-      {
-        headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    })
+    GetAPICall(`/recipes/${this.props.match.params.id}/`)
     .then(response =>  this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), recipe: response.data}))
-    // .then(res => this.setState({recipe: res.data}))
     .then(response => this.checkAuth())
-    .then(res => console.log(this.state))
     .catch(err => console.log(err));
 
 
@@ -128,7 +112,7 @@ class RecipeDetail extends Component {
     if (this.state.recipe.comments) {
       comments = this.state.recipe.comments.map(comment =>
         (
-          <div className="card comment">
+          <div key={comment.id} className="card comment">
               <div className="card-title">
                 <div className="comment-owner">{comment.owner.username}</div>
 
@@ -159,7 +143,7 @@ class RecipeDetail extends Component {
     let instructions;
     if (this.state.instructions) {
       instructions = this.state.instructions.map(instruction => (
-        <div id="instruction-preview" className="form-control instruction-preview col-12">
+        <div key={instruction.id} id="instruction-preview" className="form-control instruction-preview col-12">
           <span className="col-12 recipe-instructions-box">{instruction}</span>
         </div>
       ))
@@ -167,7 +151,7 @@ class RecipeDetail extends Component {
     let ingredients;
     if (this.state.ingredients) {
       ingredients = this.state.ingredients.map(ingredient => (
-      <div id="ingredient-preview" className="form-control ingredient-preview col-12">
+      <div key={ingredient.id} id="ingredient-preview" className="form-control ingredient-preview col-12">
         <span className="col-12 recipe-ingredient-box">{ingredient}</span>
       </div>
     ));

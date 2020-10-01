@@ -10,9 +10,6 @@ import getAPICall from '../utils/makeAPICall';
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
-
 class ListFollowers extends Component {
   constructor() {
     super();
