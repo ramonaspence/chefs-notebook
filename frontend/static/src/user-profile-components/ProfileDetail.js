@@ -10,6 +10,7 @@ import Nav from '../containers/Nav.js';
 import moment from 'moment';
 
 import axios from 'axios';
+import GetAPICall from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -86,14 +87,7 @@ class ProfileDetail extends Component {
   addFollow(e) {
 
     e.preventDefault();
-    axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {
-      following: this.state.profile.owner.id
-    },
-      {
-      headers: {
-        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
-      }
-    })
+    GetAPICall('profiles/connections/', {following: this.state.profile.owner.id})
     .catch(err => console.log(err));
 
     //Causes re-render so that follow/unfollow button will toggle as the user clicks it
@@ -106,11 +100,7 @@ class ProfileDetail extends Component {
 
   componentDidMount() {
 
-    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
-      headers: {
-        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
-      }
-    })
+    GetAPICall(`profiles/${this.props.match.params.id}`)
     .then(res => this.setState({profile: res.data}))
     .catch(err => console.log(err))
 
