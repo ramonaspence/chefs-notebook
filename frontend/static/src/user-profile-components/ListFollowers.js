@@ -5,7 +5,7 @@ import Nav from '../containers/Nav.js';
 
 import moment from 'moment';
 import axios from 'axios';
-import makeAPICall from '../utils/makeAPICall';
+import getAPICall from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -25,7 +25,7 @@ class ListFollowers extends Component {
   }
 
   componentDidMount() {
-    makeAPICall('profiles/followers/')
+    getAPICall('profiles/followers/')
     .then(res => this.setState({followers: res.data}))
     .catch(err => console.log(err));
   }

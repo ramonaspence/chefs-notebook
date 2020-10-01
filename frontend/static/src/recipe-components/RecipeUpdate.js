@@ -134,24 +134,6 @@ class RecipeUpdate extends Component {
     .catch(err => console.log(err));
   }
 
-  handleVersion(e) {
-    e.preventDefault();
-
-    let formData = new FormData();
-    formData.append('title', this.state.title);
-    formData.append('description', this.state.description);
-    formData.append('ingredients', this.state.ingredients);
-    formData.append('instructions', this.state.instructions);
-    formData.append('tags', this.state.tags);
-
-
-    if (this.state.image === File) {
-      formData.append('image', this.state.image);
-    } else
-
-    axios.post(`${BASE_URL}`)
-  }
-
   componentDidMount() {
 
     // get request to pull in single recipe

@@ -3,13 +3,13 @@ import '../App.css';
 
 import {Redirect} from 'react-router-dom';
 import Nav from '../containers/Nav.js';
+
+import {PostAPICall} from '../utils/makeAPICall';
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 
 class RecipeCreate extends Component {
   constructor() {
@@ -124,13 +124,15 @@ class RecipeCreate extends Component {
       formData.append('instructions', JSON.stringify(recipe.instructions));
     }
 
-    axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
-        }
+    // axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //     'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
+    //     }
 
-    })
+    // })
+
+    PostAPICall('recipes/', formData)
 
     .then(res => this.setState({redirect: true}))
     .catch(err => console.log(err));

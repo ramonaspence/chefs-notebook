@@ -5,7 +5,7 @@ import Nav from '../containers/Nav.js';
 import moment from 'moment';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { makeAPICall } from '../utils/makeAPICall.js';
+import { GetAPICall } from '../utils/makeAPICall.js';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -103,7 +103,7 @@ class ExploreRecipeList extends Component {
 
 
   componentDidMount() {
-    makeAPICall('recipes')
+    GetAPICall('recipes')
     .then(res => this.setState({recipes: res.data, loading: false}))
     .catch(err => console.log(err));
 

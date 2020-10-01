@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import Nav from '../containers/Nav.js';
 
-import makeAPICall from '../utils/makeAPICall.js';
+import GetAPICall from '../utils/makeAPICall.js';
 
 import axios from 'axios';
 
@@ -23,13 +23,11 @@ class Dashboard extends Component {
         recipes: [],
         hidenav: true
       }
-
     this.componentDidMount = this.componentDidMount.bind(this);
-
   }
 
   componentDidMount() {
-    makeAPICall('recipes/dashboard/')
+    GetAPICall('recipes/dashboard/')
     .then(res => this.setState({recipes: res.data}))
     .catch(err => console.log(err));
   }
