@@ -34,7 +34,7 @@ class Dashboard extends Component {
     if (this.state.recipes) {
       recipes = this.state.recipes.map(recipe => {
       return (
-        <div className="row">
+        <div key={recipe.id} className="row">
           <div className="col-md-8 col-sm-12 ml-auto card d-flex">
             <div className="title card-body">
               <div className="card-title">
@@ -84,7 +84,6 @@ class Dashboard extends Component {
           <div>{recipes}</div>
       </React.Fragment>
     )
-
   }
 }
 export default Dashboard;

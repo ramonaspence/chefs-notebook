@@ -100,7 +100,6 @@ class ExploreRecipeList extends Component {
   }
 
   render() {
-    console.log('state', this.state)
     if (this.state.badRequest) {
       return (
         <Redirect to="/oops/" />

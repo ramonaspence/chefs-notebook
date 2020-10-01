@@ -46,7 +46,6 @@ class RecipeDetail extends Component {
 
   commentSubmit(data) {
     let recipe = {...this.state.recipe};
-    // let comments = [...this.state.recipe.comments]
     console.log(data);
     recipe.comments.push(data);
     this.setState({comments: recipe.comments})
@@ -63,7 +62,6 @@ class RecipeDetail extends Component {
   commentDelete(id) {
     console.log(id)
     let recipe = {...this.state.recipe}
-    // let comments = [...this.state.recipe.comments];
     let i = recipe.comments.findIndex(comment => comment.id === id);
     recipe.comments.splice(i, 1);
     this.setState({comments: recipe.comments})
@@ -98,9 +96,6 @@ class RecipeDetail extends Component {
     .then(response =>  this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), recipe: response.data}))
     .then(response => this.checkAuth())
     .catch(err => console.log(err));
-
-
-
   }
 
   render() {
@@ -151,7 +146,7 @@ class RecipeDetail extends Component {
     let ingredients;
     if (this.state.ingredients) {
       ingredients = this.state.ingredients.map(ingredient => (
-      <div key={ingredient.id} id="ingredient-preview" className="form-control ingredient-preview col-12">
+      <div id="ingredient-preview" key={ingredient.id} className="form-control ingredient-preview col-12">
         <span className="col-12 recipe-ingredient-box">{ingredient}</span>
       </div>
     ));

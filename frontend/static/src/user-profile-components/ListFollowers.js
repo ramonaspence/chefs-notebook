@@ -28,12 +28,10 @@ class ListFollowers extends Component {
   }
 
   render() {
-    console.log(this.state)
-
       let followers = this.state.followers.map(follower => {
         if (follower.following.id === this.props.profile.owner.id) {
           return (
-          <div className="row">
+          <div key={follower.id} className="row">
             <div className="col-md-8 col-12 ml-auto card d-flex">
               <div className="title card-body">
                 <div className="card-title">
