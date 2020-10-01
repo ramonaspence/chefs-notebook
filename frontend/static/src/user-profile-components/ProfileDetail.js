@@ -108,7 +108,7 @@ class ProfileDetail extends Component {
 
   render() {
     const owner = JSON.parse(localStorage.getItem('currentUser')).userid;
-    let button;
+    let button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>
 
     if (this.state.profile.followers) {
       this.state.profile.followers.map(follower => {
