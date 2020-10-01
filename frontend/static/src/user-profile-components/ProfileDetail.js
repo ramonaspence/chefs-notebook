@@ -10,6 +10,7 @@ import Nav from '../containers/Nav.js';
 import moment from 'moment';
 
 import axios from 'axios';
+import GetAPICall from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -25,7 +26,7 @@ class ProfileDetail extends Component {
         hidenav: true,
         hidesearch: true,
         following: null,
-        connections: []
+        connections: [],
       }
 
       this.removeFollow = this.removeFollow.bind(this);
@@ -83,41 +84,29 @@ class ProfileDetail extends Component {
 
   }
 
-
-
-
   addFollow(e) {
 
     e.preventDefault();
-    axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.owner.id},{
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    })
-    .then(res => console.log('follow', this.state))
+    GetAPICall('profiles/connections/', {following: this.state.profile.owner.id})
     .catch(err => console.log(err));
 
+    //Causes re-render so that follow/unfollow button will toggle as the user clicks it
     let userid = JSON.parse(localStorage.getItem('currentUser')).userid
     let profile = {...this.state.profile};
-
     profile.followers.push({following: this.state.profile.owner, owner: {id: userid}});
     this.setState({profile: profile});
 
   }
 
-
-
   componentDidMount() {
 
-    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    })
+    GetAPICall(`profiles/${this.props.match.params.id}`)
     .then(res => this.setState({profile: res.data}))
     .catch(err => console.log(err))
 
   }
 
-
   render() {
-    console.log(this.state);
     const owner = JSON.parse(localStorage.getItem('currentUser')).userid;
     let button = <div><button className="btn btn-outline-primary" onClick={this.addFollow}>Follow</button></div>
 
@@ -178,16 +167,12 @@ class ProfileDetail extends Component {
             :
             this.state.profile.owner && <UserRecipeList hidesearch={this.state.hidesearch} profile={this.state.profile.owner} hidenav={this.state.hidenav} />
             }
-            {/* uses inline if with && operator to wait until this.state.profile.user is updated, to render the recipe list
+            {/* uses inline if with && operator to wait until this.state.profile.owner is updated, to render the recipe list
             this forces the parent component (profiledetail) to NOT pass state until the state is defined */}
-
         </div>
       </div>
     </React.Fragment>
-
     )
   }
-
-
 }
 export default ProfileDetail;

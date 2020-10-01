@@ -4,6 +4,8 @@ import '../App.css';
 import {Redirect} from 'react-router-dom';
 import Nav from '../containers/Nav.js';
 
+
+
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -38,7 +40,6 @@ class RecipeUpdate extends Component {
   handleInstructions(e) {
     e.preventDefault();
     this.setState({instructStr: e.target.value})
-    console.log(this.state);
   }
 
   submitInstructions(e, instructStr) {
@@ -131,24 +132,6 @@ class RecipeUpdate extends Component {
     .then(response => console.log(response))
     .then(res => this.setState({redirect: true}))
     .catch(err => console.log(err));
-  }
-
-  handleVersion(e) {
-    e.preventDefault();
-
-    let formData = new FormData();
-    formData.append('title', this.state.title);
-    formData.append('description', this.state.description);
-    formData.append('ingredients', this.state.ingredients);
-    formData.append('instructions', this.state.instructions);
-    formData.append('tags', this.state.tags);
-
-
-    if (this.state.image === File) {
-      formData.append('image', this.state.image);
-    } else
-
-    axios.post(`${BASE_URL}`)
   }
 
   componentDidMount() {

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import Login from '../components/Login.js';
-import Signup from '../components/Signup.js';
+import Login from '../authentication/Login.js';
+import Signup from '../authentication/Signup.js';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -33,10 +33,6 @@ class Home extends Component {
       </div>
 
       <div className="row">
-      <div id="back">
-        <div className="backRight"></div>
-        <div className="backLeft"></div>
-      </div>
 
         <div id="slidebox">
 

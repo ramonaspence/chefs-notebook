@@ -5,6 +5,7 @@ import Nav from '../containers/Nav.js';
 import moment from 'moment';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { GetAPICall } from '../utils/makeAPICall.js';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -27,7 +28,6 @@ class ExploreRecipeList extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
-
   handleKeyEvent(e) {
 
     // e.preventDefault();
@@ -42,7 +42,6 @@ class ExploreRecipeList extends Component {
   handleSearchInput(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-    console.log(this.state);
   }
 
   handleBadRequest() {
@@ -57,60 +56,50 @@ class ExploreRecipeList extends Component {
     const description = this.state.description ? this.state.description : '';
 
     const filterAPICall = (tagStr) => {
-      axios.get(
-        `${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
-          headers: {
-            'Authorization': `Token ${
-              JSON.parse(localStorage.getItem('current-user')).key
-            }`
-          }
-        }
-      )
+      axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
+        headers: {
+          'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
+      }
+      })
       .then((res) => {
         if (res.data.length !== 0) {
           this.setState({ recipes: res.data });
         }
-        else {
+        else if (res.status === 400) {
           this.setState({ badRequest: true })
-        }
-      })
-      .catch((err) => this.handleBadRequest());
+        }})
+        .catch((err) => console.log(err));
     };
 
     let tagStr = '';
     if (this.state.tags) {
       if (this.state.tags.includes(' ')) {
+        // handles reformatting of multiple tags
         let tags = this.state.tags.split(' ');
-        tags.forEach(tag => tagStr += `&tags=${tag}`) //should concatenate strings into a new string `&tags=${tag1}&tags=${tag2}...`
+        tags.forEach(tag => tagStr += `&tags=${tag}`) 
         
-        axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
-          headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-        })
-        .then(res => this.setState({recipes: res.data, loading: false}))
-        .catch(err => this.handleBadRequest());
-
+        filterAPICall(tagStr)
       }
       else {
+        // handles formatting of single tag
         let tagStr = `&tags=${this.state.tags}`;
+        filterAPICall(tagStr)
       }
-      filterAPICall(tagStr);
     }
     else {
-      filterAPICall('');
+      filterAPICall('')
     }
   }
 
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/recipes/`, {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    })
+    GetAPICall('recipes')
     .then(res => this.setState({recipes: res.data, loading: false}))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
+
   }
 
   render() {
-    console.log(this.state.recipes)
     if (this.state.badRequest) {
       return (
         <Redirect to="/oops/" />
@@ -118,14 +107,14 @@ class ExploreRecipeList extends Component {
     }
     let tagpreviews = this.state.tagpreviews.map(tag => (
 
-          <span className="tags-preview-span">{tag}</span>
+          <span key={tag.id} className="tags-preview-span">{tag}</span>
 
       ))
 
     
-    let recipes = this.state.recipes.map(recipe =>  (
+    const recipes = this.state.recipes.map(recipe =>  (
 
-        <div className="row no-gutters">
+        <div key={recipe.id} className="row no-gutters">
           <div className="col-lg-8 col-12 offset-lg-1 mr-lg-auto mr-auto card d-flex">
             <div className="title card-body">
               <h1>{recipe.title}</h1>

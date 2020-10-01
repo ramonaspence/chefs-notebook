@@ -6,20 +6,20 @@ import {
   Route,
 } from "react-router-dom";
 
-import BadRequest from './components/TagSearch400.js';
-import ListFollowing from './components/ListFollowing.js';
-import ListFollowers from './components/ListFollowers.js';
-import ProfileDetail from './components/ProfileDetail.js';
-import Dashboard from './components/Dashboard.js';
-import ProfileUpdate from './components/ProfileUpdate.js';
-import ProfileCreate from './components/ProfileCreate.js';
-import ProfileView from './components/ProfileView.js';
-import RecipeUpdate from './components/RecipeUpdate.js';
-import RecipeDetail from './components/RecipeDetail.js'
-import RecipeCreate from './components/RecipeCreate.js';
-import ExploreRecipeList from './components/ExploreRecipeListView.js';
-import Signup from './components/Signup.js';
-import Login from './components/Login.js';
+import BadRequest from './social-components/TagSearch400.js';
+import ListFollowing from './user-profile-components/ListFollowing.js';
+import ListFollowers from './user-profile-components/ListFollowers.js';
+import ProfileDetail from './user-profile-components/ProfileDetail.js';
+import Dashboard from './social-components/Dashboard.js';
+import ProfileUpdate from './user-profile-components/ProfileUpdate.js';
+import ProfileCreate from './user-profile-components/ProfileCreate.js';
+import ProfileView from './user-profile-components/ProfileView.js';
+import RecipeUpdate from './recipe-components/RecipeUpdate.js';
+import RecipeDetail from './recipe-components/RecipeDetail.js'
+import RecipeCreate from './recipe-components/RecipeCreate.js';
+import ExploreRecipeList from './social-components/ExploreRecipeListView.js';
+import Signup from './authentication/Signup.js';
+import Login from './authentication/Login.js';
 import Home from './containers/Home.js';
 import axios from 'axios';
 

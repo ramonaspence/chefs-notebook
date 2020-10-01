@@ -37,27 +37,23 @@ class UserRecipeList extends Component {
     .catch(err => console.log(err));
   }
 
-
-
   componentDidMount() {
-    console.log(this.props);
+
     axios.get(`${BASE_URL}/api/v1/recipes/user/${this.props.profile.id}`,
       {
         headers: {
           'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
-    }})
-
+        }
+      })
     .then(response => this.setState({recipes: response.data}))
     .catch(err => console.log(err));
-
-
   }
 
   render() {
-    console.log(this.props);
+
    let recipes = this.state.recipes.map(recipe =>  (
 
-        <div className="row">
+        <div key={recipe.id} className="row">
           <div className="profile-recipe-list col-lg-8 ml-lg-auto mr-lg-4 mr-auto ml-auto col-10 card">
             <div className="title card-body col-12">
               <h1>{recipe.title}</h1>

@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
-import UserRecipeList from './UserRecipeList.js';
 import Nav from '../containers/Nav.js';
+import ProfileForm from '../utils/profileForm.js';
 
 import axios from 'axios';
 
@@ -63,24 +63,25 @@ class ProfileUpdate extends Component {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
-
-
       }
     })
     .then(res => this.setState({redirect: true}))
     .catch(err => console.log(err));
   }
 
-  componentDidMount() {
+  async componentDidMount() {
 
-    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
+    await axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState(response.data))
     .then(res => console.log(this.state))
     .catch(err => console.log(err))
   }
+
+
   render() {
+    console.log('state', this.state)
     if (this.state.redirect) {
       return (<Redirect to="/profile/" />)
     }
@@ -92,31 +93,8 @@ class ProfileUpdate extends Component {
             <div className='col-md-6 col-12 card profile-update-body'>
               <div className='card-body row'>
 
-                <form type='submit' onSubmit={this.handleSubmit}>
+                <ProfileForm profile={this.state} preview={this.state.preview}/>
 
-                <button>Save Profile</button>
-
-                  <div className="update-display-name col-md-12 col-7 mr-auto">
-                    <label htmlFor='display_name'>New Display Name: </label>
-                    <input type='text' name='display_name'  defaultValue={this.state.display_name} onChange={this.handleChange} />
-                  </div>
-                  <div className="update-avatar col-md-12 col-5">
-                    { this.state.preview
-                      ?
-                      <div className="update-avatar-preview">
-                      <img src={this.state.preview} alt="don't know about that" />
-                      </div>
-                      :
-                      <img src={this.state.avatar} alt="don't know about that" />
-                    }
-                      <label htmlFor='avatar'>Choose New Avatar: </label>
-                      <input type='file' name='avatar' defaultValue={this.state.avatar} onChange={this.handleImage}/>
-                  </div>
-
-                  <div className="update-bio col-12 mr-auto">
-                    <textarea type='text' name='bio' defaultValue={this.state.bio} onChange={this.handleChange} />
-                  </div>
-                </form>
               </div>
 
                 <div className='card-footer profile-bio-footer'>

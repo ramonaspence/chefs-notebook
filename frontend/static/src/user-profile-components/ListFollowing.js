@@ -6,12 +6,10 @@ import Nav from '../containers/Nav.js';
 
 import moment from 'moment';
 import axios from 'axios';
+import getAPICall from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 
 class ListFollowing extends Component {
   constructor(props) {
@@ -26,20 +24,15 @@ class ListFollowing extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/profiles/following/`, {
-      headers: {'Authorization': `Token ${JSON.stringify(localStorage.getItem('current-user')).key}`}
-    })
+    getAPICall('profiles/following/')
     .then(res => this.setState({connections: res.data}))
-    .then(res => console.log(this.state))
     .catch(err => console.log(err));
   }
 
 
   render() {
-
-    console.log(this.props);
     let following = this.props.profile.following.map(connection => (
-      <div className="row no-gutters">
+      <div key={connection.id} className="row no-gutters">
         <div className="col-8 ml-auto card d-flex">
           <div className="title card-body">
             <div className="card-title">

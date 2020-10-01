@@ -10,6 +10,7 @@ import UserRecipeList from './UserRecipeList.js'
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
+import getAPICall from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -62,22 +63,16 @@ class ProfileView extends Component {
 
 
   componentDidMount() {
-
-    axios.get(`${BASE_URL}/api/v1/profiles/user`,
-    {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-    })
-    .then(response => this.setState({profile: response.data}))
-    .catch(err => {console.log(err.response)
+    getAPICall('profiles/user/')
+    .then(res => this.setState({profile: res.data}))
+    .catch(err => {
       if (err.response.status === 404) {
-        console.log(this.props.history.push('/profile/create/'));
+        console.log(this.props.history.push('/profile/create'));
       }
-      });
-
+    });
   }
 
   render() {
-
     return (
       <React.Fragment>
       <Nav />
@@ -102,6 +97,7 @@ class ProfileView extends Component {
             <div className="profile-date-joined">
               <p>Member since: {moment(this.state.profile.date_joined).format("MMM Do YYYY")}</p>
             </div>
+            
             <div className="profile-update">
               <NavLink to={`/profile/update/${this.state.profile.id}`}>Update Profile</NavLink>
             </div>
