@@ -33,25 +33,29 @@ class Home extends Component {
       </div>
 
       <div className="row">
-
-        <div id="slidebox">
-
-            <div className="left">
-              <div className="col-sm-6 col-12 content-left">
-                <h2>Signup</h2>
-                <Signup props={this.props}/>
-              </div>
+        <div className="left">
+          <div className="col-sm-6 col-12 content-left">
+            <h2>Signup</h2>
+            <Signup props={this.props}/>
+          </div>  
 
           </div>
+      {/* <div>
+        <div className="col-sm-6 col-12 content-center">
+          <h2>Signup</h2>
+          <h2>Login</h2>
+          <h2>Login with Google</h2>
+        </div>
+      </div> */}
 
-        <div className="right">
-          <div className="col-sm-6 col-12 content-right">
-            <h2>Login</h2>
-            <Login props={this.props}/>
+
+          <div className="right">
+            <div className="col-sm-6 col-12 content-right">
+              <h2>Login</h2>
+              <Login props={this.props}/>
+            </div>
           </div>
         </div>
-        </div>
-      </div>
       </React.Fragment>
     )
   }

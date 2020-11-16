@@ -18,9 +18,18 @@ class Login extends Component {
       password: '',
 
     }
+    this.handleGoogleAuth = this.handleGoogleAuth.bind(this)
     this.captureLogin = this.captureLogin.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleChange = this.handleChange.bind(this)
+  }
+  
+  handleGoogleAuth(e) {
+    console.log('fired');
+    e.preventDefault();
+    axios.post(`${BASE_URL}/accounts/login/`, this.state)
+    .then(res => localStorage.setItem('current-user', JSON.stringify(res.data)))
+    .catch(err => console.log(err));  
   }
 
   handleChange(e) {
@@ -62,10 +71,15 @@ class Login extends Component {
           <input type="text" value={this.state.username} autoComplete="username" placeholder="username" name="username" onChange={this.handleChange} />
         </div>
           <input type="password" value={this.state.password} autoComplete="current-password" placeholder="password" name="password" onChange={this.handleChange} />
+          
+
           <div className="login-buttons">
+            
             <button className="home-button">Login</button>
+            
           </div>
       </form>
+          <div onClick={this.handleGoogleAuth} className="home-button">Login with Gmail</div>
     </div>
     </React.Fragment>
 
