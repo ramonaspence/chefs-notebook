@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount', ## for some reason, not having allauth.socialaccount prevents deleting users locally?
     'rest_auth.registration',#new
     'django_filters', #django-filters package allows to setup easy queryset filtering
+    'corsheaders',
 
     #local
 
@@ -79,6 +80,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware', ## necessary for heroku deployment
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -210,3 +212,10 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
 CLARIFAI_API_KEY = os.environ['CLARIFAI_API_KEY']
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ALLOWED_ORIGINS = (
+        'http://localhost:3000',
+        'http://localhost:8000',
+)
