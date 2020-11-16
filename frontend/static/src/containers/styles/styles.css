@@ -1,0 +1,113 @@
+
+.left {
+    width: 50%;
+    height: 100%;
+    background: #2C3034;
+    left: 0;
+    position: absolute;
+  }
+  
+  .right {
+    width: 50%;
+    height: 100%;
+    background: #f9f9f9;
+    right: 0;
+    position: absolute;
+  }
+  
+  button {
+    background: #03A9F4;
+    padding: 10px 16px;
+    width: auto;
+    font-weight: 600;
+    text-transform:  uppercase;
+    font-size: 14px;
+    color: #fff;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+    border: 0;
+    outline: 0;
+    margin: 15px 20px 15px 0;
+    transition: all 0.25s;
+  }
+  
+  .home-button:hover {
+    background: #0288D1;
+    box-shadow: 0 4px 7px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+  }
+
+  .content-center {
+    background-color: #2C3034;
+    border: 2px solid #03A9F4;
+    border-radius: 3px;
+    width: 50rem;
+    margin: 0 auto;
+    position: relative;
+    top: 20vh;
+    left: 125%;
+    margin-left: -12rem;
+    z-index: 1;
+
+  }
+  
+  /* .content-right {
+    width: 25rem;
+    margin: 0 auto;
+    top: 20vh;
+    position: relative;
+    left: 40%;
+    margin-left: -6rem;
+  }
+  
+  .content-left {
+    width: 25rem;
+    margin: 0 auto;
+    top: 20vh;
+    position: relative;
+    left: 40%;
+    margin-left: -3rem;
+  
+  } */
+  
+  .content-right h2 {
+    color: #03A9F4;
+    font-weight: 300;
+    font-size: 35px;
+  
+  
+  }
+  
+  .content-left h2 {
+    color: #03A9F4;
+    font-weight: 300;
+    font-size: 35px;
+    text-align: left;
+  }
+  
+  /* START responsive design for login on Homepage */
+/*   
+  @media (max-width: 425px) {
+    .content-right h2 {
+      margin-left: 1rem;
+    }
+  
+    .content-right {
+      margin-left: -5.25rem;
+    }
+  }
+   */
+   /* END responsive design for login on Homepage */
+  
+  input {
+    background: transparent;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #45494C;
+    font-size: 14px;
+    color: #959595;
+    padding: 8px 0;
+    margin-top: 20px;
+  }
+  
