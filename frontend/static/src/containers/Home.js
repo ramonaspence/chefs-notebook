@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 
+import GoogleSocialAuth from '../authentication/GoogleSocialAuth.js';
 import Login from '../authentication/Login.js';
 import Signup from '../authentication/Signup.js';
 import axios from 'axios';
@@ -53,7 +54,9 @@ class Home extends Component {
             <div className="col-sm-6 col-12 content-right">
               <h2>Login</h2>
               <Login props={this.props}/>
+              <GoogleSocialAuth />
             </div>
+
           </div>
         </div>
       </React.Fragment>

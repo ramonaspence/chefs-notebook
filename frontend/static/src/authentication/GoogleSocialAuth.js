@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login';
 
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
 class GoogleSocialAuth extends Component {
 
   render() {
@@ -9,17 +11,15 @@ class GoogleSocialAuth extends Component {
     }
     return (
       <div className="App">
-        <h1>LOGIN WITH GOOGLE</h1>
       
         <GoogleLogin
-          clientId="<Google Client ID>"
-          buttonText="LOGIN WITH GOOGLE"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
+          clientId= {`${GOOGLE_CLIENT_ID}`}
+          buttonText="Login with Google"
+          onSuccess={googleResponse}
+          onFailure={googleResponse}
         />
       </div>
     );
   }
 }
-
 export default GoogleSocialAuth;

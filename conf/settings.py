@@ -126,9 +126,14 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-    
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'APP': {
+            'client_id': os.environ['GOOGLE_AUTH_CLIENT_ID'],
+            'secret': os.environ['GOOGLE_AUTH_SECRET'],
+            'key': ''
+        },
         'SCOPE': [
             'profile',
             'email',
