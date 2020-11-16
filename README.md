@@ -2,8 +2,8 @@
 
 
 ## The purpose of this app is:
-*To provide a space for hobbyist cooks where
-* they can record and edit recipes of their own
+* To provide a space for hobbyist cooks where
+** they can record and edit recipes of their own
 * as well as make comments on others' recipes,
 * receive feedback for their own recipes,
 * and search for recipes by automated tags.
