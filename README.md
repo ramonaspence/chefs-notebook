@@ -2,12 +2,11 @@
 
 
 ## The purpose of this app is:
-* To provide a space for hobbyist cooks where 
-* they can record and edit recipes of their own 
-* as well as make comments on others' recipes, 
-* receive feedback for their own recipes, 
-* and search for recipes by automated tags. 
- 
+
+First and foremost, this app should bring cooks, mixologists, and maybe even microbiologists together! Okay, maybe not microbiologists, but maybe fermentation enthusiasts.
+
+This app is meant to be a place to keep records organized, making it easy to refer to, share with others, and even receive feedback on.
+
 ## Tools used for this application:
 * The front-end is built in React
 * The back-end is built in Django
