@@ -2,12 +2,12 @@
 
 
 ## The purpose of this app is:
-* To provide a space for hobbyist cooks where
-** they can record and edit recipes of their own
-* as well as make comments on others' recipes,
-* receive feedback for their own recipes,
-* and search for recipes by automated tags.
-
+* To provide a space for hobbyist cooks where 
+* they can record and edit recipes of their own 
+* as well as make comments on others' recipes, 
+* receive feedback for their own recipes, 
+* and search for recipes by automated tags. 
+ 
 ## Tools used for this application:
 * The front-end is built in React
 * The back-end is built in Django
