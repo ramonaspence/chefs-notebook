@@ -8,10 +8,10 @@ First and foremost, this app should bring cooks, mixologists, and maybe even mic
 This app is meant to be a place to keep records organized, making it easy to refer to, share with others, and even receive feedback on.
 
 ## Tools used for this application:
-* The front-end is built in React
-* The back-end is built in Django
-* with a restful API built in Django_Rest_Framework
-* AWS3 Buckets is used to upload and store images for this application
+* React
+* Django
+* Django-Rest-Framework
+* and lots of libraries listed under dependencies
 
 
 ## Libraries used for this application:
@@ -22,6 +22,9 @@ This app is meant to be a place to keep records organized, making it easy to ref
 * Django-Filters is used to filter queries, that is more like a 'search' function to the user
 * Pillow has been used for image uploads
 * gunicorn and whitenoise is used for the application to be deployed via Heroku.com
+
+## Dependencies ##
+
 
 
 ## API's used for this application:
