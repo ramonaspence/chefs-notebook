@@ -5,7 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .serializers import *
 
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from rest_auth.registration.views import SocialLoginView
+
 
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
@@ -14,5 +16,7 @@ class UserListView(generics.ListAPIView):
 
 class GoogleLoginView(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
+    client_class = OAuth2Client
+
 
 

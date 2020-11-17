@@ -18,7 +18,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
-class ProfileView extends Component {
+class MyProfile extends Component {
   constructor() {
     super();
 
@@ -28,7 +28,6 @@ class ProfileView extends Component {
       hidesearch: true,
       toggle: 'recipe'
     }
-
 
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleFollowers = this.handleFollowers.bind(this);
@@ -50,17 +49,6 @@ class ProfileView extends Component {
     e.preventDefault();
     this.setState({toggle: 'followers'})
   }
-
-  getFollows() {
-    console.log(this.props);
-    axios.get(`${BASE_URL}/api/v1/profiles/follows/`, {
-      headers: {'Authorization': `Token ${JSON.parse(localStorage.setItem('current-user')).key}`}
-    })
-    .then(res => this.setState({follows: res.data}))
-    .catch(err => console.log(err))
-  }
-
-
 
   componentDidMount() {
     getAPICall('profiles/user/')
@@ -130,4 +118,4 @@ class ProfileView extends Component {
     )
   }
 }
-export default ProfileView;
+export default MyProfile;
