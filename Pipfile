@@ -15,11 +15,11 @@ dj-database-url = "*"
 psycopg2-binary = "*"
 django-storages = "*"
 boto3 = "*"
-django-rest-auth = "*"
 django-allauth = "*"
 clarifai = "*"
 django-filter = "*"
 django-cors-headers = "*"
+dj-rest-auth = "*"
 
 [requires]
 python_version = "3.7.6"
