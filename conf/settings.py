@@ -48,11 +48,12 @@ INSTALLED_APPS = [
     # third party
     'rest_framework',#new
     'rest_framework.authtoken', #new
-    'rest_auth', #new
+    'dj_rest_auth',
     'allauth', #new
     'allauth.account', #new
-    'allauth.socialaccount', ## for some reason, not having allauth.socialaccount prevents deleting users locally?
-    'rest_auth.registration',#new
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'dj_rest_auth.registration',
     'django_filters', #django-filters package allows to setup easy queryset filtering
     'corsheaders',
 
