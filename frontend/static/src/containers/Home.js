@@ -33,31 +33,29 @@ class Home extends Component {
         </div>
       </div>
 
-      <div className="row">
+      <div className="row background-home">
+        <div className="center-box">
+          <button className="home-button">Log In</button>
+          <button className="home-button">Sign Up</button>
+        <Login props={this.props}/>
+        <Signup props={this.props}/>
+        <GoogleSocialAuth />
+        </div>
+{/* 
         <div className="left">
           <div className="col-sm-6 col-12 content-left">
             <h2>Signup</h2>
             <Signup props={this.props}/>
-          </div>  
+</div>  */}
 
-          </div>
-      {/* <div>
-        <div className="col-sm-6 col-12 content-center">
-          <h2>Signup</h2>
-          <h2>Login</h2>
-          <h2>Login with Google</h2>
-        </div>
-      </div> */}
-
-
-          <div className="right">
+          {/* <div className="right">
             <div className="col-sm-6 col-12 content-right">
               <h2>Login</h2>
               <Login props={this.props}/>
-              <GoogleSocialAuth />
-            </div>
+             
+            </div> 
 
-          </div>
+          </div>*/}
         </div>
       </React.Fragment>
     )

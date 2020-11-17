@@ -18,19 +18,13 @@ class Login extends Component {
       password: '',
 
     }
-    this.handleGoogleAuth = this.handleGoogleAuth.bind(this)
+
     this.captureLogin = this.captureLogin.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
   
-  handleGoogleAuth(e) {
-    console.log('fired');
-    e.preventDefault();
-    axios.post(`${BASE_URL}/accounts/login/`, this.state)
-    .then(res => localStorage.setItem('current-user', JSON.stringify(res.data)))
-    .catch(err => console.log(err));  
-  }
+
 
   handleChange(e) {
     e.preventDefault();
@@ -44,7 +38,7 @@ class Login extends Component {
       localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}))
       console.log(res);
     })
-      .then(this.setState({redirect: true}))
+    .then(this.setState({redirect: true}))
     .catch(err => console.log(err))
   }
 
@@ -62,7 +56,6 @@ class Login extends Component {
     if (this.state.redirect && localStorage.getItem('current-user')) {
       return (<Redirect to="/dashboard/" />);
     }
-    console.log('login', this.props);
     return (
       <React.Fragment>
     <div className="card-body">
@@ -79,7 +72,6 @@ class Login extends Component {
             
           </div>
       </form>
-          <div onClick={this.handleGoogleAuth} className="home-button">Login with Gmail</div>
     </div>
     </React.Fragment>
 

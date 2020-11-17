@@ -8,11 +8,18 @@ class GoogleSocialAuth extends Component {
   render() {
     const googleResponse = (response) => {
       console.log(response);
+      if (response.accessToken) {
+        localStorage.setItem('current-user', JSON.stringify({key: response.accessToken}));
+        console.log(JSON.parse(localStorage.getItem('current-user')).key);
+      }
     }
+
+
     return (
-      <div className="App">
+      <div>
       
         <GoogleLogin
+          id="google-login"
           clientId= {`${GOOGLE_CLIENT_ID}`}
           buttonText="Login with Google"
           onSuccess={googleResponse}

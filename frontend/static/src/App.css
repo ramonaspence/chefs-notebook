@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@import './authentication/styles/styles.css';
 @import './containers/styles/styles.css';
 
 

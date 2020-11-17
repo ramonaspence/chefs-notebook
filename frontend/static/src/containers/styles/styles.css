@@ -1,19 +1,26 @@
 
-.left {
-    width: 50%;
-    height: 100%;
+.background-home {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#4c4c4c+49,4c4c4c+50,f9f9f9+50,f9f9f9+50 */
+    background: #2C3034; /* Old browsers */
+    background: -moz-linear-gradient(left,  #2C3034 49%, #2C3034 50%, #f9f9f9 50%, #f9f9f9 50%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #2C3034 49%,#2C3034 50%,#f9f9f9 50%,#f9f9f9 50%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #2C3034 49%,#2C3034 50%,#f9f9f9 50%,#f9f9f9 50%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#f9f9f9',GradientType=1 ); /* IE6-9 */
+    width: 100%;
+    height: 100vh;
+}
+
+.center-box {
     background: #2C3034;
-    left: 0;
-    position: absolute;
-  }
-  
-  .right {
-    width: 50%;
-    height: 100%;
-    background: #f9f9f9;
-    right: 0;
-    position: absolute;
-  }
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    border: solid 3px #03A9F4;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 5rem;
+
+}
   
   button {
     background: #03A9F4;
@@ -52,30 +59,10 @@
 
   }
   
-  /* .content-right {
-    width: 25rem;
-    margin: 0 auto;
-    top: 20vh;
-    position: relative;
-    left: 40%;
-    margin-left: -6rem;
-  }
-  
-  .content-left {
-    width: 25rem;
-    margin: 0 auto;
-    top: 20vh;
-    position: relative;
-    left: 40%;
-    margin-left: -3rem;
-  
-  } */
-  
   .content-right h2 {
     color: #03A9F4;
     font-weight: 300;
     font-size: 35px;
-  
   
   }
   
@@ -85,20 +72,6 @@
     font-size: 35px;
     text-align: left;
   }
-  
-  /* START responsive design for login on Homepage */
-/*   
-  @media (max-width: 425px) {
-    .content-right h2 {
-      margin-left: 1rem;
-    }
-  
-    .content-right {
-      margin-left: -5.25rem;
-    }
-  }
-   */
-   /* END responsive design for login on Homepage */
   
   input {
     background: transparent;

@@ -13,7 +13,7 @@ import ProfileDetail from './user-profile-components/ProfileDetail.js';
 import Dashboard from './social-components/Dashboard.js';
 import ProfileUpdate from './user-profile-components/ProfileUpdate.js';
 import ProfileCreate from './user-profile-components/ProfileCreate.js';
-import ProfileView from './user-profile-components/ProfileView.js';
+import MyProfile from './user-profile-components/MyProfile.js';
 import RecipeUpdate from './recipe-components/RecipeUpdate.js';
 import RecipeDetail from './recipe-components/RecipeDetail.js'
 import RecipeCreate from './recipe-components/RecipeCreate.js';
@@ -61,7 +61,7 @@ class App extends Component {
           <Route path="/profile/following/" exact component={ListFollowing} />
           <Route path="/profile/update/:id" component={ProfileUpdate} />
           <Route path="/profile/create/" component={ProfileCreate} />
-          <Route path="/profile/" component={ProfileView} />
+          <Route path="/profile/" component={MyProfile} />
           <Route path="/add/recipe/" component={RecipeCreate} />
           <Route path="/recipes/" exact component={ExploreRecipeList}/>
           <Route path="/recipes/:id" component={RecipeDetail} />
