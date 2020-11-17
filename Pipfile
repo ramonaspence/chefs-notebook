@@ -20,6 +20,7 @@ clarifai = "*"
 django-filter = "*"
 django-cors-headers = "*"
 dj-rest-auth = "*"
+djangorestframework-simplejwt = "*"
 
 [requires]
 python_version = "3.7.6"
