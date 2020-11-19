@@ -7,24 +7,40 @@ First and foremost, this app should bring cooks, mixologists, and maybe even mic
 
 This app is meant to be a place to keep records organized, making it easy to refer to, share with others, and even receive feedback on.
 
-## Tools used for this application:
+## Technologies used for this application:
 * React
 * Django
-* Django-Rest-Framework
-* and lots of libraries listed under dependencies
+* Django-Rest
+* Heroku
+
+## Requirements 
+* Django==3.1.3
+* Python==3.7.6
 
 
-## Libraries used for this application:
-* Bootstrap3 is used for formatting and styling
-* Axios is used making calls to API's
-* MomentJS is used for formatting datetimes
-* React-Router-Dom is used for easier navigation and redirecting
-* Django-Filters is used to filter queries, that is more like a 'search' function to the user
-* Pillow has been used for image uploads
-* gunicorn and whitenoise is used for the application to be deployed via Heroku.com
+## Dependencies used for this application
+# Django
+* gunicorn
+* whitenoise
+* pillow
+* dj-database-url
+* psycopg2-binary
+* django-filter
+* django-allauth
+* dj-rest-auth
+* djangorestframework-simplejwt
+* django-cors-headers
+* clarifai
 
-## Dependencies ##
-
+# React
+* axios
+* bootstrap
+* jquery
+* momentjs
+* popperjs
+* react-dom
+* react-router-dom
+* react-google-login
 
 
 ## API's used for this application:
