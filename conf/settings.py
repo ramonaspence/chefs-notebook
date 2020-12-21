@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'frontend.apps.FrontendConfig', #new
     'recipes.apps.RecipesConfig',
     'profiles.apps.ProfilesConfig',
+    'authentication.apps.AuthenticationConfig',
 ]
 
 REST_FRAMEWORK = {

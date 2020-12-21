@@ -5,8 +5,8 @@ from django.db import models
 app_name = 'authentication'
 
 
-class User(AbstractUser):
-    pass
+# class User(AbstractUser):
+#     pass
 
 
 
