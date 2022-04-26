@@ -8,7 +8,7 @@ First and foremost, this app should bring cooks, mixologists, and maybe even mic
 This app is meant to be a place to keep records organized, making it easy to refer to, share with others, and even receive feedback on.
 
 <details>
-<summary>Technologies and Dependencies</summary>
+<summary><h2>Technologies and Dependencies</h2></summary>
 
 ## Technologies used for this application:
 * React
