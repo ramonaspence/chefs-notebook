@@ -6,8 +6,8 @@
 First and foremost, this app should bring cooks, mixologists, and maybe even microbiologists together! Okay, maybe not microbiologists, but maybe fermentation enthusiasts.
 
 This app is meant to be a place to keep records organized, making it easy to refer to, share with others, and even receive feedback on.
-<section>
-<detail>
+
+<details>
 ## Technologies used for this application:
 * React
 * Django
@@ -58,4 +58,4 @@ This app is meant to be a place to keep records organized, making it easy to ref
 ## Django Restful API
 * A restful API has been created through django_rest_framework
 * wherein most data for the app is saved and stored.
-</detail>
+</details>
