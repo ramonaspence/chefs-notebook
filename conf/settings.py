@@ -146,8 +146,8 @@ else:
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': os.environ['GOOGLE_AUTH_CLIENT_ID'],
-            'secret': os.environ['GOOGLE_AUTH_SECRET'],
+            'client_id': os.getenv('GOOGLE_AUTH_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_AUTH_SECRET'),
             'key': ''
         },
         'SCOPE': [
@@ -219,13 +219,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-SITE_ID
 SITE_ID = 1
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'ccs-final-project-ramonaejspence'
+AWS_S3_REGION_NAME = "us-east-1"
 AWS_S3_FILE_OVERWRITE = False
+AWS_S3_VERIFY = True
+AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_DEFAULT_ACL = None
 
-CLARIFAI_API_KEY = os.environ['CLARIFAI_API_KEY']
+CLARIFAI_API_KEY = os.getenv('CLARIFAI_API_KEY')
 
 CORS_ORIGIN_ALLOW_ALL = False
 
