@@ -30,7 +30,7 @@ class Nav extends Component {
 
   handleLogout(e) {
     e.preventDefault();
-    axios.post(`${BASE_URL}/rest-auth/logout/`, {
+    axios.post(`${BASE_URL}/dj-rest-auth/logout/`, {
       headers: {
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).token}`}
       })

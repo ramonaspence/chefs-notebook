@@ -7,6 +7,29 @@ First and foremost, this app should bring cooks, mixologists, and maybe even mic
 
 This app is meant to be a place to keep records organized, making it easy to refer to, share with others, and even receive feedback on.
 
+<h2>Setting Up Development Environment</h2>
+In order to work with this application as a developer, there are a few environment variables that we need to set. I've broken them down by what you need to work in certain parts of the application. 
+
+<details>
+<summary><h4>React app</h4></summary>
+</details>
+
+<details>
+<summary><h4>Django app</h4></summary>
+</details>
+
+<details>
+<summary><h4>Clarifai API Key</h4></summary>
+</details>
+- [] Google Auth2.0 Client ID
+- [] Google Auth Secret Key
+- [] AWS Access Key ID
+- [] AWS Secret Access Key
+- [] Clarifai API Key
+
+- [] React App Base URL
+
+
 <details>
 <summary><h2>Technologies and Dependencies</h2></summary>
 

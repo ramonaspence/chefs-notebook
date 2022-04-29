@@ -33,7 +33,7 @@ class Login extends Component {
   }
 
   captureLogin() {
-    axios.get(`${BASE_URL}/rest-auth/user/`,)
+    axios.get(`${BASE_URL}/dj-rest-auth/user/`,)
     .then(res => {
       localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}))
       console.log(res);
@@ -45,7 +45,7 @@ class Login extends Component {
   handleLogin(e) {
     e.preventDefault();
 
-    axios.post(`${BASE_URL}/rest-auth/login/`, this.state)
+    axios.post(`${BASE_URL}/dj-rest-auth/login/`, this.state)
     .then(res => localStorage.setItem('current-user', JSON.stringify(res.data)))
     .then(res => this.captureLogin())
     .catch(err => {console.log(err)})

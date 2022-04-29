@@ -65,7 +65,6 @@ INSTALLED_APPS = [
     'frontend.apps.FrontendConfig', #new
     'recipes.apps.RecipesConfig',
     'profiles.apps.ProfilesConfig',
-    'authentication.apps.AuthenticationConfig',
 ]
 
 REST_FRAMEWORK = {
@@ -236,3 +235,5 @@ CORS_ALLOWED_ORIGINS = (
         'http://localhost:3000',
         'http://localhost:8000',
 )
+
+APPEND_SLASH = False
