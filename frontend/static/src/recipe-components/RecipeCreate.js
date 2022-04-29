@@ -60,17 +60,13 @@ class RecipeCreate extends Component {
     e.preventDefault();
     let ingredients = [...this.state.ingredients];
     let i = ingredients.indexOf(ingredient);
-    console.log(i);
     ingredients.splice(i, 1);
     this.setState({ingredients: ingredients})
-    console.log(this.state);
   }
 
   handleIngredients(e) {
     e.preventDefault();
-
     this.setState({ingStr: e.target.value})
-    console.log(this.state);
   }
 
   submitIngredients(e, ingStr) {
@@ -78,7 +74,6 @@ class RecipeCreate extends Component {
     let ingredients = [...this.state.ingredients];
     ingredients.push(ingStr);
     this.setState({ingredients: ingredients})
-    console.log('button', this.state);
     this.refs.ingredientField.value = '';
 
 
@@ -87,7 +82,6 @@ class RecipeCreate extends Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-    console.log(this.state);
 
   }
 
@@ -124,20 +118,17 @@ class RecipeCreate extends Component {
       formData.append('instructions', JSON.stringify(recipe.instructions));
     }
 
-    // axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //     'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
-    //     }
+    axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
+        }
 
-    // })
-
-    PostAPICall('recipes/', formData)
-
+    })
     .then(res => this.setState({redirect: true}))
     .catch(err => console.log(err));
 
-  }
+    }
 
   render() {
     if (this.state.redirect) {
