@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import '../App.css';
-
 import {Redirect} from 'react-router-dom';
+import axios from 'axios';
+
+import '../App.css';
 import Nav from '../containers/Nav.js';
 
-import {PostAPICall} from '../utils/makeAPICall';
 
-import axios from 'axios';
+const BASE_URL = process.env.REACT_APP_BASE_URL; //environment variable containing the base URL used by this React app.
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';

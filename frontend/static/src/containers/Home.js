@@ -17,45 +17,57 @@ class Home extends Component {
     this.state = {
       isAuthenticated: false,
       hidenav: null,
+      signUp: false,
     }
+
+    this.handleToggle = this.handleToggle.bind(this)
+  }
+
+  handleToggle() {
+    if (this.state.signUp) {
+      this.setState({signUp: false})
+    }
+    else {
+      this.setState({signUp: true})
+    }
+    console.log(this.state.signUp)
   }
 
 
   render() {
     return (
       <React.Fragment>
-
-      <div className="row">
-        <div id="nav-bar" className='navbar navbar-expand-lg navbar-dark navbar-background col-12'>
-          <div className="nav-title col-md-5 col-12 offset-md-4 offset-sm-2">
-            <span>Chef's Notebook</span>
+          <div id="nav-bar" className='row navbar navbar-expand-lg navbar-dark navbar-background col-12'>
+            <div className="nav-title col-md-5 col-12 offset-md-4 offset-sm-2">
+              <span>Chef's Notebook</span>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="row background-home">
-        <div className="center-box">
-          <button className="home-button">Log In</button>
-          <button className="home-button">Sign Up</button>
-        <Login props={this.props}/>
-        <Signup props={this.props}/>
-        <GoogleSocialAuth />
-        </div>
-{/* 
-        <div className="left">
-          <div className="col-sm-6 col-12 content-left">
-            <h2>Signup</h2>
+        <div className="row background-home">
+          <div className="center-box mt-0 d-flex flex-column justify-content-around">
+            {/*
+            NOTES for when I continue this:
+
+            Signup and Login buttons toggle the signup and login components.
+            There should be a button to submit, that handles the actual logging in or signing up.
+
+            */}
+            {this.state.signUp
+            ?
             <Signup props={this.props}/>
-</div>  */}
+            :
+            <Login props={this.props}/>
+          }
+            <div className="login-buttons">
+              <button onClick={this.handleToggle} className="home-button">Login</button>
+              <button onClick={this.handleToggle} className="home-button">Signup</button>
+            </div>
+            
+            <GoogleSocialAuth />
 
-          {/* <div className="right">
-            <div className="col-sm-6 col-12 content-right">
-              <h2>Login</h2>
-              <Login props={this.props}/>
-             
-            </div> 
+            
 
-          </div>*/}
+          </div>
         </div>
       </React.Fragment>
     )

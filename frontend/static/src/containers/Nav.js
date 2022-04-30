@@ -58,8 +58,8 @@ class Nav extends Component {
     }
     return (
 
-      <div className="row">
-        <div id="nav-bar" className='navbar navbar-expand-md navbar-dark navbar-background col-lg-12'>
+      // <div className="row">
+        <div id="nav-bar" className='row navbar navbar-expand-md navbar-dark navbar-background col-lg-12'>
             <div id="navlinks" className='nav navbar-nav col-12'>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
@@ -99,7 +99,7 @@ class Nav extends Component {
               </div>
             </div>
           </div>
-        </div>
+        // </div> 
     )
   }
 }
