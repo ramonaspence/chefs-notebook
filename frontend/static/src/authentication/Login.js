@@ -43,7 +43,7 @@ class Login extends Component {
 
   handleLogin(e) {
     e.preventDefault();
-
+    console.log('fires')
     axios.post(`${BASE_URL}/dj-rest-auth/login/`, this.state)
     .then(res => localStorage.setItem('current-user', JSON.stringify(res.data)))
     .then(res => this.captureLogin())
@@ -57,12 +57,18 @@ class Login extends Component {
     return (
       <React.Fragment>
 
-      <form className="card-body" method="post" type="submit" onSubmit={this.handleLogin}>
-        <div className="form-group">
-          <input type="text" value={this.state.username} autoComplete="username" placeholder="username" name="username" onChange={this.handleChange} />
+      <form method="post" type="submit" onSubmit={this.handleLogin}>
+        <div className="card-body">
+          <input className="form-group" type="text" value={this.state.username} autoComplete="username" placeholder="username" name="username" onChange={this.handleChange} />
+          <input className="form-group" type="password" value={this.state.password} autoComplete="current-password" placeholder="password" name="password" onChange={this.handleChange} />
         </div>
-        <input type="password" value={this.state.password} autoComplete="current-password" placeholder="password" name="password" onChange={this.handleChange} />
+
+        <div>
+          <button type="submit" className="submit-button">Submit</button>
+        </div>
       </form>
+     
+      
 
     </React.Fragment>
 

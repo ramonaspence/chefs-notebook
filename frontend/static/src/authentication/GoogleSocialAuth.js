@@ -16,7 +16,7 @@ class GoogleSocialAuth extends Component {
 
 
     return (
-      <div>
+      <div className="google-auth">
       
         <GoogleLogin
           id="google-login"
@@ -24,6 +24,7 @@ class GoogleSocialAuth extends Component {
           buttonText="Login with Google"
           onSuccess={googleResponse}
           onFailure={googleResponse}
+          
         />
       </div>
     );
