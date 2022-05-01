@@ -8,7 +8,7 @@ import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class Home extends Component {
   constructor(props) {
@@ -18,21 +18,25 @@ class Home extends Component {
       isAuthenticated: false,
       hidenav: null,
       signUp: false,
+      form: 'login'
     }
-
-    this.handleToggle = this.handleToggle.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.switchToLogin = this.switchToLogin.bind(this)
+    this.switchToSignUp = this.switchToSignUp.bind(this)
   }
 
-  handleToggle() {
-    if (this.state.signUp) {
-      this.setState({signUp: false})
-    }
-    else {
-      this.setState({signUp: true})
-    }
-    console.log(this.state.signUp)
+  handleChange(e) {
+    e.preventDefault();
+    this.setState({[e.target.name]: e.target.value});
   }
 
+  switchToLogin() {
+    this.setState({signUp: false})
+  }
+  
+  switchToSignUp() {
+    this.setState({signUp: true})
+  }
 
   render() {
     return (
@@ -44,7 +48,7 @@ class Home extends Component {
           </div>
 
         <div className="row background-home">
-          <div className="center-box mt-0 d-flex flex-column justify-content-around">
+          <div className="center-box mt-5 d-flex flex-column justify-content-center">
             {/*
             NOTES for when I continue this:
 
@@ -52,15 +56,13 @@ class Home extends Component {
             There should be a button to submit, that handles the actual logging in or signing up.
 
             */}
-            {this.state.signUp
-            ?
-            <Signup props={this.props}/>
-            :
-            <Login props={this.props}/>
-          }
-            <div className="login-buttons">
-              <button onClick={this.handleToggle} className="home-button">Login</button>
-              <button onClick={this.handleToggle} className="home-button">Signup</button>
+            { this.state.signUp
+            ? <Signup props={this.props}/>
+            : <Login props={this.props}/>
+            }
+            <div className="d-flex">
+              <button onClick={this.switchToLogin} className="home-button">Login</button>
+              <button onClick={this.switchToSignUp} className="home-button">Signup</button>
             </div>
             
             <GoogleSocialAuth />

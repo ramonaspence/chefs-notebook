@@ -22,7 +22,7 @@ class Signup extends Component {
 
     }
 
-    this.signUp = this.signUp.bind(this)
+    this.handleSignUp = this.handleSignUp.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -45,7 +45,7 @@ class Signup extends Component {
     .catch(err => console.log(err))
   }
 
-  signUp(e) {
+  handleSignUp(e) {
     e.preventDefault();
     axios.post(`${BASE_URL}/rest-auth/registration/`, this.state,)
     .then(res => {
@@ -60,28 +60,26 @@ class Signup extends Component {
   render() {
     return (
       <React.Fragment>
-        <form className="card-body" method="post" type="submit" onSubmit={this.signUp}>
-          <div className="form-group">
-            <input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.handleChange}/>
-          </div>
+        <form method="post" type="submit" onSubmit={this.signUp}>
+          <div className="card-body">
+            <input className="form-group" type="text" name="username" placeholder="username" value={this.state.username} onChange={this.handleChange}/>
 
-          <div className="form-group">
-            <input type="email" name="email" placeholder="email" autoComplete="email" value={this.state.email} onChange={this.handleChange} />
-          </div>
+            <input className="form-group" type="email" name="email" placeholder="email" autoComplete="email" value={this.state.email} onChange={this.handleChange} />
 
-          <div className="form-group">
-            <input type="password" name="password1" placeholder="password" autoComplete="new-password" value={this.state.password1} onChange={this.handleChange} />
-          </div>
+            <input className="form-group" type="password" name="password1" placeholder="password" autoComplete="new-password" value={this.state.password1} onChange={this.handleChange} />
 
-          <div className="form-group">
-            <input type="password" name="password2" placeholder="password" autoComplete="new-password" value={this.state.password2} onChange={this.handleChange} />
+            <input className="form-group" type="password" name="password2" placeholder="password" autoComplete="new-password" value={this.state.password2} onChange={this.handleChange} />
+            
             <small className="d-block">passwords must match</small> 
           </div>
 
-          <div className="login-buttons">
-            <button className="home-button">Signup</button>
+          <div>
+            <button className="submit-button" onSubmit={this.handleSignUp}>Submit</button>
           </div>
         </form>
+
+        
+      
       </React.Fragment>
     )
   }
