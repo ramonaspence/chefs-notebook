@@ -55,12 +55,12 @@ class Login extends Component {
     return (
       <React.Fragment>
       <form method="post" type="submit" onSubmit={this.handleLogin}>
-        <div className="card-body">
+        <div className="card-body d-flex justify-content-center flex-column">
           <input className="form-group" type="text" value={this.state.username} autoComplete="username" placeholder="username" name="username" onChange={this.handleChange} />
           <input className="form-group" type="password" value={this.state.password} autoComplete="current-password" placeholder="password" name="password" onChange={this.handleChange} />
         </div>
 
-        <div>
+        <div className="d-flex justify-content-center">
           <button type="submit" className="submit-button">Submit</button>
         </div>
       </form>

@@ -59,7 +59,7 @@ class Signup extends Component {
     return (
       <React.Fragment>
         <form method="post" type="submit" onSubmit={this.signUp}>
-          <div className="card-body">
+          <div className="card-body d-flex justify-content-center flex-column">
             <input className="form-group" type="text" name="username" placeholder="username" value={this.state.username} onChange={this.handleChange}/>
             <input className="form-group" type="email" name="email" placeholder="email" autoComplete="email" value={this.state.email} onChange={this.handleChange} />
             <input className="form-group" type="password" name="password1" placeholder="password" autoComplete="new-password" value={this.state.password1} onChange={this.handleChange} />
@@ -67,7 +67,7 @@ class Signup extends Component {
             <small className="d-block">passwords must match</small> 
           </div>
 
-          <div>
+          <div  className="d-flex justify-content-center">
             <button className="submit-button" onSubmit={this.handleSignUp}>Submit</button>
           </div>
         </form>

@@ -52,7 +52,7 @@ class Home extends Component {
             ? <Signup props={this.props}/>
             : <Login props={this.props}/>
             }
-            <div className="d-flex">
+            <div className="d-flex justify-content-center">
               <button onClick={this.switchToLogin} className="home-button">Login</button>
               <button onClick={this.switchToSignUp} className="home-button">Signup</button>
             </div>
