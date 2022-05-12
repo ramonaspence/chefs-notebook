@@ -24,8 +24,6 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
   
-
-
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
@@ -56,7 +54,6 @@ class Login extends Component {
     }
     return (
       <React.Fragment>
-
       <form method="post" type="submit" onSubmit={this.handleLogin}>
         <div className="card-body">
           <input className="form-group" type="text" value={this.state.username} autoComplete="username" placeholder="username" name="username" onChange={this.handleChange} />
@@ -67,9 +64,6 @@ class Login extends Component {
           <button type="submit" className="submit-button">Submit</button>
         </div>
       </form>
-     
-      
-
     </React.Fragment>
 
   )

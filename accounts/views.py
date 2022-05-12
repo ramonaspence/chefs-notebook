@@ -13,10 +13,3 @@ class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-# class GoogleLoginView(SocialConnectView):
-#     adapter_class = GoogleOAuth2Adapter
-#     client_class = OAuth2Client
-
-
-

@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'allauth', #new
     'allauth.account', #new
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     'dj_rest_auth.registration',
     'django_filters', #django-filters package allows to setup easy queryset filtering
     'corsheaders',

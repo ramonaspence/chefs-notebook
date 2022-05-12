@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-
-
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -63,13 +61,9 @@ class Signup extends Component {
         <form method="post" type="submit" onSubmit={this.signUp}>
           <div className="card-body">
             <input className="form-group" type="text" name="username" placeholder="username" value={this.state.username} onChange={this.handleChange}/>
-
             <input className="form-group" type="email" name="email" placeholder="email" autoComplete="email" value={this.state.email} onChange={this.handleChange} />
-
             <input className="form-group" type="password" name="password1" placeholder="password" autoComplete="new-password" value={this.state.password1} onChange={this.handleChange} />
-
             <input className="form-group" type="password" name="password2" placeholder="password" autoComplete="new-password" value={this.state.password2} onChange={this.handleChange} />
-            
             <small className="d-block">passwords must match</small> 
           </div>
 
@@ -77,9 +71,6 @@ class Signup extends Component {
             <button className="submit-button" onSubmit={this.handleSignUp}>Submit</button>
           </div>
         </form>
-
-        
-      
       </React.Fragment>
     )
   }

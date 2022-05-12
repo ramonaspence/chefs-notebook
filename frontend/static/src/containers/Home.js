@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
 
-import GoogleSocialAuth from '../authentication/GoogleSocialAuth.js';
 import Login from '../authentication/Login.js';
 import Signup from '../authentication/Signup.js';
 import axios from 'axios';
@@ -49,13 +48,6 @@ class Home extends Component {
 
         <div className="row background-home">
           <div className="center-box mt-5 d-flex flex-column justify-content-center">
-            {/*
-            NOTES for when I continue this:
-
-            Signup and Login buttons toggle the signup and login components.
-            There should be a button to submit, that handles the actual logging in or signing up.
-
-            */}
             { this.state.signUp
             ? <Signup props={this.props}/>
             : <Login props={this.props}/>
@@ -64,11 +56,6 @@ class Home extends Component {
               <button onClick={this.switchToLogin} className="home-button">Login</button>
               <button onClick={this.switchToSignUp} className="home-button">Signup</button>
             </div>
-            
-            <GoogleSocialAuth />
-
-            
-
           </div>
         </div>
       </React.Fragment>
