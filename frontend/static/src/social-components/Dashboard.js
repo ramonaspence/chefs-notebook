@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
-import '../App.css';
-
 import { NavLink, Link } from 'react-router-dom';
 import moment from 'moment';
-
-import Nav from '../containers/Nav.js';
-
-import GetAPICall from '../utils/makeAPICall.js';
-
 import axios from 'axios';
+
+import '../App.css';
+import Nav from '../containers/Nav.js';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 
 class Dashboard extends Component {
   constructor() {
@@ -24,7 +23,11 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    GetAPICall('recipes/dashboard/')
+    axios.get(`${BASE_URL}/api/v1/recipes/dashboard/`, {
+      headers: {
+          'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
+      }
+  })
     .then(res => this.setState({recipes: res.data}))
     .catch(err => console.log(err));
   }
@@ -51,7 +54,6 @@ class Dashboard extends Component {
                 <p>{recipe.description}</p>
                 <p>{moment(recipe.date_updated).fromNow()}</p>
               </div>
-
             </div>
           </div>
         </div>

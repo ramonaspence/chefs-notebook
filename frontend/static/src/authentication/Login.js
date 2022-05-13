@@ -31,7 +31,11 @@ class Login extends Component {
   }
 
   captureLogin() {
-    axios.get(`${BASE_URL}/dj-rest-auth/user/`,)
+    axios.get(`${BASE_URL}/dj-rest-auth/user/`,{
+      headers: {
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
+      }
+    })
     .then(res => {
       localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}))
     })
@@ -41,7 +45,6 @@ class Login extends Component {
 
   handleLogin(e) {
     e.preventDefault();
-    console.log('fires')
     axios.post(`${BASE_URL}/dj-rest-auth/login/`, this.state)
     .then(res => localStorage.setItem('current-user', JSON.stringify(res.data)))
     .then(res => this.captureLogin())
