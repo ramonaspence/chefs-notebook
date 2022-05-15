@@ -71,7 +71,7 @@ class ProfileUpdate extends Component {
 
   async componentDidMount() {
 
-    await axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}`, {
+    await axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState(response.data))

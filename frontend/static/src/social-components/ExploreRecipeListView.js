@@ -56,7 +56,7 @@ class ExploreRecipeList extends Component {
     const description = this.state.description ? this.state.description : '';
 
     const filterAPICall = (tagStr) => {
-      axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}`, {
+      axios.get(`${BASE_URL}/api/v1/recipes/?title__icontains=${title}&description__icontains=${description}${tagStr}/`, {
         headers: {
           'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
       }
