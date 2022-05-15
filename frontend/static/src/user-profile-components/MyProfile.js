@@ -10,7 +10,6 @@ import UserRecipeList from './UserRecipeList.js'
 import Nav from '../containers/Nav.js';
 
 import axios from 'axios';
-import getAPICall from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
