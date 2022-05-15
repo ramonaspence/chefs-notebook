@@ -5,7 +5,6 @@ import Nav from '../containers/Nav.js';
 import moment from 'moment';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { GetAPICall } from '../utils/makeAPICall.js';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -93,7 +92,9 @@ class ExploreRecipeList extends Component {
 
 
   componentDidMount() {
-    GetAPICall('recipes')
+    axios.get(`${BASE_URL}/api/v1/recipes/`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
     .then(res => this.setState({recipes: res.data, loading: false}))
     .catch(err => console.log(err));
 
