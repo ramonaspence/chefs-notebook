@@ -51,7 +51,9 @@ class MyProfile extends Component {
   }
 
   componentDidMount() {
-    getAPICall('profiles/user/')
+    axios.get(`${BASE_URL}/api/v1/profiles/user/`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
     .then(res => this.setState({profile: res.data}))
     .catch(err => {
       if (err.response.status === 404) {

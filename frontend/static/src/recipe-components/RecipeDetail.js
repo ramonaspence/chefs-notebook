@@ -7,7 +7,6 @@ import { NavLink, Redirect } from 'react-router-dom';
 import Nav from '../containers/Nav.js';
 import moment from 'moment';
 import axios from 'axios';
-import GetAPICall, { PostAPICall } from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -54,7 +53,9 @@ class RecipeDetail extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    PostAPICall(`/recipes/${this.props.match.params.id}/comments/`, this.state)
+    axios.post(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/comments/`, this.state, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
     .then(res => this.commentSubmit(res.data))
     .catch(err => console.log(err));
   }
@@ -91,8 +92,11 @@ class RecipeDetail extends Component {
 
 
   componentDidMount() {
-    // get request to pull in single recipe
-    GetAPICall(`/recipes/${this.props.match.params.id}/`)
+    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, {
+      headers: {
+        'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
+      }
+    })
     .then(response =>  this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), recipe: response.data}))
     .then(response => this.checkAuth())
     .catch(err => console.log(err));
