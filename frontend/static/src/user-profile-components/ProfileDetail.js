@@ -63,7 +63,7 @@ class ProfileDetail extends Component {
     this.state.profile.followers.map(connection => {
       if (connection.owner.id === userid) {
         let conid = connection.id
-        axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}`, {
+        axios.delete(`${BASE_URL}/api/v1/profiles/connections/${conid}/`, {
           headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
         })
       .then(res => console.log(res))//remove loggedin user from followers array on state
@@ -100,7 +100,7 @@ class ProfileDetail extends Component {
 
   componentDidMount() {
 
-    GetAPICall(`profiles/${this.props.match.params.id}`)
+    GetAPICall(`profiles/${this.props.match.params.id}/`)
     .then(res => this.setState({profile: res.data}))
     .catch(err => console.log(err))
 

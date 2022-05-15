@@ -32,14 +32,14 @@ class UserRecipeList extends Component {
   handleSearch(e) {
     e.preventDefault();
     console.log('fires')
-    axios.get(`${BASE_URL}/api/v1/recipes/?${this.state.title ? `title__icontains=${this.state.title}&` : ''}${this.state.description ? `description__icontains=${this.state.description}&` : ''}${this.state.tags ? `tags__icontains=${this.state.tags}` : ''}`)
+    axios.get(`${BASE_URL}/api/v1/recipes/?${this.state.title ? `title__icontains=${this.state.title}&` : ''}${this.state.description ? `description__icontains=${this.state.description}&` : ''}${this.state.tags ? `tags__icontains=${this.state.tags}/` : ''}`)
     .then(res => this.setState({recipes: res.data}))
     .catch(err => console.log(err));
   }
 
   componentDidMount() {
 
-    axios.get(`${BASE_URL}/api/v1/recipes/user/${this.props.profile.id}`,
+    axios.get(`${BASE_URL}/api/v1/recipes/user/${this.props.profile.id}/`,
       {
         headers: {
           'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`

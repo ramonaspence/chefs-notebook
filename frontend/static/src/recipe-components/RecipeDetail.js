@@ -69,7 +69,7 @@ class RecipeDetail extends Component {
 
   onDelete(e, id) {
 
-    axios.delete(`${BASE_URL}/api/v1/recipes/comments/${e}`, {
+    axios.delete(`${BASE_URL}/api/v1/recipes/comments/${e}/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => console.log('res',response))
@@ -79,7 +79,7 @@ class RecipeDetail extends Component {
   }
 
   handleDelete(e) {
-    axios.delete(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`,
+    axios.delete(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`,
       {
         headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })

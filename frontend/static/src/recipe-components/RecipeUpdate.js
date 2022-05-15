@@ -137,7 +137,7 @@ class RecipeUpdate extends Component {
   componentDidMount() {
 
     // get request to pull in single recipe
-    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}`, {
+    axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), title: response.data.title, description: response.data.description, recipes: response.data}))
