@@ -10,7 +10,6 @@ import Nav from '../containers/Nav.js';
 import moment from 'moment';
 
 import axios from 'axios';
-import GetAPICall from '../utils/makeAPICall';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -56,10 +55,7 @@ class ProfileDetail extends Component {
 
   removeFollow(e) {
     e.preventDefault();
-
-
     let userid = JSON.parse(localStorage.getItem('currentUser')).userid
-
     this.state.profile.followers.map(connection => {
       if (connection.owner.id === userid) {
         let conid = connection.id
@@ -68,28 +64,22 @@ class ProfileDetail extends Component {
         })
       .then(res => console.log(res))//remove loggedin user from followers array on state
       .catch(err => console.log(err));
-
-
       let profile = {...this.state.profile};
-
       let i = profile.followers.indexOf(conid);
       profile.followers.splice(i, 1);
       this.setState({profile: profile})
-
     }
       else {
         console.log('if clause failed')
-
       }});
-
   }
 
   addFollow(e) {
-
     e.preventDefault();
-    GetAPICall('profiles/connections/', {following: this.state.profile.owner.id})
+    axios.get(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.owner.id}, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
     .catch(err => console.log(err));
-
     //Causes re-render so that follow/unfollow button will toggle as the user clicks it
     let userid = JSON.parse(localStorage.getItem('currentUser')).userid
     let profile = {...this.state.profile};
@@ -99,8 +89,9 @@ class ProfileDetail extends Component {
   }
 
   componentDidMount() {
-
-    GetAPICall(`profiles/${this.props.match.params.id}/`)
+    axios.get(`${BASE_URL}/api/v1/profiles/${this.props.match.params.id}/`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
     .then(res => this.setState({profile: res.data}))
     .catch(err => console.log(err))
 

@@ -6,7 +6,8 @@ import Nav from '../containers/Nav.js';
 
 import moment from 'moment';
 import axios from 'axios';
-import getAPICall from '../utils/makeAPICall';
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -24,7 +25,9 @@ class ListFollowing extends Component {
   }
 
   componentDidMount() {
-    getAPICall('profiles/following/')
+    axios.get(`${BASE_URL}/api/v1/profiles/following/`, {
+      headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
+    })
     .then(res => this.setState({connections: res.data}))
     .catch(err => console.log(err));
   }
