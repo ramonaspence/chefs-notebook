@@ -56,10 +56,7 @@ class ProfileDetail extends Component {
 
   removeFollow(e) {
     e.preventDefault();
-
-
     let userid = JSON.parse(localStorage.getItem('currentUser')).userid
-
     this.state.profile.followers.map(connection => {
       if (connection.owner.id === userid) {
         let conid = connection.id

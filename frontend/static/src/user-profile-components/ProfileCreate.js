@@ -3,7 +3,7 @@ import '../App.css';
 
 import {Redirect} from 'react-router-dom';
 
-import ProfileForm from '../utils/profileForm.js';
+import ProfileForm from './profileForm.js';
 
 import Nav from '../containers/Nav.js';
 import axios from 'axios';
@@ -76,9 +76,7 @@ class ProfileCreate extends Component {
       <div className="row">
         <div className="col-md-4 col-12 card profile-create-body">
           <div className="card-body row">
-
             <ProfileForm profile={this.state.profile} preview={this.state.preview}/>
-
           </div>
         </div>
       </div>

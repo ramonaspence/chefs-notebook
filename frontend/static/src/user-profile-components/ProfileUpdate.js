@@ -3,7 +3,7 @@ import '../App.css';
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import Nav from '../containers/Nav.js';
-import ProfileForm from '../utils/profileForm.js';
+import ProfileForm from './profileForm.js';
 
 import axios from 'axios';
 
@@ -92,14 +92,12 @@ class ProfileUpdate extends Component {
           <div className='row'>
             <div className='col-md-6 col-12 card profile-update-body'>
               <div className='card-body row'>
-
                 <ProfileForm profile={this.state} preview={this.state.preview}/>
-
               </div>
 
-                <div className='card-footer profile-bio-footer'>
-                  <p>Member since: {moment(this.state.date_joined).format("MMM Do YYYY")}</p>
-                </div>
+              <div className='card-footer profile-bio-footer'>
+                <p>Member since: {moment(this.state.date_joined).format("MMM Do YYYY")}</p>
+              </div>
             </div>
           </div>
         </React.Fragment>

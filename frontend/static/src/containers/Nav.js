@@ -44,12 +44,10 @@ class Nav extends Component {
   }
 
   componentDidMount() {
-    const loggedIn = checkAuthentication();
-    this.setState({isAuthenticated: loggedIn})
-
+    if (localStorage.getItem('current-user')) {
+      this.setState({isAuthenticated: true})
+    }
   }
-
-
 
   render() {
     if (this.state.redirect) {
