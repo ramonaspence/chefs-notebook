@@ -4,8 +4,6 @@ import '../App.css';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faGriplines } from '@fortawesome/free-regular-svg-icons'
 
-import checkAuthentication from '../utils/checkAuthentication.js';
-
 import { Link, Redirect} from 'react-router-dom';
 
 import axios from 'axios';
