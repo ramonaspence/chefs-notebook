@@ -38,16 +38,16 @@ class RecipeDetail extends Component {
   }
 
   handleChange(e) {
-
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
   }
 
   commentSubmit(data) {
     let recipe = {...this.state.recipe};
-    console.log(data);
     recipe.comments.push(data);
-    this.setState({comments: recipe.comments})
+    this.setState({
+      comments: recipe.comments
+    })
     this.refs.commentField.value = '';
   }
 
@@ -80,16 +80,14 @@ class RecipeDetail extends Component {
   }
 
   handleDelete(e) {
-    axios.delete(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`,
-      {
+    axios.delete(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, {
         headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response => this.setState({redirect: true}))
+    .then(response => this.setState({
+      redirect: true
+    }))
     .catch(err => console.log(err));
-
   }
-
-
 
   componentDidMount() {
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, {
@@ -97,8 +95,11 @@ class RecipeDetail extends Component {
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
       }
     })
-    .then(response =>  this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), recipe: response.data}))
-    .then(response => this.checkAuth())
+    .then((response) =>  {this.setState({
+      recipe: response.data
+      })
+      this.checkAuth();
+    })
     .catch(err => console.log(err));
   }
 
