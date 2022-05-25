@@ -30,7 +30,6 @@ class RecipeUpdate extends Component {
     this.deleteIngredient = this.deleteIngredient.bind(this);
     this.submitIngredients = this.submitIngredients.bind(this);
     this.handleIngredients = this.handleIngredients.bind(this);
-    this.handleVersion = this.handleVersion.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
