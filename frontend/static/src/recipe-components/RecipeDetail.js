@@ -98,6 +98,7 @@ class RecipeDetail extends Component {
     .then((response) =>  {this.setState({
       recipe: response.data
       })
+      console.log(this.state)
       this.checkAuth();
     })
     .catch(err => console.log(err));
@@ -174,7 +175,7 @@ class RecipeDetail extends Component {
 
                 <div className="recipe-times-div col-12 mr-auto">
                   <div className="recipe-created">
-                    Created On {moment(this.state.recipe.date_published).format("MMM do YYYY")}
+                    Created On {moment(this.state.recipe.date_published).format("MMM Do YYYY")}
                   </div>
                   <div className="recipe-updated">
                     last updated {moment(this.state.recipe.date_updated).fromNow()}
