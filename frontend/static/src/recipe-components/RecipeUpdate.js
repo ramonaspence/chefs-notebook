@@ -138,7 +138,13 @@ class RecipeUpdate extends Component {
     axios.get(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response => this.setState({ingredients: JSON.parse(response.data.ingredients), instructions: JSON.parse(response.data.instructions), title: response.data.title, description: response.data.description, recipes: response.data}))
+    .then(response => this.setState({
+        ingredients: response.data.ingredients, 
+        instructions: response.data.instructions, 
+        title: response.data.title, 
+        description: response.data.description, 
+        recipes: response.data
+      }))
     .then(res => console.log(this.state))
     .catch(err => console.log(err));
   }
