@@ -18,7 +18,7 @@ class RecipeUpdate extends Component {
     super(props);
 
     this.state = {
-      recipes: {},
+      recipe: {},
       preview: '',
       ingredients: [],
       instructions: [],
@@ -139,11 +139,9 @@ class RecipeUpdate extends Component {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState({
-        ingredients: response.data.ingredients, 
-        instructions: response.data.instructions, 
-        title: response.data.title, 
-        description: response.data.description, 
-        recipes: response.data
+        ingredients: [response.data.ingredients], 
+        instructions: [response.data.instructions], 
+        recipe: response.data
       }))
     .then(res => console.log(this.state))
     .catch(err => console.log(err));
@@ -180,9 +178,9 @@ class RecipeUpdate extends Component {
         <div className="col-12 mr-auto">
           <form type='submit' method='post' onSubmit={(e) => this.handleSubmit(e, this.state)}>
             <div className="recipe-title-div col-12">
-              <input className="form-control recipe-title col-md-10 col-12"  type='text' name='title' onChange={this.handleChange} defaultValue={this.state.recipes.title} />
+              <input className="form-control recipe-title col-md-10 col-12"  type='text' name='title' onChange={this.handleChange} defaultValue={this.state.recipe.title} />
 
-              <input className="form-control recipe-description col-12" type='text' name='description' onChange={this.handleChange} defaultValue={this.state.recipes.description} />
+              <input className="form-control recipe-description col-12" type='text' name='description' onChange={this.handleChange} defaultValue={this.state.recipe.description} />
             </div>
             <div className="save-recipe-div col-12 mr-auto">
               <button className="save-recipe-btn">Save Recipe</button>
@@ -195,7 +193,7 @@ class RecipeUpdate extends Component {
                   ?
                     <img className="image-preview col-12" src={this.state.preview} alt="preview not available" />
                   :
-                    <img className="image-preview col-12 " src={this.state.recipes.image} alt="preview not available" />
+                    <img className="image-preview col-12 " src={this.state.recipe.image} alt="preview not available" />
                   }
                 </div>
             </div>

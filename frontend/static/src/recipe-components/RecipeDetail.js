@@ -96,9 +96,10 @@ class RecipeDetail extends Component {
       }
     })
     .then((response) =>  {this.setState({
-      recipe: response.data
+        ingredients: [response.data.ingredients], 
+        instructions: [response.data.instructions], 
+        recipe: response.data
       })
-      console.log(this.state)
       this.checkAuth();
     })
     .catch(err => console.log(err));
