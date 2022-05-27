@@ -7,6 +7,7 @@ import Nav from '../containers/Nav.js';
 
 
 import axios from 'axios';
+import { updateLocale } from 'moment';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -46,9 +47,7 @@ class RecipeUpdate extends Component {
     let instructions = [...this.state.instructions];
     instructions.push(instructStr);
     this.setState({instructions: instructions});
-    console.log('submit', this.state);
     this.refs.instructionsField.value = '';
-
   }
 
   deleteInstruction(e, instruction) {
@@ -63,16 +62,13 @@ class RecipeUpdate extends Component {
     e.preventDefault();
     let ingredients = [...this.state.ingredients];
     let i = ingredients.indexOf(ingredient);
-    console.log(i);
     ingredients.splice(i, 1);
     this.setState({ingredients: ingredients})
-    console.log(this.state);
   }
 
   handleIngredients(e) {
     e.preventDefault();
     this.setState({ingStr: e.target.value});
-    console.log(this.state);
   }
 
   submitIngredients(e, ingStr) {
@@ -80,55 +76,45 @@ class RecipeUpdate extends Component {
     let ingredients = [...this.state.ingredients];
     ingredients.push(ingStr);
     this.setState({ingredients: ingredients})
-    console.log('button', this.state);
     this.refs.ingredientField.value = '';
-
-
   }
 
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-    console.log(this.state);
   }
 
   handleImageChange(e) {
     e.preventDefault();
-
     let file = e.target.files[0];
     this.setState({[e.target.name]: file});
-
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => this.setState({preview: reader.result});
-
   }
 
-    handleSubmit(e, recipe) {
-      e.preventDefault();
-
-      let formData = new FormData();
-      if (recipe.image) {
-        formData.append('image', recipe.image);
-        formData.append('title', recipe.title);
-        formData.append('description', recipe.description);
-        formData.append('ingredients', JSON.stringify(recipe.ingredients));
-        formData.append('instructions', JSON.stringify(recipe.instructions));
-      }
-      else {
-        formData.append('title', recipe.title);
-        formData.append('description', recipe.description);
-        formData.append('ingredients', JSON.stringify(recipe.ingredients));
-        formData.append('instructions', JSON.stringify(recipe.instructions));
-      }
+  handleSubmit(e, recipe) {
+    e.preventDefault();
+    let formData = new FormData();
+    if (recipe.image) {
+      formData.append('image', recipe.image);
+      formData.append('title', recipe.title);
+      formData.append('description', recipe.description);
+      formData.append('ingredients', JSON.stringify(recipe.ingredients));
+      formData.append('instructions', JSON.stringify(recipe.instructions));
+    }
+    else {
+      formData.append('title', recipe.title);
+      formData.append('description', recipe.description);
+      formData.append('ingredients', JSON.stringify(recipe.ingredients));
+      formData.append('instructions', JSON.stringify(recipe.instructions));
+    }
 
     axios.patch(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
-
     })
-    .then(response => console.log(response))
     .then(res => this.setState({redirect: true}))
     .catch(err => console.log(err));
   }
@@ -139,8 +125,12 @@ class RecipeUpdate extends Component {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(response => this.setState({
-        ingredients: [response.data.ingredients], 
-        instructions: [response.data.instructions], 
+        // parse data so that brackets and quotes don't get added onto them
+        ingredients: JSON.parse(response.data.ingredients), 
+        instructions: JSON.parse(response.data.instructions),
+        // set title and description to state, so they are not overwritten by update
+        title: response.data.title,
+        description: response.data.description,
         recipe: response.data
       }))
     .then(res => console.log(this.state))
@@ -151,16 +141,17 @@ class RecipeUpdate extends Component {
     if (this.state.redirect) {
       return (<Redirect to="/profile/" />)
     }
+
     let ingredients
     if (this.state.ingredients) {
       ingredients = this.state.ingredients.map(ingredient => (
         <div id="ingredient-preview" className="form-control ingredient-preview col-12">
-
           {ingredient}
           <button type="button" onClick={(e) => this.deleteIngredient(e, ingredient)} className="icon"><i className="fa fa-times-circle" aria-hidden="true"></i></button>
         </div>
       ))
     }
+
     let instructions;
     if (this.state.instructions) {
       instructions = this.state.instructions.map(instruction => (
@@ -171,6 +162,7 @@ class RecipeUpdate extends Component {
         </div>
       ))
     }
+
     return(
       <React.Fragment>
       <Nav />
@@ -179,7 +171,6 @@ class RecipeUpdate extends Component {
           <form type='submit' method='post' onSubmit={(e) => this.handleSubmit(e, this.state)}>
             <div className="recipe-title-div col-12">
               <input className="form-control recipe-title col-md-10 col-12"  type='text' name='title' onChange={this.handleChange} defaultValue={this.state.recipe.title} />
-
               <input className="form-control recipe-description col-12" type='text' name='description' onChange={this.handleChange} defaultValue={this.state.recipe.description} />
             </div>
             <div className="save-recipe-div col-12 mr-auto">
@@ -200,13 +191,11 @@ class RecipeUpdate extends Component {
 
             <div className="row">
               <div className="recipe-create-div col-12 ml-auto">
-
                 <div className="recipe-ingredient-div col-lg-3 col-12">
                   {ingredients}
                   <input className="form-control col-12 recipe-ingredient-box" ref="ingredientField" onChange={this.handleIngredients} placeholder='Keep your ingredients here' type='text' name='ingredients' defaultValue="" />
                   <button type="submit" onClick={(e) => this.submitIngredients(e, this.state.ingStr)}>Add</button>
                 </div>
-
                 <div className="recipe-instructions-div col-lg-9 col-12">
                   {instructions}
                   <input className="form-control col-12 recipe-instructions-box" ref="instructionsField" placeholder="Step-by-Step Instructions" type='text' name='instructions' onChange={this.handleInstructions} defaultValue="" />

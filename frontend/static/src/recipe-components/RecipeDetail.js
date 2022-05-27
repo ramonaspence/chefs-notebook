@@ -45,9 +45,7 @@ class RecipeDetail extends Component {
   commentSubmit(data) {
     let recipe = {...this.state.recipe};
     recipe.comments.push(data);
-    this.setState({
-      comments: recipe.comments
-    })
+    this.setState({comments: recipe.comments})
     this.refs.commentField.value = '';
   }
 
@@ -61,7 +59,6 @@ class RecipeDetail extends Component {
   }
 
   commentDelete(id) {
-    console.log(id)
     let recipe = {...this.state.recipe}
     let i = recipe.comments.findIndex(comment => comment.id === id);
     recipe.comments.splice(i, 1);
@@ -69,13 +66,10 @@ class RecipeDetail extends Component {
   }
 
   onDelete(e, id) {
-
     axios.delete(`${BASE_URL}/api/v1/recipes/comments/${e}/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
-    .then(response => console.log('res',response))
     .catch(err => console.log(err));
-
     this.commentDelete(e);
   }
 
@@ -96,11 +90,12 @@ class RecipeDetail extends Component {
       }
     })
     .then((response) =>  {this.setState({
-        ingredients: [response.data.ingredients], 
-        instructions: [response.data.instructions], 
+        ingredients: JSON.parse(response.data.ingredients), 
+        instructions: JSON.parse(response.data.instructions), 
         recipe: response.data
       })
       this.checkAuth();
+      console.log(this.state);
     })
     .catch(err => console.log(err));
   }
@@ -112,35 +107,30 @@ class RecipeDetail extends Component {
 
     let comments;
     if (this.state.recipe.comments) {
-      comments = this.state.recipe.comments.map(comment =>
-        (
+      comments = this.state.recipe.comments.map(comment => (
           <div key={comment.id} className="card comment">
               <div className="card-title">
-                <div className="comment-owner">{comment.owner.username}</div>
-
-                  { comment.owner.id && comment.owner.id === JSON.parse(localStorage.getItem('currentUser')).userid
-                  ?
-                  <button className="btn btn-sm btn-outline-primary delete-comment" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
-                  :
-                  null
-                  }
-
-              </div>
-              <div className="card comment-body-div">
-                <div className="comment-body">
-                {comment.body}
+                <div className="comment-owner">
+                  {comment.owner.username}
                 </div>
-
+                { comment.owner.id && comment.owner.id === JSON.parse(localStorage.getItem('currentUser')).userid
+                ?
+                <button className="btn btn-sm btn-outline-primary delete-comment" type='submit' onClick={(e) => this.onDelete(comment.id)}>Delete</button>
+                :
+                null
+                }
+            </div>
+            <div className="card comment-body-div">
+              <div className="comment-body">
+                {comment.body}
               </div>
-
+            </div>
               <div className="comment-date-published">
-              posted: {moment(comment.date_published).fromNow()}
+                posted: {moment(comment.date_published).fromNow()}
               </div>
-              </div>
-
+            </div>
         ));
     }
-
 
     let instructions;
     if (this.state.instructions) {
@@ -150,6 +140,7 @@ class RecipeDetail extends Component {
         </div>
       ))
     }
+
     let ingredients;
     if (this.state.ingredients) {
       ingredients = this.state.ingredients.map(ingredient => (
@@ -158,6 +149,7 @@ class RecipeDetail extends Component {
       </div>
     ));
   }
+
     return (
       <React.Fragment>
         <Nav />
@@ -204,7 +196,6 @@ class RecipeDetail extends Component {
               </div>
             </div>
 
-
             <div className="row">
               <div className="recipe-detail-div col-12 ml-auto">
                 <div className="recipe-ingredient-div col-lg-3 col-12">
@@ -234,7 +225,6 @@ class RecipeDetail extends Component {
                   </div>
                 </form>
                 </div>
-
                 <div className="card col-lg-8 offset-lg-1 col-12">{comments}</div>
               </div>
             </div>

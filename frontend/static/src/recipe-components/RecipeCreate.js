@@ -37,7 +37,6 @@ class RecipeCreate extends Component {
   handleInstructions(e) {
     e.preventDefault();
     this.setState({instructStr: e.target.value})
-
   }
 
   submitInstructions(e, instructStr) {
@@ -75,14 +74,11 @@ class RecipeCreate extends Component {
     ingredients.push(ingStr);
     this.setState({ingredients: ingredients})
     this.refs.ingredientField.value = '';
-
-
   }
 
   handleChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-
   }
 
   handleImageChange(e) {
@@ -91,19 +87,15 @@ class RecipeCreate extends Component {
     if (e.target.files) {
     file = e.target.files[0];
     this.setState({[e.target.name]: file});
-
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => this.setState({preview: reader.result});
-  }
-
-
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => this.setState({preview: reader.result});
+    }
   }
 
   handleSubmit(e, recipe) {
     e.preventDefault();
     let formData = new FormData();
-
     if (recipe.image) {
       formData.append('image', recipe.image);
       formData.append('title', recipe.title);
@@ -117,17 +109,14 @@ class RecipeCreate extends Component {
       formData.append('ingredients', JSON.stringify(recipe.ingredients));
       formData.append('instructions', JSON.stringify(recipe.instructions));
     }
-
     axios.post(`${BASE_URL}/api/v1/recipes/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
         }
-
     })
     .then(res => this.setState({redirect: true}))
     .catch(err => console.log(err));
-
     }
 
   render() {
@@ -143,7 +132,6 @@ class RecipeCreate extends Component {
           </div>
         </div>
       ))
-
 
     if (this.state.ingredients) {
       let ingredients = this.state.ingredients.map(ingredient => (
