@@ -98,17 +98,11 @@ class RecipeUpdate extends Component {
     let formData = new FormData();
     if (recipe.image) {
       formData.append('image', recipe.image);
-      formData.append('title', recipe.title);
-      formData.append('description', recipe.description);
-      formData.append('ingredients', JSON.stringify(recipe.ingredients));
-      formData.append('instructions', JSON.stringify(recipe.instructions));
     }
-    else {
-      formData.append('title', recipe.title);
-      formData.append('description', recipe.description);
-      formData.append('ingredients', JSON.stringify(recipe.ingredients));
-      formData.append('instructions', JSON.stringify(recipe.instructions));
-    }
+    formData.append('title', recipe.title);
+    formData.append('description', recipe.description);
+    formData.append('ingredients', JSON.stringify(recipe.ingredients));
+    formData.append('instructions', JSON.stringify(recipe.instructions));
 
     axios.patch(`${BASE_URL}/api/v1/recipes/${this.props.match.params.id}/`, formData, {
       headers: {
