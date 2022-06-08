@@ -25,7 +25,6 @@ Follow these steps to fork the repository:
     * [Windows Subsystem Linux with Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps) with a Linux distribution, such as [_Ubuntu 20.04 for Windows_](https://ubuntu.com/tutorials/ubuntu-on-windows) or [other supported Linux distributions](https://docs.microsoft.com/en-us/windows/wsl/install-win10#step-6---install-your-linux-distribution-of-choice).
         > Note: [Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/) is an **optional** terminal interface tool. It can only open a Linux shell if WSL and a Linux distro already exist.
     * _Git Bash_ - this terminal shell emulates Linux and is included in _Git for Windows_. It works, but is more likely to have permission errors or minor inconsistencies.
-    * _PowerShell_ and _cmd_ may run the **_Chapter_** app in _Docker Mode_, but these Windows native shells are not supported for this project.
 
 **Prerequisites**: [Git](https://git-scm.com/downloads) must exist (run ``git --version`` to check) within your development terminal / shell.
 
@@ -46,7 +45,7 @@ Follow these steps to fork the repository:
 4. Configure the [**Chef's Notebook**](https://github.com/ramonaspence/chefs-notebook) repository as the _upstream_. Doing this allows you to regularly synchronize code changes from the _upstream_ to your _origin_ fork.
 
     ```sh
-    cd chapter
+    cd chefs-notebook
     git remote add upstream https://github.com/ramonaspence/chefs-notebook.git
     ```
 
@@ -69,7 +68,7 @@ Follow these steps to fork the repository:
 
 It's possible to contribute simple changes, like to README.md, without running the application. However, for many situations you will need to get the application running to view pages, see your code in action, and test changes.  
 
-If you want to proceed immeditely with running the client, database, and server, then follow the steps in the [**Running the Application**](#running-the-application) section, below. Then, return here and continue to the next step of this section. 
+If you want to proceed immediately with running the client, database, and server, then continue onto the steps below.
 
 </details>
 
@@ -102,7 +101,28 @@ If you don't have Node.js and npm installed, you can read how to do that at [rig
 
 </details>
 
-<details><summary><b>Step 5</b> - Setup a Django environment</summary>
+<details><summary><b>Step 5</b> - Create environment variables</summary>
+
+For this step you'll need to create [AWS account and access keys](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html). This link will provide detailed instructions on how to get those. 
+
+**Note: the files created in this step should be added to a `.gitignore` file so that you do not commit them to your forked repository.**
+
+Create a new file inside your fork's main folder called _.env_. Inside of it, you'll store your AWS account and access keys, like so:
+```
+   AWS_ACCESS_KEY_ID = XXXXXXXXXXX
+   AWS_SECRET_ACCESS_KEY = XXXXXXXXXXXXXX
+```
+
+`Cd` into the _frontend/static_ folder and create another file called _.env_. Here we'll store a base URL for the React app to run on.
+
+For your dev environment, use localhost:
+```
+   REACT_APP_BASE_URL = http://localhost:3000
+
+```
+</details>
+
+<details><summary><b>Step 6</b> - Setup a Django environment</summary>
 
 There are a few commands to run before starting the application itself.
 
@@ -120,7 +140,8 @@ Learn more about basic operations from [Pipenv documentation](https://pipenv-for
 </details>
 
 
-<details><summary><b>Step 6</b> - Running the application</summary>
+<details><summary><b>Step 7</b> - Running the application</summary>
+
 
 There's one last thing you need to do to setup Django and that's [applying migrations](https://docs.djangoproject.com/en/4.0/ref/django-admin/#django-admin-migrate).
 
@@ -142,5 +163,4 @@ In order to run the React app, open a new tab in your terminal. `Cd` into _front
 </details>
 
 Huge thanks to [Chapter](https://github.com/freeCodeCamp/chapter) for providing the basis for this CONTRIBUTING.md. I couldn't have done it without their [CONTRIBUTING.md](https://github.com/freeCodeCamp/chapter/blob/main/CONTRIBUTING.md).
-
 
