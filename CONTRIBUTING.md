@@ -69,6 +69,7 @@ Follow these steps to fork the repository:
 It's possible to contribute simple changes, like to README.md, without running the application. However, for many situations you will need to get the application running to view pages, see your code in action, and test changes.  
 
 If you want to proceed immediately with running the client, database, and server, then continue onto the steps below.
+
 </details>
 
 <details><summary><b>Step 4</b> - Install Django Rest Framework and ReactJS</summary>
@@ -140,6 +141,7 @@ Learn more about basic operations from [Pipenv documentation](https://pipenv-for
 
 
 <details><summary><b>Step 7</b> - Running the application</summary>
+
 
 There's one last thing you need to do to setup Django and that's [applying migrations](https://docs.djangoproject.com/en/4.0/ref/django-admin/#django-admin-migrate).
 
