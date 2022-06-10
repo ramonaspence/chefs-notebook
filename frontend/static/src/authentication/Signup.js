@@ -30,7 +30,7 @@ class Signup extends Component {
   }
 
   captureLogin() {
-    axios.get(`${BASE_URL}/rest-auth/user/`, {
+    axios.get(`${BASE_URL}/dj-rest-auth/user/`, {
       headers: {
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
       }
@@ -45,7 +45,7 @@ class Signup extends Component {
 
   handleSignUp(e) {
     e.preventDefault();
-    axios.post(`${BASE_URL}/rest-auth/registration/`, this.state,)
+    axios.post(`${BASE_URL}/dj-rest-auth/registration/`, this.state,)
     .then(res => {
       localStorage.setItem('current-user', JSON.stringify(res.data));
       this.props.props.history.push('/profile/create/');
