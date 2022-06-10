@@ -58,7 +58,7 @@ class Signup extends Component {
   render() {
     return (
       <React.Fragment>
-        <form method="post" type="submit" onSubmit={this.signUp}>
+        <form method="post" type="submit" onSubmit={this.handleSignUp}>
           <div className="card-body d-flex justify-content-center flex-column">
             <input className="form-group" type="text" name="username" placeholder="username" value={this.state.username} onChange={this.handleChange}/>
             <input className="form-group" type="email" name="email" placeholder="email" autoComplete="email" value={this.state.email} onChange={this.handleChange} />
@@ -68,7 +68,7 @@ class Signup extends Component {
           </div>
 
           <div  className="d-flex justify-content-center">
-            <button className="submit-button" onSubmit={this.handleSignUp}>Submit</button>
+            <button type="submit" className="submit-button">Submit</button>
           </div>
         </form>
       </React.Fragment>
