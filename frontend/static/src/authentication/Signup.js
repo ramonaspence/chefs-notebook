@@ -17,6 +17,7 @@ class Signup extends Component {
       email: '',
       password1: '',
       password2: '',
+      badRequest: false,
 
     }
 
@@ -51,7 +52,16 @@ class Signup extends Component {
       this.props.props.history.push('/profile/create/');
     })
     .then(res => this.captureLogin())
-    .catch(err => {console.log(err);})
+    .catch(err => {
+      console.log(err);
+      if (err.response.status === 400) {
+        this.setState({
+          badRequest: true,
+          badRequestResponse: err.response.data,
+        })
+      }
+      console.log('state', this.state)
+      })
 
   }
 
@@ -61,10 +71,39 @@ class Signup extends Component {
         <form method="post" type="submit" onSubmit={this.handleSignUp}>
           <div className="card-body d-flex justify-content-center flex-column">
             <input className="form-group" type="text" name="username" placeholder="username" value={this.state.username} onChange={this.handleChange}/>
+            {this.state.badRequest
+            ?
+              <small>{this.state.badRequestResponse['username']}</small>
+            :
+            null
+            }
             <input className="form-group" type="email" name="email" placeholder="email" autoComplete="email" value={this.state.email} onChange={this.handleChange} />
+            {this.state.badRequest 
+            ?
+              <small>{this.state.badRequestResponse['email']}</small>
+            :
+            null
+            }
             <input className="form-group" type="password" name="password1" placeholder="password" autoComplete="new-password" value={this.state.password1} onChange={this.handleChange} />
+            {this.state.badRequest
+            ?
+              <small>{this.state.badRequestResponse['password1']}</small>
+            :
+            null
+            }
             <input className="form-group" type="password" name="password2" placeholder="password" autoComplete="new-password" value={this.state.password2} onChange={this.handleChange} />
-            <small className="d-block">passwords must match</small> 
+            {this.state.badRequestResponse
+            ?
+              <small>{this.state.badRequestResponse['password2']}</small>
+            :
+            null
+            }
+            {this.state.badRequestResponse
+            ?
+            <small>{this.state.badRequestResponse.non_field_errors}</small>
+            :
+            null
+            }
           </div>
 
           <div  className="d-flex justify-content-center">
