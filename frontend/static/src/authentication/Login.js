@@ -16,6 +16,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
+      badRequest: false, 
 
     }
 
@@ -48,7 +49,16 @@ class Login extends Component {
     axios.post(`${BASE_URL}/dj-rest-auth/login/`, this.state)
     .then(res => localStorage.setItem('current-user', JSON.stringify(res.data)))
     .then(res => this.captureLogin())
-    .catch(err => {console.log(err)})
+    .catch(err => {
+      console.log(err)
+      if (err.response.status === 400) {
+        this.setState({
+          badRequest: true,
+          badRequestResponse: err.response.data,
+        })
+      }
+      console.log(this.state)
+    })
   }
 
   render() {
@@ -61,6 +71,12 @@ class Login extends Component {
         <div className="card-body d-flex justify-content-center flex-column">
           <input className="form-group" type="text" value={this.state.username} autoComplete="username" placeholder="username" name="username" onChange={this.handleChange} />
           <input className="form-group" type="password" value={this.state.password} autoComplete="current-password" placeholder="password" name="password" onChange={this.handleChange} />
+          {this.state.badRequestResponse
+          ?
+          <small>{this.state.badRequestResponse.non_field_errors}</small>
+          :
+          null
+          }
         </div>
 
         <div className="d-flex justify-content-center">
