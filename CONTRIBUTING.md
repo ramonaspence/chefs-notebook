@@ -117,7 +117,7 @@ Create a new file inside your fork's main folder called _.env_. Inside of it, yo
 
 For your dev environment, use localhost:
 ```
-   REACT_APP_BASE_URL = http://localhost:3000
+   REACT_APP_BASE_URL = http://localhost:8000
 
 ```
 </details>
