@@ -13,19 +13,6 @@ from clarifai_grpc.grpc.api.status import status_code_pb2
 stub = service_pb2_grpc.V2Stub(ClarifaiChannel.get_grpc_channel())
 
 
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = '__all__'
-        depth = 1
-        
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = '__all__'
-        owner = serializers.ReadOnlyField(source='owner.username')
-        depth = 1
-
 class RecipeSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
@@ -86,3 +73,18 @@ class RecipeSerializer(serializers.ModelSerializer):
     #     else:
     #         recipe.save()
     #         return recipe
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
+        depth = 1
+        
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+        owner = serializers.ReadOnlyField(source='owner.username')
+        depth = 1
+
