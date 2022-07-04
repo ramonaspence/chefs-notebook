@@ -85,7 +85,6 @@ class RecipeListView(generics.ListCreateAPIView):
             return recipe
     
     def perform_create(self, serializer):
-        print('perform_create')
         serializer.save(owner = self.request.user)
 
 
