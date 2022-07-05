@@ -3,6 +3,7 @@ from rest_framework.test import APIClient, APITestCase
 from rest_framework.authtoken.models import Token
 from django.urls import reverse
 from accounts.models import User
+from recipes.models import Recipe
 
 
 
@@ -29,6 +30,7 @@ class TestRecipeListCreate(APITestCase):
           
     def test_creates_recipe_with_auth(self):
         self.authenticate()
+        previous_recipe_count = Recipe.objects.all().count()
         # reverse() uses namespaces to retrieve an url. here the colon connects namespaces linked by include()
         # here api_v1 `includes` recipes urls and recipes `includes` list_recipe
         url = reverse('api_v1:recipes:list_recipe')
@@ -36,4 +38,25 @@ class TestRecipeListCreate(APITestCase):
             'instructions': ['instructions'], 'ingredients': ['ingredients'],
             'tags': []}
         response = self.client.post(url, recipe)
+        self.assertEqual(Recipe.objects.all().count(), previous_recipe_count + 1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['title'], 'title')
+        self.assertEqual(response.data['description'], 'description')
+        self.assertEqual(response.data['instructions'], 'instructions')
+        self.assertEqual(response.data['ingredients'], 'ingredients')
+        
+        
+    def test_retrieves_all_recipes(self):
+        self.authenticate()
+        url = reverse('api_v1:recipes:list_recipe')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(response.data, list)
+        
+        recipe = {'title': 'title', 'description': 'description',
+            'instructions': ['instructions'], 'ingredients': ['ingredients'],
+            'tags': []}
+        self.client.post(url, recipe)
+        response = self.client.get(url)
+        self.assertEqual(len(response.data), 1)
+        
