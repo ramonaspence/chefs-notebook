@@ -3,11 +3,26 @@ from rest_framework.test import APIClient, APITestCase
 from rest_framework.authtoken.models import Token
 from django.urls import reverse
 from accounts.models import User
-from recipes.models import Recipe
+from recipes.models import Recipe, Tag
 
 
-
-class TestRecipeListCreate(APITestCase):
+class RecipesAPITestCase(APITestCase):
+    
+    def setup(self):
+        # this will be run for each test that inherits from BaseAPITestCase
+        pass
+            
+    def create_recipe(self):
+        # reverse() uses namespaces to retrieve an url. here the colon connects namespaces linked by include()
+        # here api_v1 `includes` recipes urls and recipes `includes` list_recipe
+        url = reverse('api_v1:recipes:list_recipe')
+        recipe = {'title': 'title', 'description': 'description',
+            'instructions': ['instructions'], 'ingredients': ['ingredients'],
+            'tags': []}
+        response = self.client.post(url, recipe)
+        
+        return response
+    
     def authenticate(self):
         """authenticate a user using Token and .credentials
         https://www.django-rest-framework.org/api-guide/testing/#credentialskwargs
