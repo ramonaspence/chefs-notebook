@@ -13,12 +13,12 @@ class RecipesAPITestCase(APITestCase):
         pass
             
     def create_recipe(self):
-        # reverse() uses namespaces to retrieve an url. here the colon connects namespaces linked by include()
-        # here api_v1 `includes` recipes urls and recipes `includes` list_recipe
+        # reverse() uses namespaces to retrieve an url. here the colon 
+        # connects namespaces linked by include() here api_v1 `includes`
+        # recipes urls and recipes `includes` list_recipe
         url = reverse('api_v1:recipes:list_recipe')
         recipe = {'title': 'title', 'description': 'description',
-            'instructions': ['instructions'], 'ingredients': ['ingredients'],
-            'tags': []}
+                'instructions': ['instructions'], 'ingredients': ['ingredients'], 'tags': []}
         response = self.client.post(url, recipe)
         return response
     
@@ -26,8 +26,9 @@ class RecipesAPITestCase(APITestCase):
         """authenticate a user using Token and .credentials
         https://www.django-rest-framework.org/api-guide/testing/#credentialskwargs
         """
-        res = self.client.post('/dj-rest-auth/registration/', {'username': "username", 'email': "username@example.com",
-                                                        'password1': "pas$w0rd", 'password2': "pas$w0rd"})
+        res = self.client.post('/dj-rest-auth/registration/', {
+            'username': "username", 'email': "username@example.com",
+            'password1': "pas$w0rd", 'password2': "pas$w0rd"})
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         token = Token.objects.get(user__username="username")
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
@@ -49,7 +50,8 @@ class TestRecipeListCreate(RecipesAPITestCase):
         self.authenticate()
         previous_recipe_count = Recipe.objects.all().count()
         response = self.create_recipe()
-        self.assertEqual(Recipe.objects.all().count(), previous_recipe_count + 1)
+        self.assertEqual(Recipe.objects.all().count(), previous_recipe_count
+                         + 1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['title'], 'title')
         self.assertEqual(response.data['description'], 'description')
@@ -101,14 +103,18 @@ class TestRecipeByFollowersList(RecipesAPITestCase):
         response = self.create_recipe()
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # create user that will follow `username`
-        response = self.client.post('/dj-rest-auth/registration/', {'username': "follower", 'email': "follower@example.com",
-                                                        'password1': "pas$w0rd", 'password2': "pas$w0rd"})
+        response = self.client.post(
+            '/dj-rest-auth/registration/', {'username': "follower",
+                                            'email': "follower@example.com",
+                                            'password1': "pas$w0rd", 
+                                            'password2': "pas$w0rd"})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         token = Token.objects.get(user__username="follower")
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
         # create connection between `username` and `follower`
         followed_user_id = 1
-        response = self.client.post(reverse('api_v1:profiles:connections'), {'following': followed_user_id})
+        response = self.client.post(reverse('api_v1:profiles:connections'),
+                                            {'following': followed_user_id})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)        
         # test retreives 
         url = reverse('api_v1:recipes:dashboard')
@@ -131,9 +137,10 @@ class TestRecipeDetailView(RecipesAPITestCase):
             self.authenticate()
             response = self.create_recipe()
             res = self.client.patch(
-                reverse('api_v1:recipes:detail_recipe', kwargs={'pk': response.data['id']}), {
-                    'title': "new_title", 'description': "new_desc", 
-                    'instructions': ["instructions"], 'ingredients': ["ingredients"]
+                reverse('api_v1:recipes:detail_recipe', 
+                        kwargs={'pk': response.data['id']}), {
+                        'title': "new_title", 'description': "new_desc", 
+                        'instructions': ["instructions"], 'ingredients': ["ingredients"]
                 })
             self.assertEqual(res.status_code, status.HTTP_200_OK)
             self.assertEqual(Recipe.objects.get(id = response.data['id']).title, "new_title")
@@ -148,9 +155,14 @@ class TestRecipeDetailView(RecipesAPITestCase):
             self.assertEqual(previous_recipe_count, 1)
             
             res = self.client.delete(
-                reverse('api_v1:recipes:detail_recipe', kwargs={'pk': response.data['id']}))
+                reverse('api_v1:recipes:detail_recipe', 
+                        kwargs={'pk': response.data['id']}))
             self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
             self.assertEqual(Recipe.objects.all().count(), previous_recipe_count - 1)
+            
+            res = self.client.get(
+                reverse('api_v1:recipes:detail_recipe', 
+                        kwargs={'pk': response.data['id']}))
         
 class TestTagListCreate(RecipesAPITestCase):
     
@@ -165,13 +177,13 @@ class TestTagListCreate(RecipesAPITestCase):
     
     def test_lists_all_tags(self):
         self.authenticate()
-        response = self.create_recipe()
+        self.create_recipe()
         self.client.post(
             reverse('api_v1:recipes:tag_create'), {'name': "pizza"})
-        res = self.client.get(reverse('api_v1:recipes:tag_create'))
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertIsInstance(res.data, list)
-        self.assertEqual(len(res.data), 1)
+        response = self.client.get(reverse('api_v1:recipes:tag_create'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(response.data, list)
+        self.assertEqual(len(response.data), 1)
 
         
 class TestCommentListCreate(RecipesAPITestCase):
@@ -181,18 +193,23 @@ class TestCommentListCreate(RecipesAPITestCase):
         response = self.create_recipe()
         
         res = self.client.post(
-            reverse('api_v1:recipes:create_comment', kwargs={'pk': response.data['id']}), {
-                'recipe': Recipe.objects.get(id=response.data['id']), 'body': "comment"})
+            reverse('api_v1:recipes:create_comment', 
+                    kwargs={'pk': response.data['id']}), {
+                'recipe': Recipe.objects.get(id=response.data['id']), 
+                'body': "comment"})
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         
     def test_lists_all_comments(self):
         self.authenticate()
         response = self.create_recipe()
+        # creation of a comment takes the id of the recipe being commented on
         self.client.post(
-            reverse('api_v1:recipes:create_comment', kwargs={'pk': response.data['id']}), {
-                'recipe': Recipe.objects.get(id=response.data['id']), 'body': "comment"})
+            reverse('api_v1:recipes:create_comment', 
+                    kwargs={'pk': response.data['id']}), {
+                    'recipe': Recipe.objects.get(id=response.data['id']), 'body': "comment"})
         res = self.client.get(
-            reverse('api_v1:recipes:create_comment', kwargs={'pk': response.data['id']}))
+            reverse('api_v1:recipes:create_comment', 
+                    kwargs={'pk': response.data['id']}))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertIsInstance(res.data, list)
         
@@ -201,17 +218,25 @@ class TestCommentDeleteView(RecipesAPITestCase):
     def test_destroys_one_comment(self):
         self.authenticate()
         response = self.create_recipe()
+        # create comment
         self.client.post(
-            reverse('api_v1:recipes:create_comment', kwargs={'pk': response.data['id']}), {
+            reverse('api_v1:recipes:create_comment', 
+                    kwargs={'pk': response.data['id']}), {
                     'recipe': Recipe.objects.get(id=response.data['id']), 'body': "comment"})
         previous_comment_count = Comment.objects.all().count()
         self.assertGreater(previous_comment_count, 0)
         self.assertEqual(previous_comment_count, 1)
         
         res = self.client.delete(
-            reverse('api_v1:recipes:delete_comment', kwargs={'pk': 1}))
+            reverse('api_v1:recipes:delete_comment', 
+                    kwargs={'pk': response.data['id']}))
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Comment.objects.all().count(), previous_comment_count - 1)
+        self.assertEqual(Comment.objects.all().count(), previous_comment_count
+                         - 1)
         self.assertEqual(Comment.objects.all().count(), 0)
+        res = self.client.get(
+            reverse('api_v1:recipes:create_comment', 
+                    kwargs={'pk': response.data['id']}))
+        self.assertEqual(len(res.data), 0)
         
         
