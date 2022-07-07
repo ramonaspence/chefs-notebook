@@ -125,48 +125,48 @@ class TestRecipeByFollowersList(RecipesAPITestCase):
         
 class TestRecipeDetailView(RecipesAPITestCase):
     
-        def test_retrieves_one_recipe(self):
-            self.authenticate()
-            response = self.create_recipe()
-            res = self.client.get(
-                reverse('api_v1:recipes:detail_recipe', 
-                        kwargs={'pk': response.data['id']}))
-            self.assertEqual(res.status_code, status.HTTP_200_OK)
-            recipe = Recipe.objects.get(id = response.data['id'])
-            self.assertEqual(recipe.title, res.data['title'])
-            
-        def test_updates_one_recipe(self):
-            self.authenticate()
-            response = self.create_recipe()
-            res = self.client.patch(
-                reverse('api_v1:recipes:detail_recipe', 
-                        kwargs={'pk': response.data['id']}), {
-                        'title': "new_title", 'description': "new_desc", 
-                        'instructions': ["instructions"], 
-                        'ingredients': ["ingredients"]
-                })
-            self.assertEqual(res.status_code, status.HTTP_200_OK)
-            self.assertEqual(
-                Recipe.objects.get(id = response.data['id']).title, "new_title")
-            
-            
-        def test_destroys_one_recipe(self):
-            self.authenticate()
-            response = self.create_recipe()
-            
-            previous_recipe_count = Recipe.objects.all().count()
-            self.assertGreater(previous_recipe_count, 0)
-            self.assertEqual(previous_recipe_count, 1)
-            
-            res = self.client.delete(
-                reverse('api_v1:recipes:detail_recipe', 
-                        kwargs={'pk': response.data['id']}))
-            self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
-            self.assertEqual(Recipe.objects.all().count(), previous_recipe_count - 1)
-            
-            res = self.client.get(
-                reverse('api_v1:recipes:detail_recipe', 
-                        kwargs={'pk': response.data['id']}))
+    def test_retrieves_one_recipe(self):
+        self.authenticate()
+        response = self.create_recipe()
+        res = self.client.get(
+            reverse('api_v1:recipes:detail_recipe', 
+                    kwargs={'pk': response.data['id']}))
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        recipe = Recipe.objects.get(id = response.data['id'])
+        self.assertEqual(recipe.title, res.data['title'])
+        
+    def test_updates_one_recipe(self):
+        self.authenticate()
+        response = self.create_recipe()
+        res = self.client.patch(
+            reverse('api_v1:recipes:detail_recipe', 
+                    kwargs={'pk': response.data['id']}), {
+                    'title': "new_title", 'description': "new_desc", 
+                    'instructions': ["instructions"], 
+                    'ingredients': ["ingredients"]
+            })
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            Recipe.objects.get(id = response.data['id']).title, "new_title")
+        
+        
+    def test_destroys_one_recipe(self):
+        self.authenticate()
+        response = self.create_recipe()
+        
+        previous_recipe_count = Recipe.objects.all().count()
+        self.assertGreater(previous_recipe_count, 0)
+        self.assertEqual(previous_recipe_count, 1)
+        
+        res = self.client.delete(
+            reverse('api_v1:recipes:detail_recipe', 
+                    kwargs={'pk': response.data['id']}))
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Recipe.objects.all().count(), previous_recipe_count - 1)
+        
+        res = self.client.get(
+            reverse('api_v1:recipes:detail_recipe', 
+                    kwargs={'pk': response.data['id']}))
         
 class TestTagListCreate(RecipesAPITestCase):
     
