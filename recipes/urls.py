@@ -9,8 +9,8 @@ urlpatterns = [
     path('dashboard/', views.RecipeByFollowersListView.as_view(), name='dashboard'),
     path('<int:pk>/', views.RecipeDetailView.as_view(), name='detail_recipe'),
     path('tags/', views.TagListCreateView.as_view(), name='tag_create'),
-    path('<int:pk>/comments/', views.CommentListCreateView.as_view(), name='get_comments'),
-    path('comments/<int:pk>/', views.CommentReadEditDeleteView.as_view(), name='create_comment'),
+    path('<int:pk>/comments/', views.CommentListCreateView.as_view(), name='create_comment'),
+    path('comments/<int:pk>/', views.CommentDeleteView.as_view(), name='delete_comment'),
     
     
 ]
