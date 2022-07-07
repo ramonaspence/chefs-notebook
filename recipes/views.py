@@ -151,7 +151,7 @@ class CommentListCreateView(generics.ListCreateAPIView):
         recipe = get_object_or_404(Recipe, pk=self.kwargs['pk']) 
         serializer.save(recipe = recipe, owner = self.request.user)
 
-class CommentReadEditDeleteView(generics.RetrieveUpdateDestroyAPIView):
+class CommentDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [IsOwnerOrReadOnly]
