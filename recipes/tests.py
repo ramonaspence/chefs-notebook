@@ -3,7 +3,7 @@ from rest_framework.test import APIClient, APITestCase
 from rest_framework.authtoken.models import Token
 from django.urls import reverse
 from accounts.models import User
-from recipes.models import Recipe, Tag
+from recipes.models import Recipe, Tag, Comment
 
 
 class RecipesAPITestCase(APITestCase):
@@ -172,4 +172,46 @@ class TestTagListCreate(RecipesAPITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertIsInstance(res.data, list)
         self.assertEqual(len(res.data), 1)
+
+        
+class TestCommentListCreate(RecipesAPITestCase):
+    
+    def test_creates_comment(self):
+        self.authenticate()
+        response = self.create_recipe()
+        
+        res = self.client.post(
+            reverse('api_v1:recipes:create_comment', kwargs={'pk': response.data['id']}), {
+                'recipe': Recipe.objects.get(id=response.data['id']), 'body': "comment"})
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        
+    def test_lists_all_comments(self):
+        self.authenticate()
+        response = self.create_recipe()
+        self.client.post(
+            reverse('api_v1:recipes:create_comment', kwargs={'pk': response.data['id']}), {
+                'recipe': Recipe.objects.get(id=response.data['id']), 'body': "comment"})
+        res = self.client.get(
+            reverse('api_v1:recipes:create_comment', kwargs={'pk': response.data['id']}))
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(res.data, list)
+        
+class TestCommentDeleteView(RecipesAPITestCase):
+    
+    def test_destroys_one_comment(self):
+        self.authenticate()
+        response = self.create_recipe()
+        self.client.post(
+            reverse('api_v1:recipes:create_comment', kwargs={'pk': response.data['id']}), {
+                    'recipe': Recipe.objects.get(id=response.data['id']), 'body': "comment"})
+        previous_comment_count = Comment.objects.all().count()
+        self.assertGreater(previous_comment_count, 0)
+        self.assertEqual(previous_comment_count, 1)
+        
+        res = self.client.delete(
+            reverse('api_v1:recipes:delete_comment', kwargs={'pk': 1}))
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Comment.objects.all().count(), previous_comment_count - 1)
+        self.assertEqual(Comment.objects.all().count(), 0)
+        
         
