@@ -18,7 +18,8 @@ class RecipesAPITestCase(APITestCase):
         # recipes urls and recipes `includes` list_recipe
         url = reverse('api_v1:recipes:list_recipe')
         recipe = {'title': 'title', 'description': 'description',
-                'instructions': ['instructions'], 'ingredients': ['ingredients'], 'tags': []}
+                'instructions': ['instructions'], 'ingredients': ['ingredients'], 
+                'tags': []}
         response = self.client.post(url, recipe)
         return response
     
