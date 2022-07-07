@@ -128,7 +128,8 @@ class TestRecipeDetailView(RecipesAPITestCase):
             self.authenticate()
             response = self.create_recipe()
             res = self.client.get(
-                reverse('api_v1:recipes:detail_recipe', kwargs={'pk': response.data['id']}))
+                reverse('api_v1:recipes:detail_recipe', 
+                        kwargs={'pk': response.data['id']}))
             self.assertEqual(res.status_code, status.HTTP_200_OK)
             recipe = Recipe.objects.get(id = response.data['id'])
             self.assertEqual(recipe.title, res.data['title'])
@@ -140,10 +141,12 @@ class TestRecipeDetailView(RecipesAPITestCase):
                 reverse('api_v1:recipes:detail_recipe', 
                         kwargs={'pk': response.data['id']}), {
                         'title': "new_title", 'description': "new_desc", 
-                        'instructions': ["instructions"], 'ingredients': ["ingredients"]
+                        'instructions': ["instructions"], 
+                        'ingredients': ["ingredients"]
                 })
             self.assertEqual(res.status_code, status.HTTP_200_OK)
-            self.assertEqual(Recipe.objects.get(id = response.data['id']).title, "new_title")
+            self.assertEqual(
+                Recipe.objects.get(id = response.data['id']).title, "new_title")
             
             
         def test_destroys_one_recipe(self):
@@ -206,7 +209,8 @@ class TestCommentListCreate(RecipesAPITestCase):
         self.client.post(
             reverse('api_v1:recipes:create_comment', 
                     kwargs={'pk': response.data['id']}), {
-                    'recipe': Recipe.objects.get(id=response.data['id']), 'body': "comment"})
+                    'recipe': Recipe.objects.get(id=response.data['id']), 
+                    'body': "comment"})
         res = self.client.get(
             reverse('api_v1:recipes:create_comment', 
                     kwargs={'pk': response.data['id']}))
@@ -222,7 +226,8 @@ class TestCommentDeleteView(RecipesAPITestCase):
         self.client.post(
             reverse('api_v1:recipes:create_comment', 
                     kwargs={'pk': response.data['id']}), {
-                    'recipe': Recipe.objects.get(id=response.data['id']), 'body': "comment"})
+                    'recipe': Recipe.objects.get(id=response.data['id']), 
+                    'body': "comment"})
         previous_comment_count = Comment.objects.all().count()
         self.assertGreater(previous_comment_count, 0)
         self.assertEqual(previous_comment_count, 1)
