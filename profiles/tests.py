@@ -43,5 +43,30 @@ class TestProfileListCreate(ProfilesAPITestCase):
         self.assertEqual(profile.display_name, "display_name")
         self.assertEqual(profile.bio, "bio here")
 
-    def test_retrieves_authenticated_users_profile(self):
-        pass
+    def test_profile_owner_is_authenticated_user(self):
+        self.authenticate()
+        response = self.create_profile()
+        self.assertEqual(response.data['owner']['id'], 1)
+        self.assertEqual(response.data['owner']['username'], 'username')
+        
+class TestProfileDetailView(ProfilesAPITestCase):
+    
+    def test_retrieves_single_profile(self):
+        self.authenticate()
+        self.create_profile()
+        owner_id = 1
+        response = self.client.get(reverse('api_v1:profiles:profile_detail',
+                                           kwargs={'pk': owner_id}))
+        self.assertIsInstance(response.data, dict)
+        self.assertEqual(response.data['owner']['id'], owner_id)
+        
+class TestProfileRetrieveUpdateView(ProfilesAPITestCase):
+    
+    def tests_retrieves_authenticated_user_profile(self):
+        self.authenticate()
+        self.create_profile()
+        owner_id = 1
+        response = self.client.get(reverse('api_v1:profiles:user_profile'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(response.data, dict)
+        self.assertEqual(response.data['owner']['id'], owner_id)
