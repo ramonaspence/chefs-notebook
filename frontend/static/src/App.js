@@ -17,7 +17,7 @@ import MyProfile from './user-profile-components/MyProfile.js';
 import RecipeUpdate from './recipe-components/RecipeUpdate.js';
 import RecipeDetail from './recipe-components/RecipeDetail.js'
 import RecipeCreate from './recipe-components/RecipeCreate.js';
-import ExploreRecipeList from './social-components/ExploreRecipeListView.js';
+import ExploreRecipeList from './social-components/Explore.js';
 import Signup from './authentication/Signup.js';
 import Login from './authentication/Login.js';
 import Home from './containers/Home.js';
