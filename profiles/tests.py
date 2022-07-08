@@ -62,7 +62,7 @@ class TestProfileDetailView(ProfilesAPITestCase):
         
 class TestProfileRetrieveUpdateView(ProfilesAPITestCase):
     
-    def tests_retrieves_authenticated_user_profile(self):
+    def test_retrieves_authenticated_user_profile(self):
         self.authenticate()
         self.create_profile()
         owner_id = 1
