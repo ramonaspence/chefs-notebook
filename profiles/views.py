@@ -16,8 +16,7 @@ class ProfileDetailView(generics.RetrieveAPIView):
     authentication_classes = [authentication.TokenAuthentication]
 
 
-
-class ProfileUpdateView(generics.RetrieveUpdateDestroyAPIView):
+class ProfileRetrieveUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
@@ -28,7 +27,6 @@ class ProfileUpdateView(generics.RetrieveUpdateDestroyAPIView):
         obj = get_object_or_404(queryset, owner=self.request.user)
         return obj
     
-
 
 class ProfileListCreateView(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
