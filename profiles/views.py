@@ -4,7 +4,7 @@ from .models import Profile
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-
+import json
 from .serializers import *
 
 User = get_user_model()
@@ -38,17 +38,21 @@ class ProfileRetrieveUpdateView(generics.RetrieveUpdateAPIView):
         return obj
     
 
-class ConnectionListCreateAPIView(generics.ListCreateAPIView): ## view to create and read followers and followings
+class ConnectionListCreateAPIView(generics.ListCreateAPIView): 
+    ## view is used to create a connection between users
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        following = get_object_or_404(User, pk=self.request.data['following'])
+        # the user who clicks follow button (self.requst.user) is following
+        following = get_object_or_404(User, 
+                pk = self.request.data['following'])
         serializer.save(owner=self.request.user, following=following);
 
 
 class ConnectionRetrieveDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    # view used for deleting a connection
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [IsOwnerOrReadOnly]
