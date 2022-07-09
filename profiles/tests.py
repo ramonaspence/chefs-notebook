@@ -70,3 +70,32 @@ class TestProfileRetrieveUpdateView(ProfilesAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsInstance(response.data, dict)
         self.assertEqual(response.data['owner']['id'], owner_id)
+        
+class TestConnectionListCreateView(ProfilesAPITestCase):
+    
+    def test_creates_connection(self):
+        # two users with two profiles
+        # one follower and one following
+        # the "owner" of a Connection is the user who clicks the follow button
+        # the "following" is the user being followed (rename to "followed"?)
+        self.authenticate()
+        self.create_profile()
+        followed_id = 1
+        res = self.client.post('/dj-rest-auth/registration/', {
+            'username': "follower", 'email': "follower@example.com",
+            'password1': "pas$w0rd", 'password2': "pas$w0rd"})
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        token = Token.objects.get(user__username="username")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
+        owner_id = 2
+        profile = {
+            'display_name': "follower",
+            'avatar': File(open('profiles/tmp/cute-avatar.jpeg', 'rb')),
+            'bio': "bio here"}
+        self.client.post(reverse('api_v1:profiles:profile'), profile)
+        
+        response = self.client.post(reverse('api_v1:profiles:connections'),
+                                            {'following': 1})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['following']['id'], followed_id)
+        self.assertEqual(response.data['owner']['id'], owner_id)
