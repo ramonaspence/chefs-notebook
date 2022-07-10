@@ -3,7 +3,7 @@ from django.core.files import File
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 from rest_framework.authtoken.models import Token
-from profiles.models import Profile
+from profiles.models import Profile, Connection
 
 class ProfilesAPITestCase(APITestCase):
     
@@ -27,7 +27,33 @@ class ProfilesAPITestCase(APITestCase):
                                     profile)
         
         return response
+    
+    def create_connection(self):
+         # two users with two profiles
+        # one follower and one following
+        # the "owner" of a Connection is the user who clicks the follow button
+        # the "following" is the user being followed (rename to "followed"?)
+        self.authenticate()
+        self.create_profile()
+        # create and login new user
+        res = self.client.post('/dj-rest-auth/registration/', {
+            'username': "follower", 'email': "follower@example.com",
+            'password1': "pas$w0rd", 'password2': "pas$w0rd"})
+        token = Token.objects.get(user__username="username")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
+        # create profile for the new user
+        profile = {
+            'display_name': "follower",
+            'avatar': File(open('profiles/tmp/cute-avatar.jpeg', 'rb')),
+            'bio': "bio here"}
+        self.client.post(reverse('api_v1:profiles:profile'), profile)
+        # create connection
+        response = self.client.post(reverse('api_v1:profiles:connections'),
+                                            {'following': 1})
         
+        return response
+
+
 class TestProfileListCreate(ProfilesAPITestCase):
     
     def test_create_profile_with_auth(self):
@@ -74,28 +100,24 @@ class TestProfileRetrieveUpdateView(ProfilesAPITestCase):
 class TestConnectionListCreateView(ProfilesAPITestCase):
     
     def test_creates_connection(self):
-        # two users with two profiles
-        # one follower and one following
-        # the "owner" of a Connection is the user who clicks the follow button
-        # the "following" is the user being followed (rename to "followed"?)
-        self.authenticate()
-        self.create_profile()
+        response = self.create_connection()
         followed_id = 1
-        res = self.client.post('/dj-rest-auth/registration/', {
-            'username': "follower", 'email': "follower@example.com",
-            'password1': "pas$w0rd", 'password2': "pas$w0rd"})
-        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        token = Token.objects.get(user__username="username")
-        self.client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
         owner_id = 2
-        profile = {
-            'display_name': "follower",
-            'avatar': File(open('profiles/tmp/cute-avatar.jpeg', 'rb')),
-            'bio': "bio here"}
-        self.client.post(reverse('api_v1:profiles:profile'), profile)
-        
-        response = self.client.post(reverse('api_v1:profiles:connections'),
-                                            {'following': 1})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['following']['id'], followed_id)
         self.assertEqual(response.data['owner']['id'], owner_id)
+        
+class TestConnectionRetrieveDestroyView(ProfilesAPITestCase):
+    
+    def test_destroys_one_connection(self):
+        response = self.create_connection()
+        previous_connection_count = Connection.objects.all().count()
+        self.assertGreater(previous_connection_count, 0)
+        self.assertEqual(previous_connection_count, 1)
+        res = self.client.delete(reverse('api_v1:profiles:remove_connection',
+                               kwargs = {'pk': 1}))
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Connection.objects.all().count(),
+                         previous_connection_count - 1)
+        self.assertEqual(Connection.objects.all().count(), 0)        
+        
