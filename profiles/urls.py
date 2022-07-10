@@ -13,5 +13,5 @@ urlpatterns = [
     path('followers/<int:pk>/', views.FollowerListView.as_view(), name='list_followers'),
     path('following/<int:pk>/', views.FollowingListView.as_view(), name='list_following'),
     path('connections/', views.ConnectionListCreateAPIView.as_view(), name='connections'),
-    path('connections/<int:pk>/', views.ConnectionRetrieveDestroyView.as_view(), name='remove_connections'),
+    path('connections/<int:pk>/', views.ConnectionRetrieveDestroyView.as_view(), name='remove_connection'),
 ]
