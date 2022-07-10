@@ -23,7 +23,7 @@ class ListFollowers extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${BASE_URL}/api/v1/profiles/followers/`, {
+    axios.get(`${BASE_URL}/api/v1/profiles/followers/${this.props.profile.owner.id}/`, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .then(res => this.setState({followers: res.data}))

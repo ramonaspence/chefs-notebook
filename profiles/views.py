@@ -61,18 +61,17 @@ class FollowingListView(generics.ListAPIView):
 
     def get_queryset(self, **kwargs):
         if (self.kwargs):
-            user = self.kwargs['pk']
-        else:
-            return Connection.objects.filter(owner = self.request.user)
-        if user is not None:
-            queryset = queryset.filter(owner__profile__owner=user)
-            return queryset
-        else:
-            return Connection.objects.filter(owner = self.request.user)
+            owner = self.kwargs['pk']
+            return Connection.objects.filter(owner = owner)
 
 
 class FollowerListView(generics.ListAPIView):
     queryset = Connection.objects.all()
     serializer_class = ConnectionSerializer
     permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        if (self.kwargs):
+            following = self.kwargs['pk']
+            return Connection.objects.filter(following = following)
  
