@@ -51,7 +51,7 @@ class ProfileUpdate extends Component {
     formData.append('display_name', this.state.display_name)
     formData.append('bio', this.state.bio)
 
-
+    // use File api's type property to check that file is an image
     if (this.state.avatar.type.startsWith('image/')) {
       formData.append('avatar', this.state.avatar)
     }
