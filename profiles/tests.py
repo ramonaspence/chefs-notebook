@@ -107,6 +107,13 @@ class TestConnectionListCreateView(ProfilesAPITestCase):
         self.assertEqual(response.data['following']['id'], followed_id)
         self.assertEqual(response.data['owner']['id'], owner_id)
         
+    def test_lists_all_connections(self):
+        self.create_connection()
+        response = self.client.get(reverse('api_v1:profiles:connections'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(response.data, list)
+        self.assertGreater(len(response.data), 0)
+        
 class TestConnectionRetrieveDestroyView(ProfilesAPITestCase):
     
     def test_destroys_one_connection(self):
@@ -119,5 +126,11 @@ class TestConnectionRetrieveDestroyView(ProfilesAPITestCase):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Connection.objects.all().count(),
                          previous_connection_count - 1)
-        self.assertEqual(Connection.objects.all().count(), 0)        
+        self.assertEqual(Connection.objects.all().count(), 0)  
+        
+
+class TestFollowingListView(ProfilesAPITestCase):
+    
+    def test_lists_following(self):
+        pass    
         
