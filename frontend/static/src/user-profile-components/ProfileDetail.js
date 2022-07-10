@@ -76,7 +76,7 @@ class ProfileDetail extends Component {
 
   addFollow(e) {
     e.preventDefault();
-    axios.get(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.owner.id}, {
+    axios.post(`${BASE_URL}/api/v1/profiles/connections/`, {following: this.state.profile.owner.id}, {
       headers: {'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`}
     })
     .catch(err => console.log(err));
