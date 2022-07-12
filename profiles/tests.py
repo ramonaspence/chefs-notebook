@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 from rest_framework.authtoken.models import Token
 from profiles.models import Profile, Connection
+from accounts.models import User
 
 class ProfilesAPITestCase(APITestCase):
     
@@ -39,7 +40,7 @@ class ProfilesAPITestCase(APITestCase):
         res = self.client.post('/dj-rest-auth/registration/', {
             'username': "follower", 'email': "follower@example.com",
             'password1': "pas$w0rd", 'password2': "pas$w0rd"})
-        token = Token.objects.get(user__username="username")
+        token = Token.objects.get(user__username="follower")
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
         # create profile for the new user
         profile = {
@@ -117,12 +118,12 @@ class TestConnectionListCreateView(ProfilesAPITestCase):
 class TestConnectionRetrieveDestroyView(ProfilesAPITestCase):
     
     def test_destroys_one_connection(self):
-        response = self.create_connection()
+        self.create_connection()
         previous_connection_count = Connection.objects.all().count()
         self.assertGreater(previous_connection_count, 0)
         self.assertEqual(previous_connection_count, 1)
         res = self.client.delete(reverse('api_v1:profiles:remove_connection',
-                               kwargs = {'pk': 1}))
+                                kwargs = {'pk': 1}))
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Connection.objects.all().count(),
                          previous_connection_count - 1)
@@ -132,5 +133,38 @@ class TestConnectionRetrieveDestroyView(ProfilesAPITestCase):
 class TestFollowingListView(ProfilesAPITestCase):
     
     def test_lists_following(self):
-        pass    
+        self.create_connection()
+        # token = Token.objects.get(user__username="username")
+        # self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+        user = User.objects.get(username="username")
+        self.client.force_authenticate(user)
+        self.client.post(reverse('api_v1:profiles:connections'), 
+                                {'following': 2})
         
+        response = self.client.get(reverse('api_v1:profiles:list_following', 
+                                           kwargs = {'pk': 2}))
+        self.assertEqual(response.data[0]['following']['id'], 1)
+        self.assertEqual(response.data[0]['owner']['id'], 2)
+        response = self.client.get(reverse('api_v1:profiles:list_following', 
+                                           kwargs={'pk': 1}))
+        
+        self.assertEqual(response.data[0]['following']['id'], 2)
+        self.assertEqual(response.data[0]['owner']['id'], 1)
+        
+    def test_lists_followers(self):
+        self.create_connection()
+        user = User.objects.get(username="username")
+        self.client.force_authenticate(user)
+        self.client.post(reverse('api_v1:profiles:connections'), 
+                                {'following': 2})
+        
+        response = self.client.get(reverse('api_v1:profiles:list_followers', 
+                                           kwargs = {'pk': 2}))
+        self.assertEqual(response.data[0]['following']['id'], 1)
+        self.assertEqual(response.data[0]['owner']['id'], 2)
+        
+        response = self.client.get(reverse('api_v1:profiles:list_followers', 
+                                            kwargs = {'pk': 1}))
+        self.assertEqual(response.data[0]['following']['id'], 2)
+        self.assertEqual(response.data[0]['owner']['id'], 1)
+                
