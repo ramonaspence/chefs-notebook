@@ -15,17 +15,19 @@ class Profile(models.Model):
         return self.owner.username
 
     def get_following(self):
-        return Connection.objects.filter(owner=self.owner) ## filters from connection model's fields
+        ## filters from connection model's fields
+        return Connection.objects.filter(owner=self.owner) 
 
 
     def get_followers(self):
         return Connection.objects.filter(following=self.owner)
 
-## Connection model used to set up a following system. ie: I can follow you and/or you can follow me.
 
 class Connection(models.Model):
+    ## Connection model used to set up a following system. ie: I can follow you and/or you can follow me.
     created = models.DateTimeField(auto_now_add=True, editable=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE) ##the user who chooses to follow
+    ##the user who chooses to follow
+    owner = models.ForeignKey(User, on_delete=models.CASCADE) 
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
 
     def __str__(self):
