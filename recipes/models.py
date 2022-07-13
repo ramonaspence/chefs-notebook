@@ -15,9 +15,12 @@ class Tag(models.Model):
         return self.name
 
 class Recipe(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, 
+                                blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, 
+                              blank=True)
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, 
+                               blank=True)
     title = models.CharField(max_length=150)
     description = models.TextField(max_length=255)
     ingredients = models.TextField()
