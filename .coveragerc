@@ -1,0 +1,9 @@
+[run]
+branch = True
+
+omit = 
+    */venv/*
+    */tests/*
+    */staticfiles/*
+    */migrations/*
+    */__init__.py/*
