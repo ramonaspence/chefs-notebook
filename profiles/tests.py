@@ -160,11 +160,11 @@ class TestFollowingListView(ProfilesAPITestCase):
         
         response = self.client.get(reverse('api_v1:profiles:list_followers', 
                                            kwargs = {'pk': 2}))
-        self.assertEqual(response.data[0]['following']['id'], 1)
-        self.assertEqual(response.data[0]['owner']['id'], 2)
+        self.assertEqual(response.data[0]['following']['id'], 2)
+        self.assertEqual(response.data[0]['owner']['id'], 1)
         
         response = self.client.get(reverse('api_v1:profiles:list_followers', 
                                             kwargs = {'pk': 1}))
-        self.assertEqual(response.data[0]['following']['id'], 2)
-        self.assertEqual(response.data[0]['owner']['id'], 1)
+        self.assertEqual(response.data[0]['following']['id'], 1)
+        self.assertEqual(response.data[0]['owner']['id'], 2)
                 
