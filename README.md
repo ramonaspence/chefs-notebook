@@ -35,7 +35,7 @@ If there are any issues while you're navigating the application, don't hesitate 
 
 ## Contributing ##
 
-If you're developer and want to contribute to this project, head over to [Contributing.md](https://github.com/ramonaspence/chefs-notebook/blob/main/CONTRIBUTING.md).
+If you're a developer and want to contribute to this project, head over to [Contributing.md](https://github.com/ramonaspence/chefs-notebook/blob/main/CONTRIBUTING.md) to learn how.
 
 
 <details>
