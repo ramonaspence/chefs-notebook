@@ -25,15 +25,18 @@ class TestProfileModel(APITestCase):
         profile1 = Profile.objects.create(display_name = "test_user1", avatar = File(
                                         open('profiles/tmp/cute-avatar.jpeg',
                                              'rb')), 
-                                         bio = "bio here", owner = user1)
+                                        bio = "bio here", owner = user1)
         profile2 = Profile.objects.create(display_name = "test_user2", avatar = File(
                                         open('profiles/tmp/cute-avatar.jpeg',
                                              'rb')), 
-                                         bio = "bio here", owner = user2)
+                                        bio = "bio here", owner = user2)
         connection = Connection.objects.create(owner=user1, following=user2)
         data = Profile.get_following(profile1)
+        # assert that one connection was created
         self.assertEqual(data.count(), 1)
+        # assert that test_user1 is the owner of Connection
         self.assertEqual(str(data[0]), 'test_user1')
+        
         data = Profile.get_following(profile2)
         self.assertEqual(data.count(), 0)
         
@@ -43,11 +46,19 @@ class TestProfileModel(APITestCase):
         profile1 = Profile.objects.create(display_name = "test_user1", avatar = File(
                                         open('profiles/tmp/cute-avatar.jpeg',
                                              'rb')), 
-                                         bio = "bio here", owner = user1)
+                                        bio = "bio here", owner = user1)
         profile2 = Profile.objects.create(display_name = "test_user2", avatar = File(
                                         open('profiles/tmp/cute-avatar.jpeg',
                                              'rb')), 
-                                         bio = "bio here", owner = user2)
+                                        bio = "bio here", owner = user2)
+        connection = Connection.objects.create(owner=user1, following=user2)
+        data = Profile.get_followers(profile1)
+        self.assertEqual(data.count(), 0)
+        
+        data = Profile.get_followers(profile2)
+        self.assertEqual(data.count(), 1)
+        self.assertEqual(str(data[0]), "test_user1")
+        
         
         
         
