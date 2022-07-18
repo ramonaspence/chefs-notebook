@@ -27,8 +27,11 @@ Now that that's out of the way, you can begin creating a recipe.
 
 Once you've created your first recipe, it will be listed on your profile. In order to see others' recipes, you can visit the Explore page where all recipes will be listed. You can also visit other users' profiles from this page. 
 
-While on another user's profile, you'll notice a Follow button underneath their bio. When you follow a user, that user's recipes will now be listed on your Dashboard. That user's profile will also be listed when you click on "Following" on your own Profile, and your profile will be listed when you click on "Followers" on that user's profile. 
+While on another user's profile, you'll notice a `follow` button underneath their bio. When you follow a user, that user's recipes will now be listed on your Dashboard. That user's profile will also be listed when you click on "Following" on your own profile, and your profile will be listed when you click on "Followers" on that user's profile. 
 
+It also goes that if a user follows you, your profile will now be listed when you click on "Following" on their profile. And again, that user's profile will be listed when you click on "Followers" on your own profile.
+
+If there are any issues while you're navigating the application, don't hesitate to open a new issue in the project's [issue tracker](https://github.com/ramonaspence/chefs-notebook/issues).  
 
 <h2>Setting Up Development Environment</h2>
 In order to work with this application as a developer, there are a few environment variables that we need to set. I've broken them down by what you need to work in certain parts of the application. 
