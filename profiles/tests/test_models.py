@@ -5,9 +5,9 @@ from profiles.models import Profile, Connection
 from accounts.models import User
 
 
-class TestProfileModel(APITestCase):
+class ProfileModelTestCase(APITestCase):
     
-    def test_str_method_returns_owner_username(self):
+    def create_profile(self):
         user = User.objects.create(username="test_user")
         profile_data = {
             'display_name': "follower",
@@ -16,10 +16,11 @@ class TestProfileModel(APITestCase):
         profile = Profile.objects.create(display_name = "user", avatar = File(
                                         open('profiles/tmp/cute-avatar.jpeg',
                                              'rb')), 
-                                         bio = "bio here", owner = user) 
-        self.assertEqual(str(profile), "test_user")
+                                         bio = "bio here", owner = user)
         
-    def test_get_following(self):
+        return profile
+        
+    def create_connection(self):
         user1 = User.objects.create(username="test_user1")
         user2 = User.objects.create(username="test_user2")
         profile1 = Profile.objects.create(display_name = "test_user1", avatar = File(
@@ -31,6 +32,18 @@ class TestProfileModel(APITestCase):
                                              'rb')), 
                                         bio = "bio here", owner = user2)
         connection = Connection.objects.create(owner=user1, following=user2)
+        
+        return connection, profile1, profile2
+
+
+class TestProfileModel(ProfileModelTestCase):
+    
+    def test_str_method_returns_owner_username(self):
+        profile = self.create_profile()
+        self.assertEqual(str(profile), "test_user")
+        
+    def test_get_following(self):
+        connection, profile1, profile2 = self.create_connection()
         data = Profile.get_following(profile1)
         # assert that one connection was created
         self.assertEqual(data.count(), 1)
@@ -41,17 +54,7 @@ class TestProfileModel(APITestCase):
         self.assertEqual(data.count(), 0)
         
     def test_get_followers(self):
-        user1 = User.objects.create(username="test_user1")
-        user2 = User.objects.create(username="test_user2")
-        profile1 = Profile.objects.create(display_name = "test_user1", avatar = File(
-                                        open('profiles/tmp/cute-avatar.jpeg',
-                                             'rb')), 
-                                        bio = "bio here", owner = user1)
-        profile2 = Profile.objects.create(display_name = "test_user2", avatar = File(
-                                        open('profiles/tmp/cute-avatar.jpeg',
-                                             'rb')), 
-                                        bio = "bio here", owner = user2)
-        connection = Connection.objects.create(owner=user1, following=user2)
+        connection, profile1, profile2 = self.create_connection()
         data = Profile.get_followers(profile1)
         self.assertEqual(data.count(), 0)
         
