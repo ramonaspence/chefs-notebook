@@ -63,10 +63,8 @@ class TestProfileModel(ProfileModelTestCase):
         self.assertEqual(str(data[0]), "test_user1")
         
         
-        
-        
-
-class TestCommentModel(APITestCase):
+class TestConnectionModel(ProfileModelTestCase):
     
     def test_str_method_returns_owner_username(self):
-        pass
+        connection, profile1, profile2 = self.create_connection()
+        self.assertEqual(str(connection), "test_user1")
