@@ -1,33 +1,28 @@
-## The Chef's Notebook ##
+## Chef's Notebook ##
 
+Welcome! This app was created for users to record their own, original recipes. 
 
-## The purpose of this app is:
+My hope is that this app can bring cooks, mixologists, and maybe even microbiologists together! Okay, maybe not microbiologists, but maybe fermentation enthusiasts.
 
-First and foremost, this app should bring cooks, mixologists, and maybe even microbiologists together! Okay, maybe not microbiologists, but maybe fermentation enthusiasts.
+This project seeks to provide a space for all kinds of recipes to be organized, refered to, shared with others, and even receive feedback.
 
-This app is meant to be a place to keep records organized, making it easy to refer to, share with others, and even receive feedback on.
+## Using this App ##
 
+In order to save recipes and view other recipes, we first need to be able to login and create a profile.  
+
+The homescreen will be a form that toggles from Logging in to Registering a new user.
+The password must be:
+    - unique,
+    - contain a combination of letters, numbers and symbols,
+    - and must be a minimum of 6 characters
+
+Once registered, you may receive an email for verification, however, this application does not require email verification for any reason.
+
+After registering, you will be automatically logged in and redirected to a form to create a profile. Once you've created a profile, you'll be redirect to your profile. There you'll see in the top right corner of your profile a button to create a recipe!
+
+Now that that's out of the way, you can begin creating a recipe. 
 <h2>Setting Up Development Environment</h2>
 In order to work with this application as a developer, there are a few environment variables that we need to set. I've broken them down by what you need to work in certain parts of the application. 
-
-<details>
-<summary><h4>React app</h4></summary>
-</details>
-
-<details>
-<summary><h4>Django app</h4></summary>
-</details>
-
-<details>
-<summary><h4>Clarifai API Key</h4></summary>
-</details>
-- [] Google Auth2.0 Client ID
-- [] Google Auth Secret Key
-- [] AWS Access Key ID
-- [] AWS Secret Access Key
-- [] Clarifai API Key
-
-- [] React App Base URL
 
 
 <details>
