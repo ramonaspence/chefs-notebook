@@ -21,6 +21,9 @@ Once registered, you may receive an email for verification, however, this applic
 After registering, you will be automatically logged in and redirected to a form to create a profile. Once you've created a profile, you'll be redirect to your profile. There you'll see in the top right corner of your profile a button to create a recipe!
 
 Now that that's out of the way, you can begin creating a recipe. 
+
+**Note:** As of right now, this project is not in production. There are plans in place to make this happen.  
+In the meantime, the database may not be consistent which may cause the loss of recipes.
 <h2>Setting Up Development Environment</h2>
 In order to work with this application as a developer, there are a few environment variables that we need to set. I've broken them down by what you need to work in certain parts of the application. 
 
