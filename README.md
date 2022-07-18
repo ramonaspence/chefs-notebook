@@ -33,12 +33,13 @@ It also goes that if a user follows you, your profile will now be listed when yo
 
 If there are any issues while you're navigating the application, don't hesitate to open a new issue in the project's [issue tracker](https://github.com/ramonaspence/chefs-notebook/issues).  
 
-<h2>Setting Up Development Environment</h2>
-In order to work with this application as a developer, there are a few environment variables that we need to set. I've broken them down by what you need to work in certain parts of the application. 
+## Contributing ##
+
+If you're developer and want to contribute to this project, head over to [Contributing.md](https://github.com/ramonaspence/chefs-notebook/blob/main/CONTRIBUTING.md).
 
 
 <details>
-<summary><h2>Technologies and Dependencies</h2></summary>
+<summary><h2>Some Technical Details</h2></summary>
 
 ## Technologies used for this application:
 * React
