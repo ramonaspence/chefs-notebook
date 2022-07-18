@@ -43,13 +43,13 @@ If you're a developer and want to contribute to this project, head over to [Cont
 
 ## Technologies used for this application:
 * React
-* Django
-* Django-Rest
+* Django Rest Framework
 * Heroku
 
 ## Requirements 
-* Django==3.1.3
-* Python==3.7.6
+* Django==4.0.4
+* Django-Rest-Framework==3.13.1
+* Python==3.9
 
 
 ## Dependencies used for this application
@@ -64,7 +64,7 @@ If you're a developer and want to contribute to this project, head over to [Cont
 * dj-rest-auth
 * djangorestframework-simplejwt
 * django-cors-headers
-* clarifai
+* clarifai-grpc
 
 # React
 * axios
