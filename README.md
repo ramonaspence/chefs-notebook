@@ -22,8 +22,8 @@ After registering, you will be automatically logged in and redirected to a form 
 
 Now that that's out of the way, you can begin creating a recipe. 
 
-*Note: As of right now, this project is not in production. There are plans in place to make this happen.*
-*In the meantime, the database may not be consistent which may cause the loss of recipes.*  
+<small>*Note: As of right now, this project is not in production. There are plans in place to make this happen.*
+*In the meantime, the database may not be consistent which may cause the loss of recipes.*</small>
 
 Once you've created your first recipe, it will be listed on your profile. In order to see others' recipes, you can visit the Explore page where all recipes will be listed. You can also visit other users' profiles from this page. 
 
