@@ -22,8 +22,14 @@ After registering, you will be automatically logged in and redirected to a form 
 
 Now that that's out of the way, you can begin creating a recipe. 
 
-**Note:** As of right now, this project is not in production. There are plans in place to make this happen.  
-In the meantime, the database may not be consistent which may cause the loss of recipes.
+*Note: As of right now, this project is not in production. There are plans in place to make this happen.*
+*In the meantime, the database may not be consistent which may cause the loss of recipes.*  
+
+Once you've created your first recipe, it will be listed on your profile. In order to see others' recipes, you can visit the Explore page where all recipes will be listed. You can also visit other users' profiles from this page. 
+
+While on another user's profile, you'll notice a Follow button underneath their bio. When you follow a user, that user's recipes will now be listed on your Dashboard. That user's profile will also be listed when you click on "Following" on your own Profile, and your profile will be listed when you click on "Followers" on that user's profile. 
+
+
 <h2>Setting Up Development Environment</h2>
 In order to work with this application as a developer, there are a few environment variables that we need to set. I've broken them down by what you need to work in certain parts of the application. 
 
