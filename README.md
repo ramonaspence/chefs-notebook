@@ -1,47 +1,55 @@
-## The Chef's Notebook ##
+## Chef's Notebook ##
 
+Welcome! This app was created for users to record their own, original recipes. 
 
-## The purpose of this app is:
+My hope is that this app can bring cooks, mixologists, and maybe even microbiologists together! Okay, maybe not microbiologists, but maybe fermentation enthusiasts.
 
-First and foremost, this app should bring cooks, mixologists, and maybe even microbiologists together! Okay, maybe not microbiologists, but maybe fermentation enthusiasts.
+This project seeks to provide a space for all kinds of recipes to be organized, referred to, shared with others, and even give feedback on.
 
-This app is meant to be a place to keep records organized, making it easy to refer to, share with others, and even receive feedback on.
+## Using this App ##
 
-<h2>Setting Up Development Environment</h2>
-In order to work with this application as a developer, there are a few environment variables that we need to set. I've broken them down by what you need to work in certain parts of the application. 
+In order to save and view other recipes, we first need to be able to login and create a profile.  
+
+The homescreen will be a form that toggles from Logging in to Registering a new user with the `Login` and `Sign Up` buttons.
+The password must be:
+    - unique,
+    - must be a minimum of 6 characters
+    - and can contain a combination of letters, numbers and symbols.
+
+Once registered, you may receive an email for verification; however, this application does not require email verification for any reason so you can disregard that email.
+
+After registering, you will be automatically logged in and redirected to a form to create a profile. Once you've created a profile, you'll be redirected to it. There you'll see a button to create a recipe in the top right-hand corner of your profile.
+
+Go wild!
+
+<small>*Note: As of right now, this project is not in production. There are plans in place to make this happen.*
+*In the meantime, the database may not be consistent which may cause the loss of recipes.*</small>
+
+Once you've created your first recipe, it will be listed on your profile. In order to see others' recipes, you can visit the Explore page where all recipes will be listed. You can also visit other users' profiles from this page. 
+
+While on another user's profile, you'll notice a `follow` button underneath their bio. When you follow a user, that user's recipes will now be listed on your Dashboard. That user's profile will also be listed when you click on "Following" on your own profile, and your profile will be listed when you click on "Followers" on that user's profile. 
+
+It also goes that if a user follows you, your profile will now be listed when you click on "Following" on their profile. And again, that user's profile will be listed when you click on "Followers" on your own profile.
+
+If there are any issues while you're navigating the application, don't hesitate to open a new issue in the project's [issue tracker](https://github.com/ramonaspence/chefs-notebook/issues).  
+
+## Contributing ##
+
+If you're a developer and want to contribute to this project, head over to [Contributing.md](https://github.com/ramonaspence/chefs-notebook/blob/main/CONTRIBUTING.md) to learn how.
+
 
 <details>
-<summary><h4>React app</h4></summary>
-</details>
-
-<details>
-<summary><h4>Django app</h4></summary>
-</details>
-
-<details>
-<summary><h4>Clarifai API Key</h4></summary>
-</details>
-- [] Google Auth2.0 Client ID
-- [] Google Auth Secret Key
-- [] AWS Access Key ID
-- [] AWS Secret Access Key
-- [] Clarifai API Key
-
-- [] React App Base URL
-
-
-<details>
-<summary><h2>Technologies and Dependencies</h2></summary>
+<summary><h2>Some Technical Details</h2></summary>
 
 ## Technologies used for this application:
 * React
-* Django
-* Django-Rest
+* Django Rest Framework
 * Heroku
 
 ## Requirements 
-* Django==3.1.3
-* Python==3.7.6
+* Django==4.0.4
+* Django-Rest-Framework==3.13.1
+* Python==3.9
 
 
 ## Dependencies used for this application
@@ -56,7 +64,7 @@ In order to work with this application as a developer, there are a few environme
 * dj-rest-auth
 * djangorestframework-simplejwt
 * django-cors-headers
-* clarifai
+* clarifai-grpc
 
 # React
 * axios
