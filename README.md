@@ -4,23 +4,23 @@ Welcome! This app was created for users to record their own, original recipes.
 
 My hope is that this app can bring cooks, mixologists, and maybe even microbiologists together! Okay, maybe not microbiologists, but maybe fermentation enthusiasts.
 
-This project seeks to provide a space for all kinds of recipes to be organized, refered to, shared with others, and even receive feedback.
+This project seeks to provide a space for all kinds of recipes to be organized, referred to, shared with others, and even give feedback on.
 
 ## Using this App ##
 
-In order to save recipes and view other recipes, we first need to be able to login and create a profile.  
+In order to save and view other recipes, we first need to be able to login and create a profile.  
 
-The homescreen will be a form that toggles from Logging in to Registering a new user.
+The homescreen will be a form that toggles from Logging in to Registering a new user with the `Login` and `Sign Up` buttons.
 The password must be:
     - unique,
-    - contain a combination of letters, numbers and symbols,
-    - and must be a minimum of 6 characters
+    - must be a minimum of 6 characters
+    - and can contain a combination of letters, numbers and symbols.
 
-Once registered, you may receive an email for verification, however, this application does not require email verification for any reason.
+Once registered, you may receive an email for verification; however, this application does not require email verification for any reason so you can disregard that email.
 
-After registering, you will be automatically logged in and redirected to a form to create a profile. Once you've created a profile, you'll be redirect to your profile. There you'll see in the top right corner of your profile a button to create a recipe!
+After registering, you will be automatically logged in and redirected to a form to create a profile. Once you've created a profile, you'll be redirected to it. There you'll see a button to create a recipe in the top right-hand corner of your profile.
 
-Now that that's out of the way, you can begin creating a recipe. 
+Go wild!
 
 <small>*Note: As of right now, this project is not in production. There are plans in place to make this happen.*
 *In the meantime, the database may not be consistent which may cause the loss of recipes.*</small>
