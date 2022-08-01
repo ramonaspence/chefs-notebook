@@ -50,14 +50,13 @@ class Login extends Component {
     .then(res => localStorage.setItem('current-user', JSON.stringify(res.data)))
     .then(res => this.captureLogin())
     .catch(err => {
-      console.log(err)
+      // console.log(err)
       if (err.response.status === 400) {
         this.setState({
           badRequest: true,
           badRequestResponse: err.response.data,
         })
       }
-      console.log(this.state)
     })
   }
 
@@ -67,7 +66,7 @@ class Login extends Component {
     }
     return (
       <React.Fragment>
-      <form method="post" type="submit" onSubmit={this.handleLogin}>
+      <form title="login_form" method="post" type="submit" onSubmit={this.handleLogin}>
         <div className="card-body d-flex justify-content-center flex-column">
           <input className="form-group" type="text" value={this.state.username} autoComplete="username" placeholder="username" name="username" onChange={this.handleChange} />
           <input className="form-group" type="password" value={this.state.password} autoComplete="current-password" placeholder="password" name="password" onChange={this.handleChange} />
