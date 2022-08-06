@@ -39,7 +39,7 @@ If you're a developer and want to contribute to this project, head over to [Cont
 
 
 <details>
-<summary><h2>Some Technical Details</h2></summary>
+<summary><h2>Technologies and Packages</h2></summary>
 
 ## Technologies used for this application:
 * React
@@ -52,7 +52,7 @@ If you're a developer and want to contribute to this project, head over to [Cont
 * Python==3.9
 
 
-## Dependencies used for this application
+## Packages used for this application
 # Django
 * gunicorn
 * whitenoise
