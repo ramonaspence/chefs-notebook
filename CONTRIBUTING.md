@@ -148,7 +148,23 @@ Now you can run the django application using:
   $ python manage.py runserver
 ```
 
-In order to run the React app, open a new tab in your terminal. `Cd` into _frontend/static_ and enter the command:
+In order to run the React app, open a new tab in your terminal. `Cd` into _frontend/static_.
+
+You'll need to install dependencies from the project's `package.json`
+```
+   $ npm install
+```
+And compile the app:  
+_Note: In order for this to work with current Node and Webpack versions you'll also need to run:_
+```
+   $ export NODE_OPTIONS=--openssl-legacy-provider
+```
+then:
+```
+   $ npm run build
+```
+
+
 ```
   $ npm start
 ```
