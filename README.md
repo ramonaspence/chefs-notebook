@@ -11,10 +11,10 @@ This project seeks to provide a space for all kinds of recipes to be organized, 
 In order to save and view other recipes, we first need to be able to login and create a profile.  
 
 The homescreen will be a form that toggles from Logging in to Registering a new user with the `Login` and `Sign Up` buttons.
-The password must be:
-    - unique,
-    - must be a minimum of 6 characters
-    - and can contain a combination of letters, numbers and symbols.
+The password must be:  
+    - unique,  
+    - must be a minimum of 6 characters,   
+    - and can contain a combination of letters, numbers and symbols.   
 
 Once registered, you may receive an email for verification; however, this application does not require email verification for any reason so you can disregard that email.
 
