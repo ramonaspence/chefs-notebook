@@ -31,8 +31,8 @@ class Login extends Component {
 
   }
 
-  captureLogin() {
-    axios.get(`${BASE_URL}/dj-rest-auth/user/`,{
+  async captureLogin() {
+    await axios.get(`${BASE_URL}/dj-rest-auth/user/`,{
       headers: {
         'Authorization': `Token ${JSON.parse(localStorage.getItem('current-user')).key}`
       }
@@ -44,13 +44,14 @@ class Login extends Component {
     .catch(err => console.log(err))
   }
 
-  handleLogin(e) {
+  async handleLogin(e) {
     e.preventDefault();
-    axios.post(`${BASE_URL}/dj-rest-auth/login/`, this.state)
-    .then(res => localStorage.setItem('current-user', JSON.stringify(res.data)))
-    .then(res => this.captureLogin())
+    await axios.post(`${BASE_URL}/dj-rest-auth/login/`, this.state)
+    .then(res => {
+      localStorage.setItem('current-user', JSON.stringify(res.data));
+      this.captureLogin();
+    })
     .catch(err => {
-      // console.log(err)
       if (err.response.status === 400) {
         this.setState({
           badRequest: true,
