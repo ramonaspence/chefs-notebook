@@ -30,7 +30,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'ccs-final-project-ramonaspence.herokuapp.com',
+    'chefs-notebook.herokuapp.com',
 ]
 
 
