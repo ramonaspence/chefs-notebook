@@ -95,7 +95,6 @@ class RecipeDetail extends Component {
         recipe: response.data
       })
       this.checkAuth();
-      console.log(this.state);
     })
     .catch(err => console.log(err));
   }

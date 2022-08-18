@@ -26,7 +26,6 @@ class UserRecipeList extends Component {
   handleSearchInput(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value})
-    console.log(this.state);
   }
 
   handleSearch(e) {

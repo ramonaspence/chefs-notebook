@@ -35,7 +35,6 @@ class Nav extends Component {
     .then(res => {
       localStorage.removeItem('current-user')
       localStorage.removeItem('currentUser')
-      console.log('successfully logged out')
       this.setState({redirect: true})})
 
     .catch(err => {console.log(err);})

@@ -127,7 +127,6 @@ class RecipeUpdate extends Component {
         description: response.data.description,
         recipe: response.data
       }))
-    .then(res => console.log(this.state))
     .catch(err => console.log(err));
   }
 

@@ -69,9 +69,7 @@ class ProfileDetail extends Component {
       profile.followers.splice(i, 1);
       this.setState({profile: profile})
     }
-      else {
-        console.log('if clause failed')
-      }});
+    });
   }
 
   addFollow(e) {

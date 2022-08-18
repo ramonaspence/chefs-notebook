@@ -57,7 +57,6 @@ class Login extends Component {
           badRequestResponse: err.response.data,
         })
       }
-      console.log(this.state)
     })
   }
 

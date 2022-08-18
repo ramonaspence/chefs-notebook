@@ -38,7 +38,6 @@ class Signup extends Component {
     })
     .then(res => {
       localStorage.setItem('currentUser', JSON.stringify({username: res.data.username, userid: res.data.pk}))
-      console.log(res);
     })
       .then(this.setState({redirect: true}))
     .catch(err => console.log(err))
@@ -60,8 +59,7 @@ class Signup extends Component {
           badRequestResponse: err.response.data,
         })
       }
-      console.log('state', this.state)
-      })
+    })
 
   }
 
