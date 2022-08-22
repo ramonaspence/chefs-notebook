@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=$5#xw8&-m8v(!og10s#5u-umul77($aj2g$l0vs^a90o$hkuk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -211,6 +211,7 @@ AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_DEFAULT_ACL = None
 
 CLARIFAI_API_KEY = os.getenv('CLARIFAI_API_KEY')
+CLARIFAI_APP_ID = os.getenv('CLARIFAI_APP_ID')
 
 CORS_ORIGIN_ALLOW_ALL = False
 
