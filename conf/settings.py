@@ -221,6 +221,8 @@ CORS_ALLOWED_ORIGINS = (
 
 APPEND_SLASH = False
 
+import logging
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
