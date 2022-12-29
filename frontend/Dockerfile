@@ -1,8 +1,8 @@
 FROM node:14.17.3
 
-WORKDIR /
-
 COPY . .
+
+WORKDIR /static
 
 RUN npm install
 
