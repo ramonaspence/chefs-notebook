@@ -1,0 +1,43 @@
+# flyctl launch added from .gitignore
+**/__pychache__
+**/db.sqlite3
+media
+
+**/.env
+**/.DS_Store
+**/.vscode
+
+**/htmlcov
+**/.coverage
+**/coverage.xml
+**/*.cover
+
+# flyctl launch added from frontend/static/.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+frontend/static/node_modules
+frontend/static/.pnp
+frontend/static/**/.pnp.js
+
+# testing
+frontend/static/coverage
+
+# production
+# /build
+
+# misc
+frontend/static/**/.DS_Store
+frontend/static/**/.env.local
+frontend/static/**/.env.development.local
+frontend/static/**/.env.test.local
+frontend/static/**/.env.production.local
+
+frontend/static/**/npm-debug.log*
+frontend/static/**/yarn-debug.log*
+frontend/static/**/yarn-error.log*
+
+# flyctl launch added from htmlcov/.gitignore
+# Created by coverage.py
+htmlcov/**/*
+fly.toml
