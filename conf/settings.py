@@ -17,7 +17,6 @@ from django.conf.locale.en import formats as en_formats
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -25,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=$5#xw8&-m8v(!og10s#5u-umul77($aj2g$l0vs^a90o$hkuk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -182,7 +181,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend/static')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'frontend/static/build/static'),)
@@ -203,7 +202,7 @@ SITE_ID = 1
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'ccs-final-project-ramonaejspence'
+AWS_STORAGE_BUCKET_NAME = 'chefs-notebook'
 AWS_S3_REGION_NAME = "us-east-1"
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_VERIFY = True
@@ -221,3 +220,38 @@ CORS_ALLOWED_ORIGINS = (
 )
 
 APPEND_SLASH = False
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
+                       'pathname=%(pathname)s lineno=%(lineno)s ' +
+                       'funcname=%(funcName)s %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'testlogger': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
+
+DEBUG_PROPAGATE_EXCEPTIONS = True

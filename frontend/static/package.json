@@ -42,7 +42,6 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/user-event": "^14.3.0",
-    "jest": "^28.1.3"
+    "@testing-library/user-event": "^14.3.0"
   }
 }
